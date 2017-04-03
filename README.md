@@ -21,7 +21,8 @@ To run the app :
 ```
 git clone https://github.com/ThibaultVlacich/Projet-GL-Sloth.git
 cd Projet-GL-Sloth
-gradle jettyRun
+./gradlew jettyRun (On UNIX-like systems)
+gradlew jettyRun (on WINDOWS)
 ```
 
 The app should be available under the URL http://localhost:8080/gestion-gl
