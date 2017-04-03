@@ -5,4 +5,4 @@ jdk:
 services:
   - mysql
 script:
-- test/run.sh
+- test/build.sh
