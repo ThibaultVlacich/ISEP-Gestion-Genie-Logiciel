@@ -6,3 +6,5 @@ services:
   - mysql
 script:
 - test/build.sh
+notifications:
+  slack: sloth-isep:m0nz8ouxPLjvdpRTt51slm0V
