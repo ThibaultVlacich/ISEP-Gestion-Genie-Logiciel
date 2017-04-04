@@ -1,6 +1,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@tag description="Wrapper Tag" pageEncoding="UTF-8"%>
+
+<%@ attribute name="appCss" %>
+<%@ attribute name="appJs" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +18,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Custom styles -->
-    <spring:url value="/resources/core/css/style.css" var="coreCss" />
-    <link href="${coreCss}" rel="stylesheet" />
+	<spring:url value="/resources/core/css/style.css" var="coreCss" />
+	<link href="${coreCss}" rel="stylesheet" />
+	<c:if test="${!empty appCss}" >
+		<link href="${appCss}" rel="stylesheet" />
+	</c:if>
 
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
@@ -26,12 +33,15 @@
 	<!-- Custom scripts -->
     <spring:url value="/resources/core/js/script.js" var="coreJs" />
     <script src="${coreJs}"></script>
+	<c:if test="${!empty appJs}" >
+		<script src="${appJs}"></script>
+	</c:if>
 </head>
 <body>
 	<div class="col-menu">
 		<div class="col-menu-inner">
 			<div class="top-logo">
-				<a href="/">
+				<a href="<spring:url value="/"/>">
                     <spring:url value="/resources/core/images/logo-isep.png" var="logoIsep" />
                     <spring:url value="/resources/core/images/logo-isep@2x.png" var="logoIsepRetina" />
                     <img src="${logoIsep}" srcset="${logoIsep} 1x, ${logoIsepRetina} 2x" alt="ISEP Logo">
@@ -58,11 +68,11 @@
 				<div class="userbox">
 					<div class="btn-group">
 						<button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-							Bienvenue, Thibault <span class="caret"></span>
+							Welcome <span class="caret"></span>
 						</button>
 
 						<ul class="dropdown-menu pull-right" role="menu">
-							<li><a href="/user/logout" class="navbar-link"><i class="glyphicon glyphicon-log-out"></i> Se déconnecter</a></li>
+							<li><a href="<spring:url value="/user/login"/>" class="navbar-link"><i class="glyphicon glyphicon-log-in"></i> Sign in</a></li>
 						</ul>
 					</div>
 				</div>
