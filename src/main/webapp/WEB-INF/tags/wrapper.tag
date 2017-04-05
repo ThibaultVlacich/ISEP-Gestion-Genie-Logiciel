@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@tag description="Wrapper Tag" pageEncoding="UTF-8"%>
+<%@ tag description="Wrapper Tag" pageEncoding="UTF-8"%>
 
 <%@ attribute name="appCss" %>
 <%@ attribute name="appJs" %>
@@ -14,25 +14,21 @@
 	<meta name="robots" content="noindex,nofollow" />
 
 	<!-- Bootstrap -->
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="<spring:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css" />">
 
 	<!-- Custom styles -->
-	<spring:url value="/resources/core/css/style.css" var="coreCss" />
-	<link href="${coreCss}" rel="stylesheet" />
+	<link href="<spring:url value="/resources/core/css/style.css" />" rel="stylesheet" />
 	<c:if test="${!empty appCss}" >
 		<link href="${appCss}" rel="stylesheet" />
 	</c:if>
 
 	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+	<script src="<spring:url value="/resources/jquery-3.2.0.min.js" />"></script>
 	<!-- Bootstrap -->
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="<spring:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js" />"></script>
 
 	<!-- Custom scripts -->
-    <spring:url value="/resources/core/js/script.js" var="coreJs" />
-    <script src="${coreJs}"></script>
+    <script src="<spring:url value="/resources/core/js/script.js" />"></script>
 	<c:if test="${!empty appJs}" >
 		<script src="${appJs}"></script>
 	</c:if>

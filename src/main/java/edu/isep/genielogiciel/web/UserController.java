@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import edu.isep.ldap.*;
 
 @Controller
+@RequestMapping(value = "/user")
 public class UserController {
 
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String index(Map<String, Object> model) {
         return "user/login";
     }
 
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String index(@RequestParam("login") String login, @RequestParam("password") String password) {
         LDAPAccess access = new LDAPAccess();
 
