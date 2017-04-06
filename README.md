@@ -23,9 +23,9 @@ git clone https://github.com/ThibaultVlacich/Projet-GL-Sloth.git
 cd Projet-GL-Sloth
 ```
 
-Then on UNIX-like systems (Mac, Linux...), run : `./gradlew jettyRun` 
-Or on Windows, run :  `gradlew jettyRun`
+Then on UNIX-like systems (Mac, Linux...), run : `./gradlew appRun` 
+Or on Windows, run :  `gradlew appRun`
 
 The app should be available under the URL http://localhost:8080/gestion-gl
 
-It is also possible to run the app with the Eclipse IDE. For this, just run `gradle eclipse` to generate an Eclipse project instead of `gradle jettyRun`.
+It is also possible to run the app with the Eclipse IDE. For this, just run `gradle eclipse` to generate an Eclipse project instead of `gradle appRun`.
