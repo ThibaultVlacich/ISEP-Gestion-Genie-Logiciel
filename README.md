@@ -8,6 +8,8 @@ TODO
 
 ### Prerequisites
 
+* JDK 8
+
 * Gradle build tool ([Installation instructions](https://gradle.org/install))
 * OR Eclipse EE IDE ([Download Eclipse IDE](https://eclipse.org))
 * OR the Spring tool suite, a fork of Eclipse with all the tools for using the Spring framework ([Download Spring Tool Suite](https://spring.io/tools/sts))
