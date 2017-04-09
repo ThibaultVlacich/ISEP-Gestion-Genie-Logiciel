@@ -48,8 +48,11 @@ gretty {
     servletContainer = 'tomcat8'
 }
 
-// runs the gulp build task on gradle build
+// Ensure NPM depedencies are installed before running gulp
 gulp_build.dependsOn npm_install
+gulp_default.dependsOn npm_install
+
+// runs the gulp build task on gradle build
 build.dependsOn gulp_build
 
 // Run gulp watch when launching app

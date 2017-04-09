@@ -74,8 +74,6 @@
 				</div>
 				{/if}
 			</div>
-
-			<div class="clearfix"></div>
 		</header>
 
 		<div class="content">
