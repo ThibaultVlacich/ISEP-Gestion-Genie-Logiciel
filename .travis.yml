@@ -1,11 +1,17 @@
 sudo: false
 language: java
 jdk:
-- oraclejdk8
+  - oraclejdk8
+env:
+  - TRAVIS_NODE_VERSION="node"
 services:
-- mysql
+  - mysql
+install:
+  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
+  - npm install
+  - npm install -g gulp
 script:
-- ./build.sh
+  - ./gradlew build
 notifications:
   slack:
     secure: ky1LFXn+gBLJc9A5XmvAoqFb6irVt6B47b5daNaPxCeMOpY7HLIDTeGJEU+0oShxWy352/IIkM+vCjtPulPC8yXWwra/LJRmhpsWiGrFAAU4Q/WkdraXw1q30NIcscRQELo80FZ3/3ax/hwM1d4Iybqb30mg6gzW+THK8PyYEq/i3DXLuE1IFYtcda5O3JixCZaZxHDaXovhDKrTuYY7yg0MSxKzj5sqqUjs44vfO/Vqy4z7z3Ei6NrZlkPi0Gvx3WNPJQLXDCs+mczF+9Vev8DhkZZIU5QKyELbXaZ7TwzA0fmZOy2t6YrK2VpjRZ+srKsdSZn6XMCv5zgVVT+gMBmd8IRzr4CTQUvBRctAXBqZDYm/xph/2uo92OIXJeXh42Uax8cfI8X2Vy4BwfPXlgkgE3Ct3Vg2bNPyh5mz0eY0NBawUGDURq1Rd6fMienY/T2wtdABTLgAH5zZHBFtRDd7n+1so2orCKpSVi+ky/nqXFjI4Kp472xOFY7BQP7ccym9QDwYfrRuZD02/MEomHsGz5TzBx95s6OHvvqG8QJr0SggUXN3EkVVn+/uBJQy8KB2ZssRUbzU5uJ9FgvqRcq2q7MnizNEg0S58iv/xHY8Q7exDWobdfwrwO+cwHTEIEFoF+D5z8PAkuvhe06fJ5omm/S79RTf2nKXNO6FGBs=

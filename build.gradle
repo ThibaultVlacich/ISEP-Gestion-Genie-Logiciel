@@ -49,12 +49,11 @@ gretty {
 }
 
 // runs the gulp build task on gradle build
-build.dependsOn npm_install
+gulp_build.dependsOn npm_install
 build.dependsOn gulp_build
 
 // Run gulp watch when launching app
 project.afterEvaluate {
-    tasks.appRun.dependsOn npm_install
     tasks.appRun.dependsOn gulp_build
 }
 
