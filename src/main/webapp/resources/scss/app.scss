@@ -1,0 +1,10 @@
+// Import miscs CSS
+@import "variables.scss";
+@import "fonts.scss";
+@import "mixins.scss";
+
+// Import Core CSS
+@import "core.scss";
+
+// Import apps CSS
+@import "apps/user.scss"

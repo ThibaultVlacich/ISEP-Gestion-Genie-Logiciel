@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="<spring:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css" />">
 
 	<!-- Custom styles -->
-	<link href="<spring:url value="/resources/core/css/style.css" />" rel="stylesheet" />
+	<link href="<spring:url value="/resources/core/css/app.css" />" rel="stylesheet" />
 	<c:if test="${!empty appCss}" >
 		<link href="${appCss}" rel="stylesheet" />
 	</c:if>

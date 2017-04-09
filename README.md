@@ -9,6 +9,7 @@ TODO
 ### Prerequisites
 
 * JDK 8
+* [NodeJS](https://nodejs.org/)
 
 * Gradle build tool ([Installation instructions](https://gradle.org/install))
 * OR Eclipse EE IDE ([Download Eclipse IDE](https://eclipse.org))
