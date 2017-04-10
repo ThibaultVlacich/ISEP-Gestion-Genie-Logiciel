@@ -1,71 +1,89 @@
 buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+  repositories {
+    jcenter()
 
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
+  }
 
-    dependencies {
-        classpath 'org.akhikhl.gretty:gretty:1.2.4'
-        classpath 'com.moowork.gradle:gradle-node-plugin:1.1.1'
-    }
+  ext {
+    grettyVersion = "1.2.4"
+    nodePluginVersion = "1.1.1"
+  }
+
+  dependencies {
+    classpath "org.akhikhl.gretty:gretty:${grettyVersion}"
+    classpath "com.moowork.gradle:gradle-node-plugin:${nodePluginVersion}"
+  }
 }
 
-apply plugin: 'java'
-apply plugin: 'war'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'org.akhikhl.gretty'
-apply plugin: 'com.moowork.node'
-apply plugin: 'com.moowork.gulp'
+apply plugin: "java"
+apply plugin: "war"
+apply plugin: "eclipse-wtp"
+apply plugin: "org.akhikhl.gretty"
+apply plugin: "com.moowork.node"
+apply plugin: "com.moowork.gulp"
 
 // JDK 8
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
+// Depedencies versions
+ext {
+  logbackVersion = "1.1.3"
+  servletVersion = "1.2"
+  mysqlConnectorVersion = "6.0.6"
+
+  springWebMVCVersion = "4.1.6.RELEASE"
+  springSecurityWebVersion = "4.2.2.RELEASE"
+}
+
+// Load dependencies
 dependencies {
-    // Logger
-    compile 'ch.qos.logback:logback-classic:1.1.3'
+  // Logger
+  compile "ch.qos.logback:logback-classic:${logbackVersion}"
 
-    // Servlet
-    compile 'javax.servlet:jstl:1.2'
+  // Servlet
+  compile "javax.servlet:jstl:${servletVersion}"
 
-    // Spring dependencies
-    compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
-    compile 'org.springframework.security:spring-security-web:4.2.2.RELEASE'
-    compile 'org.springframework.session:spring-session:1.3.0.RELEASE'
+  // MySQL
+  compile "mysql:mysql-connector-java:${mysqlConnectorVersion}"
+
+  // Spring dependencies
+  compile "org.springframework:spring-webmvc:${springWebMVCVersion}"
+  compile "org.springframework.security:spring-security-web:${springSecurityWebVersion}"
 }
 
+// Custom settings for Gretty
 gretty {
-    contextPath = 'gestion-gl'
-    httpPort = 8080
-    servletContainer = 'tomcat8'
+  contextPath = "gestion-gl"
+  httpPort = 8080
+  servletContainer = "tomcat8"
 }
 
 // Ensure NPM depedencies are installed before running gulp
 gulp_build.dependsOn npm_install
 gulp_default.dependsOn npm_install
 
-// runs the gulp build task on gradle build
+// Runs the gulp build task on gradle build
 build.dependsOn gulp_build
 
-// Run gulp watch when launching app
+// Runs gulp watch when launching app
 project.afterEvaluate {
-    tasks.appRun.dependsOn gulp_build
+  tasks.appRun.dependsOn gulp_build
 }
 
 // For Eclipse IDE only
 eclipse {
-    wtp {
-        component {
-            //define context path, default to project folder name
-            contextPath = 'gestion-gl'
-        }
+  wtp {
+    component {
+      //define context path, default to project folder name
+      contextPath = "gestion-gl"
     }
+  }
 }
