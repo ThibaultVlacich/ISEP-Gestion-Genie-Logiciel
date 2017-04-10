@@ -10,6 +10,9 @@ gulp.task('build', function() {
 });
 
 // Watch task
-gulp.task('default', function() {
+gulp.task('watch', function() {
     gulp.watch('./src/main/webapp/resources/scss/**/*.scss', ['build']);
 });
+
+// Set default task
+gulp.task('default', ['watch']);

@@ -1,0 +1,160 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: $background-color;
+  color: $font-color;
+  font-family: $font-family;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  outline: none;
+
+  &:hover {
+    color: $primary-color-light;
+    text-decoration: none;
+  }
+}
+
+/**
+* Menu column
+*/
+
+.col-menu {
+  width: $col-menu-width;
+  min-height: 100%;
+  background: $col-background-color;
+  color: $col-font-color;
+  position: fixed;
+  z-index: 1000;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  @include transition(left 0.3s ease-in-out);
+
+  a,
+  &:focus {
+    color: inherit;
+  }
+
+  .col-menu-inner {
+    min-height: 100%;
+    position: relative;
+  }
+
+  .top-logo {
+    padding: 15px;
+    text-align: center;
+
+    img {
+      width: 250px;
+    }
+  }
+
+  @include responsive('medium', 'max') {
+    left: -$col-menu-width;
+
+    .menu-opened .col-menu {
+      left: 0;
+    }
+  }
+
+  .menu-opened & {
+    @include responsive('medium', 'max') {
+      left: 0;
+    }
+  }
+
+  .apps-menu {
+    @include list-reset;
+    padding: 0 0 50px 0;
+
+    li {
+      a.app-link {
+        display: block;
+        padding: 10px 20px;
+
+        &:hover {
+          background: #212734;
+        }
+      }
+
+      &.active a.app-link {
+        background: #39455f;
+        border-left: 5px solid $primary-color;
+        padding-left: 15px;
+      }
+    }
+  }
+}
+
+/**
+* Content column
+*/
+
+.col-content {
+  margin-left: $col-menu-width;
+  @include transition(margin-left 0.3s ease-in-out, transform 0.3s ease-in-out);
+
+  @include responsive('medium', 'max') {
+    margin-left: 0;
+  }
+
+  .menu-opened & {
+    @include responsive('medium', 'max') {
+      @include transform(translate3d($col-menu-width, 0, 0));
+    }
+  }
+
+  .page-head {
+    @include size(100%, 50px);
+    color: white;
+    background: $primary-color;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-left: $col-menu-width;
+    z-index: 900;
+    @include transition(padding-left 0.3s ease-in-out);
+
+    @include responsive('medium', 'max') {
+      padding-left: 0;
+    }
+
+    .toolbar-box {
+      padding: 6px 0 0 10px;
+      float: left;
+
+      .btn {
+        background: $secondary-color;
+        border: none;
+        border-radius: 0;
+        color: white;
+        border: 1px solid transparent;
+
+        &:hover,
+        &:focus {
+          border-color: white;
+        }
+      }
+    }
+
+    .userbox button {
+      line-height: 30px;
+      background: $secondary-color;
+      border: none;
+      padding: 10px 20px;
+    }
+
+    @include clearfix;
+  }
+
+  .content {
+    padding: 75px 15px 15px 15px;
+  }
+}

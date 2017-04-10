@@ -1,10 +1,12 @@
-// Import miscs CSS
-@import "variables";
-@import "fonts";
-@import "mixins";
+@charset 'utf-8';
 
-// Import Core CSS
-@import "core";
+// Import miscs CSS
+@import 'variables';
+@import 'fonts';
+@import 'mixins';
+
+// Import common CSS rules
+@import 'common';
 
 // Import apps CSS
-@import "apps/user"
+@import 'apps/user'
