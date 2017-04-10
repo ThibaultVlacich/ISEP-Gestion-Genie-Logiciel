@@ -1,15 +1,15 @@
 $breakpoints: (
   'xsmall': 480px,
-  'small':  768px,
+  'small': 768px,
   'medium': 992px,
-  'large':  1200px
+  'large': 1200px
 );
 
-@mixin responsive($width, $type: min) {
+@mixin breakpoint($width, $type: 'min') {
   @if map_has_key($breakpoints, $width) {
     $width: map_get($breakpoints, $width);
 
-    @if $type == max {
+    @if $type == 'max' {
       $width: $width - 1px;
     }
 
@@ -17,6 +17,6 @@ $breakpoints: (
       @content;
     }
   } @else {
-    @warn 'Mixin responsive: breakpoint "#{$width}" doesn\'t exist; choose one of: #{breakpoints}';
+    @warn 'Breakpoint "#{$width}" doesn\'t exist; choose one of: #{breakpoints}';
   }
 }

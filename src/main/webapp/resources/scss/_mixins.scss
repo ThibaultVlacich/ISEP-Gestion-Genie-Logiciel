@@ -1,7 +1,8 @@
 // Load mixins
-@import "mixins/clearfix";
-@import "mixins/reset";
-@import "mixins/responsive";
-@import "mixins/hidpi";
-@import "mixins/size";
-@import "mixins/prefix";
+@import 'mixins/clearfix';
+@import 'mixins/hidpi';
+@import 'mixins/positioning';
+@import 'mixins/prefix';
+@import 'mixins/reset';
+@import 'mixins/responsive';
+@import 'mixins/size';
