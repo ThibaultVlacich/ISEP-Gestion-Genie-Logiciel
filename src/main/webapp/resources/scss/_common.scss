@@ -41,7 +41,7 @@ a {
 
   .col-menu-inner {
     min-height: 100%;
-    position: relative;
+    @include relative;
   }
 
   .top-logo {
@@ -112,7 +112,7 @@ a {
     @include size(100%, 50px);
     color: white;
     background: $primary-color;
-    position: fixed;
+    @include fixed;
     top: 0;
     left: 0;
     padding-left: $col-menu-width;

@@ -11,7 +11,7 @@
   }
 
   .form-control {
-    position: relative;
+    @include relative;
     height: auto;
     @include box-sizing(border-box);
     padding: 10px;
