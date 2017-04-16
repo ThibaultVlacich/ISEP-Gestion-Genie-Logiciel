@@ -1,29 +1,20 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass');
-const cleanCSS = require('gulp-clean-css');
-const imagemin = require('gulp-imagemin');
+const elixir = require('laravel-elixir');
 
-// Task for compiling SCSS files
-gulp.task('compileSCSS', function () {
-  gulp.src('./src/main/webapp/resources/scss/app.scss')
-      .pipe(sass().on('error', sass.logError)) // Log compilation errors
-      .pipe(cleanCSS()) // Minify output CSS
-      .pipe(gulp.dest('./src/main/webapp/resources/core/css/'));
+require('laravel-elixir-imagemin');
+
+// Config Elixir
+elixir.config.assetsPath = './src/main/webapp/resources';
+elixir.config.publicPath = './src/main/webapp/public';
+elixir.config.notifications = false;
+
+elixir(function (mix) {
+  mix
+    // Compile main SASS file
+    .sass('app.scss')
+    // Compile main JS file
+    .browserify('app.js')
+    // Optimize then copy image files to the public dir
+    .imagemin('./src/main/webapp/resources/images', './src/main/webapp/public/images')
+    // Copy Bootstrap fonts to the public dir
+    .copy('./src/main/webapp/resources/bootstrap/fonts', './src/main/webapp/public/fonts');
 });
-
-// Task for optimizing images
-gulp.task('optimizeImages', function () {
-  gulp.src('./src/main/webapp/resources/*/images/*', { base: './' })
-      .pipe(imagemin())
-      .pipe(gulp.dest('./'));
-});
-
-// Watch task
-gulp.task('watch', ['optimizeImages'], function() {
-  // Automatically recompile SCSS files when modified
-  gulp.watch('./src/main/webapp/resources/scss/**/*.scss', ['compileSCSS']);
-});
-
-// Set default tasks
-gulp.task('build', ['compileSCSS', 'optimizeImages']);
-gulp.task('default', ['compileSCSS', 'optimizeImages']);

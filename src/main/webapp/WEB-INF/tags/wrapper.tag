@@ -13,22 +13,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="robots" content="noindex,nofollow" />
 
-		<!-- Bootstrap -->
-		<link rel="stylesheet" href="<spring:url value="/resources/bootstrap-3.3.7/css/bootstrap.min.css" />">
-
 		<!-- Custom styles -->
-		<link href="<spring:url value="/resources/core/css/app.css" />" rel="stylesheet" />
+		<link href="<spring:url value="/public/css/app.css" />" rel="stylesheet" />
 		<c:if test="${!empty appCss}" >
 			<link href="${appCss}" rel="stylesheet" />
 		</c:if>
 
-		<!-- jQuery -->
-		<script src="<spring:url value="/resources/jquery-3.2.0.min.js" />"></script>
-		<!-- Bootstrap -->
-		<script src="<spring:url value="/resources/bootstrap-3.3.7/js/bootstrap.min.js" />"></script>
-
 		<!-- Custom scripts -->
-		<script src="<spring:url value="/resources/core/js/script.js" />"></script>
+		<script src="<spring:url value="/public/js/app.js" />"></script>
 		<c:if test="${!empty appJs}" >
 			<script src="${appJs}"></script>
 		</c:if>
@@ -38,8 +30,8 @@
 			<div class="col-menu-inner">
 				<div class="top-logo">
 					<a href="<spring:url value="/"/>">
-					<spring:url value="/resources/core/images/logo-isep.png" var="logoIsep" />
-					<spring:url value="/resources/core/images/logo-isep@2x.png" var="logoIsepRetina" />
+					<spring:url value="/public/images/logo-isep.png" var="logoIsep" />
+					<spring:url value="/public/images/logo-isep@2x.png" var="logoIsepRetina" />
 					<img src="${logoIsep}" srcset="${logoIsep} 1x, ${logoIsepRetina} 2x" alt="ISEP Logo">
 					</a>
 				</div>

@@ -67,15 +67,15 @@ gretty {
 }
 
 // Ensure NPM depedencies are installed before running gulp
-gulp_build.dependsOn npm_install
+gulp_watch.dependsOn npm_install
 gulp_default.dependsOn npm_install
 
 // Runs the gulp build task on gradle build
-build.dependsOn gulp_build
+build.dependsOn gulp_default
 
 // Runs gulp watch when launching app
 project.afterEvaluate {
-  tasks.appRun.dependsOn gulp_build
+  tasks.appRun.dependsOn gulp_default
 }
 
 // For Eclipse IDE only
