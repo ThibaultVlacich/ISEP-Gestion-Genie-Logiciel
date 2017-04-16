@@ -3,8 +3,8 @@ const elixir = require('laravel-elixir');
 require('laravel-elixir-imagemin');
 
 const paths = {
-  'SOURCE': './src/main/webapp/resources',
-  'DESTINATION': './src/main/webapp/public'
+  'SOURCE': 'src/main/webapp/resources',
+  'DESTINATION': 'src/main/webapp/public'
 };
 
 // Config Elixir
