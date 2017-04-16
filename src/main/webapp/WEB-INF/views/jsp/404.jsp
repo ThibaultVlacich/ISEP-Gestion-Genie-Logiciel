@@ -2,7 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<t:wrapper>
+<t:layout>
     <div class="alert alert-warning" role="alert">
         <h4>404 Not found</h4>
         <p>
@@ -11,4 +11,4 @@
             <a href="<spring:url value="/" />">Go back to the home page</a>
         </p>
     </div>
-</t:wrapper>
+</t:layout>

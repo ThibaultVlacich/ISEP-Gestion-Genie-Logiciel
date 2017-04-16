@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:wrapper>
+<t:layout>
     <h1>Bienvenue sur le projet de la team Sloth !!</h1>
-</t:wrapper>
+</t:layout>

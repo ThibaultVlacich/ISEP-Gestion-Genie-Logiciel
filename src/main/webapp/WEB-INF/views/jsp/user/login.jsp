@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:wrapper appCss="${loginCss}">
+<t:layout>
     <div class="app-user">
         <form class="form-signin" action="<spring:url value="/user/login"/>" method="post">
             <h2 class="form-signin-heading">Sign in</h2>
@@ -22,4 +22,4 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
     </div>
-</t:wrapper>
+</t:layout>

@@ -14,9 +14,7 @@ class Common {
     this.settings = $.extend({}, defaults, options);
     this.$el = $(this.settings.root);
 
-    $(() => {
-      this.initSidebar();
-    });
+    this.initSidebar();
   }
 
   initSidebar() {
