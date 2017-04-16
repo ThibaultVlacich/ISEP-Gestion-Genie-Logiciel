@@ -2,19 +2,23 @@ const elixir = require('laravel-elixir');
 
 require('laravel-elixir-imagemin');
 
+const paths = {
+  'SOURCE': './src/main/webapp/resources',
+  'DESTINATION': './src/main/webapp/public'
+};
+
 // Config Elixir
-elixir.config.assetsPath = './src/main/webapp/resources';
-elixir.config.publicPath = './src/main/webapp/public';
+elixir.config.assetsPath = paths.SOURCE;
+elixir.config.publicPath = paths.DESTINATION;
 elixir.config.notifications = false;
 
 elixir(function (mix) {
-  mix
-    // Compile main SASS file
-    .sass('app.scss')
-    // Compile main JS file
-    .browserify('app.js')
-    // Optimize then copy image files to the public dir
-    .imagemin('./src/main/webapp/resources/images', './src/main/webapp/public/images')
-    // Copy Bootstrap fonts to the public dir
-    .copy('./src/main/webapp/resources/bootstrap/fonts', './src/main/webapp/public/fonts');
+  // Compile main SASS file
+  mix.sass('app.scss')
+     // Compile main JS file
+     .browserify('app.js')
+     // Optimize then copy image files to the public dir
+     .imagemin(paths.SOURCE+'/images', paths.DESTINATION+'/images')
+     // Copy Bootstrap fonts to the public dir
+     .copy(paths.SOURCE+'/bootstrap/fonts', paths.DESTINATION+'/fonts');
 });
