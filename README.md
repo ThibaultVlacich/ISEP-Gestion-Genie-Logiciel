@@ -19,18 +19,20 @@ I recommend using the Spring Tool Suite (or Eclipse with the Spring extension in
 
 ### Let's go
 
-To run the app :
-
-#### From Command-line interface
-
+To clone the project and install all dependencies:
 ```
 git clone https://github.com/ThibaultVlacich/Projet-GL-Sloth.git
 cd Projet-GL-Sloth
+npm install
+npm install -g gulp
 ```
 
-Then on UNIX-like systems (Mac, Linux...), run : `./gradlew appRun`
+Then to run the app :
 
-Or on Windows, run : `gradlew appRun`
+#### From Command-line interface
+```
+npm start
+```
 
 #### From Eclipse
 

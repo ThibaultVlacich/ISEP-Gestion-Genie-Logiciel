@@ -73,11 +73,6 @@ gulp_default.dependsOn npm_install
 // Runs the gulp build task on gradle build
 build.dependsOn gulp_default
 
-// Runs gulp watch when launching app
-project.afterEvaluate {
-  tasks.appRun.dependsOn gulp_default
-}
-
 // For Eclipse IDE only
 eclipse {
   wtp {

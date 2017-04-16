@@ -6,8 +6,12 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "concurrently": "^3.4.0",
     "jquery": "^3.2.1",
     "laravel-elixir": "^6.0.0-15",
     "laravel-elixir-imagemin": "^0.2.3"
+  },
+  "scripts": {
+    "start": "concurrently \"gradlew appRun\" \"gulp watch\""
   }
 }
