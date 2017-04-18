@@ -3,16 +3,16 @@ html {
 }
 
 body {
-  height: 100%;
   background: $background-color;
   color: $font-color;
   font-family: $font-family;
+  height: 100%;
 }
 
 a {
   color: $primary-color;
-  text-decoration: none;
   outline: none;
+  text-decoration: none;
 
   &:hover {
     color: $primary-color-light;
@@ -20,19 +20,20 @@ a {
   }
 }
 
-/**
-* Menu column
-*/
+/*!
+ * Menu column
+**/
 
 .col-menu {
-  width: $col-menu-width;
-  min-height: 100%;
+  @include fixed(top 0 left 0 bottom 0);
+  @include transition(left .3s ease-in-out);
+
   background: $col-background-color;
   color: $col-font-color;
-  z-index: 1000;
+  min-height: 100%;
   overflow: auto;
-  @include fixed(top 0 left 0 bottom 0);
-  @include transition(left 0.3s ease-in-out);
+  width: $col-menu-width;
+  z-index: 1000;
 
   a,
   &:focus {
@@ -40,8 +41,9 @@ a {
   }
 
   .col-menu-inner {
-    min-height: 100%;
     @include relative;
+
+    min-height: 100%;
   }
 
   .top-logo {
@@ -56,8 +58,10 @@ a {
   @include breakpoint('medium', 'max') {
     left: -$col-menu-width;
 
-    .menu-opened .col-menu {
-      left: 0;
+    .menu-opened {
+      .col-menu {
+        left: 0;
+      }
     }
   }
 
@@ -69,10 +73,10 @@ a {
 
   .apps-menu {
     @include list-reset;
-    padding: 0 0 50px 0;
+    padding: 0 0 50px;
 
     li {
-      a.app-link {
+      .app-link {
         display: block;
         padding: 10px 20px;
 
@@ -81,22 +85,25 @@ a {
         }
       }
 
-      &.active a.app-link {
-        background: #39455f;
-        border-left: 5px solid $primary-color;
-        padding-left: 15px;
+      &.active {
+        .app-link {
+          background: #39455F;
+          border-left: 5px solid $primary-color;
+          padding-left: 15px;
+        }
       }
     }
   }
 }
 
-/**
-* Content column
-*/
+/*!
+ * Content column
+**/
 
 .col-content {
+  @include transition(margin-left .3s ease-in-out, transform .3s ease-in-out);
+
   margin-left: $col-menu-width;
-  @include transition(margin-left 0.3s ease-in-out, transform 0.3s ease-in-out);
 
   @include breakpoint('medium', 'max') {
     margin-left: 0;
@@ -110,48 +117,50 @@ a {
 
   .page-head {
     @include size(100%, 50px);
-    color: white;
-    background: $primary-color;
     @include fixed;
-    top: 0;
+    @include transition(padding-left .3s ease-in-out);
+
+    background: $primary-color;
+    color: $white;
     left: 0;
     padding-left: $col-menu-width;
+    top: 0;
     z-index: 900;
-    @include transition(padding-left 0.3s ease-in-out);
 
     @include breakpoint('medium', 'max') {
       padding-left: 0;
     }
 
     .toolbar-box {
-      padding: 6px 0 0 10px;
       float: left;
+      padding: 6px 0 0 10px;
 
       .btn {
         background: $secondary-color;
-        border: none;
-        border-radius: 0;
-        color: white;
         border: 1px solid transparent;
+        border-radius: 0;
+        color: $white;
 
         &:hover,
         &:focus {
-          border-color: white;
+          border-color: $white;
         }
       }
     }
 
-    .userbox button {
-      line-height: 30px;
-      background: $secondary-color;
-      border: none;
-      padding: 10px 20px;
+    .userbox {
+      button {
+        background: $secondary-color;
+        border: 0;
+        line-height: 30px;
+        padding: 10px 20px;
+      }
     }
 
     @include clearfix;
   }
 
   .content {
-    padding: 75px 15px 15px 15px;
+    padding: 75px 15px 15px;
   }
 }
