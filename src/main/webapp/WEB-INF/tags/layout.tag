@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ tag description="Layout Tag" pageEncoding="UTF-8"%>
 
+<c:set var="debugMode">
+	<spring:eval expression="@propertyConfigurer.getProperty('projet-gl.debug')" />
+</c:set>
+
 <%@ attribute name="appCss" %>
 <%@ attribute name="appJs" %>
 
@@ -81,5 +85,12 @@
 				<script src="<spring:url value="/public/js/app.js" />"></script>
 			</c:otherwise>
 		</c:choose>
+
+		<c:if test="${debugMode}">
+			<!-- Load LiveReload if we are in debug mode -->
+			<script type="text/javascript">
+				document.write('<script src="//localhost:35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
+			</script>
+		</c:if>
 	</body>
 </html>
