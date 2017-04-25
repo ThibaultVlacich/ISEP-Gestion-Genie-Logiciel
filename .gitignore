@@ -2,6 +2,7 @@
 # Project specific #
 ####################
 src/main/webapp/public/
+src/main/resources/application.properties
 
 ###########
 # Eclipse #
