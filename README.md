@@ -30,10 +30,15 @@ npm install -g gulp
 Then to run the app :
 
 #### From Command-line interface
+* On UN*X systems (Linux / Mac):
 ```
 npm start
 ```
 
+* On Windows:
+```
+npm run start-windows
+```
 #### From Eclipse
 
 First, you need to install from the Eclipse Marketplace [Buildship](https://marketplace.eclipse.org/content/buildship-gradle-integration).
