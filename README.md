@@ -27,7 +27,9 @@ npm install
 npm install -g gulp
 ```
 
-Then to run the app :
+Then, create the file `src/main/resources/application.properties` based on the model of `src/main/resources/application.properties-template` and replace the values according to your settings.
+
+Finaly, to run the app :
 
 #### From Command-line interface
 * On UN*X systems (Linux / Mac):

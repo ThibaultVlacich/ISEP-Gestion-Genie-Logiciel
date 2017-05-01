@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>ISEP - Gestion de projet GL</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+
+    <link th:href="@{/public/css/app.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="col-menu">
+    <div class="col-menu-inner">
+        <div class="top-logo">
+            <a th:href="@{/}">
+                <img th:src="@{/public/images/logo-isep.png}" srcset="@{/public/images/logo-isep.png} 1x, @{/public/images/logo-isep@2x.png} 2x" alt="ISEP Logo">
+            </a>
+        </div>
+
+        <ul class="apps-menu">
+            <li class="active">
+                <a th:href="@{/}" class="app-link">
+                    Tableau de bord
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="col-content">
+    <header class="page-head">
+        <div class="toolbar-box">
+            <button id="menu-toggle" title="Menu" class="btn btn-default hidden-lg hidden-md"><i class="glyphicon glyphicon-menu-hamburger"></i></button>
+        </div>
+
+        <div class="pull-right">
+            <div class="userbox">
+                <div class="btn-group">
+                    <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Welcome <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a th:href="@{/user/login}" class="navbar-link"><i class="glyphicon glyphicon-log-in"></i> Sign in</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="app-content" layout:fragment="content">
+            <p>Page content goes here</p>
+        </div>
+
+        <footer class="app-footer">
+            <hr />
+            <p>&copy; ISEP 2017</p>
+        </footer>
+    </div>
+</div>
+
+<!-- Load scripts -->
+<script th:src="@{/public/js/app.js}"></script>
+</body>
+</html>

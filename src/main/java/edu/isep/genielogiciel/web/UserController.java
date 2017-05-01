@@ -25,10 +25,6 @@ public class UserController {
 
   private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-  @Autowired
-  @Qualifier("dbDataSource")
-  private DataSource dataSource;
-
   @RequestMapping(value = "/login", method = RequestMethod.GET)
   public String index(Map<String, Object> model) {
     return "user/login";

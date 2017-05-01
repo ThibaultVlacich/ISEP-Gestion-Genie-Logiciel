@@ -14,7 +14,7 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules bin build",
-    "start": "npm install && concurrently \"./gradlew appRun\" \"gulp watch\"",
-    "start-windows": "npm install && concurrently \".\\gradlew appRun\" \"gulp watch\""
+    "start": "npm install && concurrently \"./mvnw spring-boot:run\" \"gulp watch\"",
+    "start-windows": "npm install && concurrently \".\\mvnw spring-boot:run\" \"gulp watch\""
   }
 }
