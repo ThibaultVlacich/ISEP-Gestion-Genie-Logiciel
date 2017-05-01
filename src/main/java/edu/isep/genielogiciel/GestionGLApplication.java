@@ -1,4 +1,4 @@
-package com.example;
+package edu.isep.genielogiciel;
 
 import edu.isep.genielogiciel.config.MVCConfig;
 import org.springframework.boot.SpringApplication;
