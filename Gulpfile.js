@@ -19,6 +19,7 @@ elixir(mix => {
   mix.sass('app.scss')
      // Compile main JS file
      .browserify('app.js')
+     .browserify('user.js')
      // Optimize then copy image files to the public dir
      .imagemin(paths.SOURCE+'/images', paths.DESTINATION+'/images')
      // Copy Bootstrap fonts to the public dir
