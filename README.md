@@ -41,16 +41,5 @@ npm start
 ```
 npm run start-windows
 ```
-#### From Eclipse
 
-First, you need to install from the Eclipse Marketplace [Buildship](https://marketplace.eclipse.org/content/buildship-gradle-integration).
-
-Then, open the project cloned from GitHub with Eclipse, and go in the "Run" menu > "Run configurations". Click on "Gradle project" and press the "New" button.
-
-Then configure the new run configuration like this:
-
-![](http://i.imgur.com/9bsDSdx.png)
-
-Then you should be able to run the app from the "Run" menu.
-
-The app should be available under the URL http://localhost:8080/gestion-gl
+The app should be available under the URL http://localhost:8080/
