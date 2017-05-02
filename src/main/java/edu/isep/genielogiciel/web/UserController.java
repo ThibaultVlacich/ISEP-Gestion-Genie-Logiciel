@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.isep.ldap.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -31,30 +32,34 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String index(@RequestParam("login") String login, @RequestParam("password") String password) {
+    public ModelAndView index(@RequestParam("login") String login, @RequestParam("password") String password) {
         LDAPAccess access = new LDAPAccess();
 
         try {
             LDAPObject object = access.LDAPget(login, password);
 
-            if (object == null) {
-                // Invalid login
-                logger.info("Invalid login");
-            } else {
-                User n = new User();
-                n.setId(Integer.valueOf(object.getNumber()));
-                n.setLastName(object.getLogin());
-                n.setMail(object.getMail());
-                n.setFirstName(object.getPrenom());
-                n.setLastName(object.getNomFamille());
+            if (object != null) {
+                User user = userRepository.findByNumber(Integer.valueOf(object.getNumber()));
 
-                userRepository.save(n);
+                if (user == null) {
+                    user = new User();
+                }
+
+                user.setNumber(Integer.valueOf(object.getNumber()));
+                user.setLastName(object.getLogin());
+                user.setMail(object.getMail());
+                user.setFirstName(object.getPrenom());
+                user.setLastName(object.getNomFamille());
+
+                userRepository.save(user);
+
+                return new ModelAndView("user/success", "user", user);
             }
         } catch(Exception e) {
             logger.error(e.getMessage());
         }
 
-        return "user/login";
+        return new ModelAndView("user/error");
     }
 
 }
