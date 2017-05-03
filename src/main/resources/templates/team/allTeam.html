@@ -9,7 +9,17 @@ layout:decorate="~{layout/layout}">
   <div layout:fragment="content">
     <div class="app-user">
       <h1 class="text-center">Equipes</h1>
-      <h4 class="text-right">Trier par :</h4>
+        <button><a th:href="@{/team/addTeam}" class="app-link">Créer une nouvelle équipe</a></button>
+      <div class="dropdown col-sm-4">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+          Trier par :
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Sujet</a></li>
+          <li><a href="#">Nom d'équipe</a></li>
+        </ul>
+      </div>
       <div>
       <table class="table table-striped table-bordered">
         <thead>
@@ -178,7 +188,7 @@ layout:decorate="~{layout/layout}">
             <td><i class="glyphicon glyphicon-ok"></i></td>
             <td>Michard Hugo</td>
             <td>IL</td>
-            <td><i class="glyphicon glyphicon-ok"></i></td>
+            <td><i class="glyphicon gl   yphicon-ok"></i></td>
           </tr>
           <tr>
             <td></td>
