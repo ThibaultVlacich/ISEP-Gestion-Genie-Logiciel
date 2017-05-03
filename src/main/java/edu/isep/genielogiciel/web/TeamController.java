@@ -4,7 +4,6 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import edu.isep.genielogiciel.models.Team;
-import edu.isep.genielogiciel.models.User;
 import edu.isep.genielogiciel.repositories.TeamRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class TeamController {
 
 	private final Logger logger = LoggerFactory.getLogger(TeamController.class);
+    @Autowired
+    private TeamRepository teamRepository;
 
 	@RequestMapping(value = "/myTeam")
     public String myTeam(Map<String, Object> model) {
@@ -43,6 +44,13 @@ public class TeamController {
 
     @RequestMapping(value = "/addTeam", method = RequestMethod.POST)
     public ModelAndView addTeam(@RequestParam("nbrEleve") Integer nbrEleve, @RequestParam("assignSubject") String assignSubject) {
+        Team team = new Team();
+
+        team.setName("Team X");
+        team.setIdSubject(1);
+        team.setNbrEleves(nbrEleve);
+
+        teamRepository.save(team);
         return new ModelAndView("team/allTeam");
     }
 }

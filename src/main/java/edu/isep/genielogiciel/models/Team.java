@@ -19,5 +19,29 @@ public class Team {
     private Integer id;
 
     private String name;
+    private Integer nbrEleves;
     private Integer idSubject;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setNbrEleves(Integer nbrEleves) {
+        this.nbrEleves = nbrEleves;
+    }
+    public Integer getNbrEleves() {
+        return nbrEleves;
+    }
+
+    public void setIdSubject(Integer idSubject) {
+        this.idSubject = idSubject;
+    }
+    public Integer getIdSubject() {
+        return idSubject;
+    }
+
 }
+
