@@ -9,7 +9,7 @@
     "laravel-elixir-imagemin": "^0.2.3"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap-sass": "^3.3.7",
     "jquery": "^3.2.1"
   },
   "scripts": {

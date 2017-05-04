@@ -1,0 +1,5 @@
+// Here add eventual custom configs for Bootstrap
+$brand-primary: $primary-color;
+
+// Load Bootstrap lib
+@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';

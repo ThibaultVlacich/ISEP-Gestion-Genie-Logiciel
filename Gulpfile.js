@@ -6,7 +6,8 @@ require('laravel-elixir-imagemin')
 const paths = {
   'SOURCE': 'src/main/webapp/resources',
   'DESTINATION': 'src/main/webapp/public',
-  'VIEWS': 'src/main/WEB-INF'
+  'VIEWS': 'src/main/WEB-INF',
+  'BOOTSTRAP': 'node_modules/bootstrap-sass'
 }
 
 // Config Elixir
@@ -23,7 +24,7 @@ elixir(mix => {
      // Optimize then copy image files to the public dir
      .imagemin(paths.SOURCE+'/images', paths.DESTINATION+'/images')
      // Copy Bootstrap fonts to the public dir
-     .copy(paths.SOURCE+'/bootstrap/fonts', paths.DESTINATION+'/fonts')
+     .copy(paths.BOOTSTRAP+'/assets/fonts', paths.DESTINATION+'/fonts')
 })
 
 /**
