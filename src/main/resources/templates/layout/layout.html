@@ -17,20 +17,20 @@
             </a>
         </div>
 
-        <ul class="apps-menu">
+        <ul sec:authorize="isAuthenticated()" class="apps-menu">
             <li class="active">
-                <a th:href="@{/}" class="app-link">
-                    Tableau de bord
+                <a th:href="@{/}" class="app-link" th:text="#{i18n.apps.board}">
+                    Board
                 </a>
             </li>
             <li>
-                <a th:href="@{/team/myTeam}" class="app-link">
-                    Mon Equipe
+                <a th:href="@{/team/myTeam}" class="app-link" th:text="#{i18n.apps.teams.myTeam}">
+                    My team
                 </a>
             </li>
             <li>
-                <a th:href="@{/team/allTeam}" class="app-link">
-                    Equipes
+                <a th:href="@{/team/allTeam}" class="app-link" th:text="#{i18n.apps.teams}">
+                    Teams
                 </a>
             </li>
         </ul>
@@ -47,7 +47,7 @@
             <div class="userbox">
                 <div sec:authorize="isAuthenticated()" class="btn-group">
                     <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        Welcome <span sec:authentication="principal"></span> <span class="caret"></span>
+                        <span th:text="#{i18n.miscs.welcome}">Welcome</span> <span sec:authentication="principal">User name</span> <span class="caret"></span>
                     </button>
 
                     <ul class="dropdown-menu pull-right" role="menu">
@@ -64,6 +64,7 @@
 
     <div class="content">
         <div class="app-content" layout:fragment="content">
+            <!-- This is a placeholder -->
             <p>Page content goes here</p>
         </div>
 
@@ -76,7 +77,7 @@
 
 <!-- Load scripts -->
 <div layout:fragment="scripts">
-    <!-- Here it's possible ti replace the loaded script -->
+    <!-- Here it's possible to replace the loaded script -->
     <script th:src="@{/public/js/app.js}"></script>
 </div>
 </body>
