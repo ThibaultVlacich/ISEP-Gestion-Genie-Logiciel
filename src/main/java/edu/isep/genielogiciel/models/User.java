@@ -16,10 +16,18 @@ public class User {
 
     private Integer number;
 
+    // Role can be: "GUEST", "STUDENT", "CLIENT", "TEACHER"
+    private String role;
+
     private String login;
     private String password;
     private String mail;
 
     private String firstName;
     private String lastName;
+
+    @Override
+    public String toString() {
+        return login + " (" + number + ")";
+    }
 }

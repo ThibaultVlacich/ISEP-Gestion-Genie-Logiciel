@@ -3,7 +3,7 @@ const $ = global.jQuery = require('jquery')
 window.$ = $
 window.jQuery = jQuery
 
-require('bootstrap')
+require('bootstrap-sass')
 
 const defaults = {
   root: 'body'

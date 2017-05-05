@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>ISEP - Gestion de projet GL</title>
     <meta charset="utf-8" />
@@ -45,13 +45,17 @@
 
         <div class="pull-right">
             <div class="userbox">
-                <div class="btn-group">
+                <div sec:authorize="isAuthenticated()" class="btn-group">
                     <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        Welcome <span class="caret"></span>
+                        Welcome <span sec:authentication="principal"></span> <span class="caret"></span>
                     </button>
 
                     <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a th:href="@{/user/login}" class="navbar-link"><i class="glyphicon glyphicon-log-in"></i> Sign in</a></li>
+                        <li>
+                            <form method="post" th:action="@{/user/logout}">
+                                <button type="submit" class="btn btn-link navbar-link"><i class="glyphicon glyphicon-log-in"></i> Logout</button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>

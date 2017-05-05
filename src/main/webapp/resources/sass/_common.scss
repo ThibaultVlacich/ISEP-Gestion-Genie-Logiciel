@@ -149,7 +149,7 @@ a {
     }
 
     .userbox {
-      button {
+      button:not(.btn-link) {
         background: $secondary-color;
         border: 0;
         line-height: 30px;
