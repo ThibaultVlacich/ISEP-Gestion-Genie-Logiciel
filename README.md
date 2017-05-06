@@ -11,12 +11,6 @@ TODO
 * JDK 8
 * [NodeJS](https://nodejs.org/)
 
-* Gradle build tool ([Installation instructions](https://gradle.org/install))
-* OR Eclipse EE IDE ([Download Eclipse IDE](https://eclipse.org))
-* OR the Spring tool suite, a fork of Eclipse with all the tools for using the Spring framework ([Download Spring Tool Suite](https://spring.io/tools/sts))
-
-I recommend using the Spring Tool Suite (or Eclipse with the Spring extension installed).
-
 ### Let's go
 
 To clone the project and install all dependencies:
