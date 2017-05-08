@@ -4,6 +4,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import edu.isep.genielogiciel.models.Team;
+import edu.isep.genielogiciel.models.User;
 import edu.isep.genielogiciel.repositories.TeamRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -44,11 +46,13 @@ public class TeamController {
 
     @RequestMapping(value = "/addTeam", method = RequestMethod.POST)
     public ModelAndView addTeam(@RequestParam("nbrEleve") Integer nbrEleve, @RequestParam("assignSubject") String assignSubject) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         Team team = new Team();
 
         team.setName("Team X");
-        team.setIdSubject(1);
-        team.setNbrEleves(nbrEleve);
+
+        team.addMember(currentUser);
 
         teamRepository.save(team);
         return new ModelAndView("team/allTeam");

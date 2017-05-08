@@ -2,10 +2,9 @@ package edu.isep.genielogiciel.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
  * Created by HM on 02/05/17.
@@ -14,33 +13,36 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class Team {
+
+    public static class UserNotInTeam extends RuntimeException {
+        public UserNotInTeam() {
+            super("User not in team");
+        }
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     private String name;
-    private Integer nbrEleves;
-    private Integer idSubject;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
-    }
+    //private Subject subject;
 
-    public void setNbrEleves(Integer nbrEleves) {
-        this.nbrEleves = nbrEleves;
-    }
-    public Integer getNbrEleves() {
-        return nbrEleves;
+    @OneToMany
+    private Set<User> members = new HashSet<>(0);
+
+    public void addMember(User user) {
+        this.members.add(user);
     }
 
-    public void setIdSubject(Integer idSubject) {
-        this.idSubject = idSubject;
-    }
-    public Integer getIdSubject() {
-        return idSubject;
+    public void removeMember(User user) throws UserNotInTeam {
+        if (this.members.contains(user)) {
+            this.members.remove(user);
+
+            return;
+        }
+
+        throw new UserNotInTeam();
     }
 
 }
