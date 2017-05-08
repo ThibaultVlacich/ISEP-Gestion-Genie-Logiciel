@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>ISEP - Gestion de projet GL</title>
     <meta charset="utf-8" />
@@ -24,12 +26,7 @@
                 </a>
             </li>
             <li>
-                <a th:href="@{/team/myTeam}" class="app-link" th:text="#{i18n.apps.teams.myTeam}">
-                    My team
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/team/allTeam}" class="app-link" th:text="#{i18n.apps.teams}">
+                <a th:href="@{/team}" class="app-link" th:text="#{i18n.apps.teams}">
                     Teams
                 </a>
             </li>
@@ -41,6 +38,8 @@
     <header class="page-head">
         <div class="toolbar-box">
             <button id="menu-toggle" title="Menu" class="btn btn-default hidden-lg hidden-md"><i class="glyphicon glyphicon-menu-hamburger"></i></button>
+
+            <div layout:fragment="action-buttons"></div>
         </div>
 
         <div class="pull-right">

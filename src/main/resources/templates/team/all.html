@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Teams</title>
+</head>
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/team/create}" class="btn btn-default">
+        <i class="glyphicon glyphicon-plus"></i>
+        Create a team
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-team app-team-index">
+        <div th:if="${param.deleted}"  class="alert alert-info" role="alert">
+            <h4>Team deleted</h4>
+            <p>The team has been deleted with success.</p>
+        </div>
+
+        <table class="table table-striped table-hover table-responsive">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name of the team</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="team : ${teams}">
+                <td class="text-center" th:text="${team.id}"></td>
+                <td th:text="${team.name}"></td>
+                <td>
+                    <div class="btn-group">
+                        <a th:href="@{/team/details(id=${team.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li>
+                                <a th:href="@{/team/delete(id=${team.id})}"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

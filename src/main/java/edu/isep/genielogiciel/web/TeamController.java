@@ -1,25 +1,17 @@
 package edu.isep.genielogiciel.web;
-import java.util.Map;
-
-import javax.sql.DataSource;
 
 import edu.isep.genielogiciel.models.Team;
-import edu.isep.genielogiciel.models.User;
 import edu.isep.genielogiciel.repositories.TeamRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import edu.isep.ldap.*;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 @Controller
 @RequestMapping(value = "/team")
@@ -29,32 +21,30 @@ public class TeamController {
     @Autowired
     private TeamRepository teamRepository;
 
-	@RequestMapping(value = "/myTeam")
-    public String myTeam(Map<String, Object> model) {
-		return "team/myTeam";
-	}
-
-    @RequestMapping(value = "/allTeam")
-    public String allTeam(Map<String, Object> model) {
-		return "team/allTeam";
-	}
-
-    @RequestMapping(value = "/addTeam", method = RequestMethod.GET)
-    public String addTeam(Map<String, Object> model) {
-        return "team/addTeam";
+	@RequestMapping("**")
+    private ModelAndView all() {
+	    return new ModelAndView("team/all", "teams", teamRepository.findAll());
     }
 
-    @RequestMapping(value = "/addTeam", method = RequestMethod.POST)
-    public ModelAndView addTeam(@RequestParam("nbrEleve") Integer nbrEleve, @RequestParam("assignSubject") String assignSubject) {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @RequestMapping(value = {"/create", "/create"}, method = RequestMethod.GET)
+    private String create() {
+        return "team/create";
+    }
 
-        Team team = new Team();
+    @RequestMapping({"/delete", "/delete/"})
+    private ModelAndView delete(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
+        Team team = teamRepository.findById(id);
 
-        team.setName("Team X");
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
 
-        team.addMember(currentUser);
+        if (confirm != null && confirm) {
+            teamRepository.delete(team);
 
-        teamRepository.save(team);
-        return new ModelAndView("team/allTeam");
+            return new ModelAndView("redirect:/team?deleted");
+        }
+
+        return new ModelAndView("team/delete", "team", team);
     }
 }
