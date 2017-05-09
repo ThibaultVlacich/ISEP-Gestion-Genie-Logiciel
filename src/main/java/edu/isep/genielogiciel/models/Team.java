@@ -33,10 +33,11 @@ public class Team {
     private String name;
     private Integer size;
 
-    //private Subject subject;
+    @OneToOne
+    private Subject subject;
 
     @OneToMany
-    private Set<User> members = new HashSet<>(0);
+    private Set<User> members = new HashSet<>();
 
     public void addMember(User user) throws TeamFull {
         if (this.members.size() < this.size) {

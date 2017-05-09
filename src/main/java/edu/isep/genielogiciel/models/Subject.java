@@ -14,49 +14,36 @@ import java.util.Set;
 @Data
 public class Subject {
 
-    public static class UserNotInSubject extends RuntimeException {
-        public UserNotInSubject() {
-            super("User not in Subject");
-        }
-    }
-
-    public static class SubjectFull extends RuntimeException {
-        public SubjectFull() {
-            super("Subject is full");
+    public static class FunctionalityNotInSubject extends RuntimeException {
+        public FunctionalityNotInSubject() {
+            super("Functionality not in subject");
         }
     }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-
     private String name;
-    private Integer size;
+    private String description;
 
-    //private Subject subject;
+    @OneToOne
+    private User client;
 
     @OneToMany
-    private Set<User> members = new HashSet<>(0);
+    private Set<Functionality> functionalities = new HashSet<>();
 
-    public void addMember(User user) throws SubjectFull {
-        if (this.members.size() < this.size) {
-            this.members.add(user);
+    public void addFunctionality(Functionality functionality) {
+        this.functionalities.add(functionality);
+    }
+
+    public void removeFunctionality(Functionality functionality) throws FunctionalityNotInSubject {
+        if (this.functionalities.contains(functionality)) {
+            this.functionalities.remove(functionality);
 
             return;
         }
 
-        throw new SubjectFull();
+        throw new FunctionalityNotInSubject();
     }
-
-    public void removeMember(User user) throws UserNotInSubject {
-        if (this.members.contains(user)) {
-            this.members.remove(user);
-
-            return;
-        }
-
-        throw new UserNotInSubject();
-    }
-
 }
 

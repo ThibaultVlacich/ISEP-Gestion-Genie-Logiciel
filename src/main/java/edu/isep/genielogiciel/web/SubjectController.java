@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/subject")
 public class SubjectController {
 
-    private final Logger logger = LoggerFactory.getLogger(SubjectController.class);
     @Autowired
     private SubjectRepository subjectRepository;
 
@@ -34,18 +33,18 @@ public class SubjectController {
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
     private ModelAndView create(@RequestParam("name") String name, @RequestParam("size") Integer size) {
-        Subject subject = new Subject();
+        /*Subject subject = new Subject();
         subject.setName(name);
         subject.setSize(size);
 
-        subjectRepository.save(subject);
+        subjectRepository.save(subject);*/
 
         return new ModelAndView("redirect:/subject?created");
     }
 
     @RequestMapping({"/delete", "/delete/"})
     private ModelAndView delete(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
-        Subject subject = subjectRepository.findById(id);
+        /*Subject subject = subjectRepository.findById(id);
 
         if (subject == null) {
             return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
@@ -55,8 +54,8 @@ public class SubjectController {
             subjectRepository.delete(subject);
 
             return new ModelAndView("redirect:/subject?deleted");
-        }
+        }*/
 
-        return new ModelAndView("subject/delete", "subject", subject);
+        return new ModelAndView("subject/delete"/*, "subject", subject*/);
     }
 }
