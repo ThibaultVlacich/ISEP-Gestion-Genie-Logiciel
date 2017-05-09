@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+<div layout:fragment="content">
+    <div class="app-subject app-subject-delete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete subject</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this subject?</p>
+                </div>
+                <div class="modal-footer">
+                    <a th:href="@{/subject}" class="btn btn-default">Cancel</a>
+                    <a th:href="@{/subject/delete(id=${subject.id}, confirm=true)}" class="btn btn-success">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

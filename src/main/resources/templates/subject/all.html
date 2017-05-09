@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='subject'">
+<head>
+    <title>Subjects</title>
+</head>
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/subject/create}" class="btn btn-default">
+        <i class="glyphicon glyphicon-plus"></i>
+        Create a subject
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-subject app-subject-index">
+        <div th:if="${param.deleted}"  class="alert alert-info" role="alert">
+            <h4>Subject deleted</h4>
+            <p>The subject has been deleted with success.</p>
+        </div>
+
+        <div th:if="${param.created}"  class="alert alert-success" role="alert">
+            <h4>Subject created</h4>
+            <p>The subject has been created with success.</p>
+        </div>
+
+        <table class="table table-striped table-hover table-responsive">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name of the subject</th>
+                <th>Members</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="subject : ${subjects}">
+                <td class="text-center" th:text="${subject.id}"></td>
+                <td th:text="${subject.name}"></td>
+                <td>
+                    <ul>
+                        <li th:each="member : ${subject.members}"><span th:text="${member.firstName + ' ' + member.lastName}"></span></li>
+                    </ul>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <!--<a th:href="@{/subject/details(id=${subject.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>-->
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li>
+                                <a th:href="@{/subject/delete(id=${subject.id})}"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
