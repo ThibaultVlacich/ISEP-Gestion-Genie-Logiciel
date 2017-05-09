@@ -1,11 +1,13 @@
 package edu.isep.genielogiciel.web;
 
 import edu.isep.genielogiciel.models.Team;
+import edu.isep.genielogiciel.models.User;
 import edu.isep.genielogiciel.repositories.TeamRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +41,26 @@ public class TeamController {
         teamRepository.save(team);
 
         return new ModelAndView("redirect:/team?created");
+    }
+
+    @RequestMapping({"/register", "/register/"})
+    private ModelAndView register(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
+        Team team = teamRepository.findById(id);
+
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        if (confirm != null && confirm) {
+            User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            team.addMember(currentUser);
+            teamRepository.save(team);
+
+            return new ModelAndView("redirect:/team?registered&team_id="+id);
+        }
+
+        return new ModelAndView("team/register", "team", team);
     }
 
     @RequestMapping({"/delete", "/delete/"})

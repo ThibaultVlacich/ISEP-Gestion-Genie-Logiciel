@@ -25,11 +25,17 @@
             <p>The team has been created with success.</p>
         </div>
 
+        <div th:if="${param.registered}"  class="alert alert-success" role="alert">
+            <h4>Registered to the team</h4>
+            <p>You've been registered to the team #<strong th:text="${param.team_id}"></strong> with success.</p>
+        </div>
+
         <table class="table table-striped table-hover table-responsive">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Name of the team</th>
+                <th>Members</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -38,8 +44,14 @@
                 <td class="text-center" th:text="${team.id}"></td>
                 <td th:text="${team.name}"></td>
                 <td>
+                    <ul>
+                        <li th:each="member : ${team.members}"><span th:text="${member.firstName + ' ' + member.lastName}"></span></li>
+                    </ul>
+                </td>
+                <td>
                     <div class="btn-group">
-                        <a th:href="@{/team/details(id=${team.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>
+                        <a th:if="${team.members.size()} < ${team.size}" th:href="@{/team/register(id=${team.id})}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-eye-open"></i> Register to the team</a>
+                        <!--<a th:href="@{/team/details(id=${team.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>-->
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
                         </button>
