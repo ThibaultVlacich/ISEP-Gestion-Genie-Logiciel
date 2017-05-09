@@ -30,6 +30,11 @@
                     Teams
                 </a>
             </li>
+            <li th:classappend="${currentApp == 'subject'} ? 'active'">
+                <a th:href="@{/subject}" class="app-link" th:text="#{i18n.apps.subjects}">
+                    Subjects
+                </a>
+            </li>
         </ul>
     </div>
 </div>
