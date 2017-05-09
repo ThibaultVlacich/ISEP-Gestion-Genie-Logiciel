@@ -1,25 +1,25 @@
-let Common = require('./common.js')
+let Common = require('./common.js');
 
-const $ = global.jQuery = require('jquery')
+const $ = global.jQuery = require('jquery');
 
 class User extends Common {
 
     constructor(options) {
-        super(options)
+        super(options);
 
-        $('.form-signin input').on('change keyup', (event) => {
+        $('.form-signin input').on('change keyup', function(e) {
             var $this = $(this),
                 $login = $('#inputLogin'),
-                $password = $('#inputPassword')
+                $password = $('#inputPassword');
 
             if ($this.val().length > 3) {
-                $this.closest('.form-group').addClass('has-success').removeClass('has-error')
+                $this.closest('.form-group').addClass('has-success').removeClass('has-error');
             } else {
-                $this.addClass('has-error').removeClass('has-success')
+                $this.addClass('has-error').removeClass('has-success');
             }
-        })
+        });
     }
 
 }
 
-let app = new User()
+let app = new User();

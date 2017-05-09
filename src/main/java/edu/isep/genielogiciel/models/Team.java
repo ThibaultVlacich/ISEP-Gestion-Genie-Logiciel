@@ -20,19 +20,32 @@ public class Team {
         }
     }
 
+    public static class TeamFull extends RuntimeException {
+        public TeamFull() {
+            super("Team is full");
+        }
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     private String name;
+    private Integer size;
 
     //private Subject subject;
 
     @OneToMany
     private Set<User> members = new HashSet<>(0);
 
-    public void addMember(User user) {
-        this.members.add(user);
+    public void addMember(User user) throws TeamFull {
+        if (this.members.size() < this.size) {
+            this.members.add(user);
+
+            return;
+        }
+
+        throw new TeamFull();
     }
 
     public void removeMember(User user) throws UserNotInTeam {

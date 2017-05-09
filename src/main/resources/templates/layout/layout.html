@@ -20,12 +20,12 @@
         </div>
 
         <ul sec:authorize="isAuthenticated()" class="apps-menu">
-            <li class="active">
+            <li th:classappend="${currentApp == 'board'} ? 'active'">
                 <a th:href="@{/}" class="app-link" th:text="#{i18n.apps.board}">
                     Board
                 </a>
             </li>
-            <li>
+            <li th:classappend="${currentApp == 'team'} ? 'active'">
                 <a th:href="@{/team}" class="app-link" th:text="#{i18n.apps.teams}">
                     Teams
                 </a>

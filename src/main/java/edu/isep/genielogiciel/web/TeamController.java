@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 @Controller
 @RequestMapping(value = "/team")
@@ -26,9 +25,20 @@ public class TeamController {
 	    return new ModelAndView("team/all", "teams", teamRepository.findAll());
     }
 
-    @RequestMapping(value = {"/create", "/create"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.GET)
     private String create() {
         return "team/create";
+    }
+
+    @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
+    private ModelAndView create(@RequestParam("name") String name, @RequestParam("size") Integer size) {
+        Team team = new Team();
+        team.setName(name);
+        team.setSize(size);
+
+        teamRepository.save(team);
+
+        return new ModelAndView("redirect:/team?created");
     }
 
     @RequestMapping({"/delete", "/delete/"})
