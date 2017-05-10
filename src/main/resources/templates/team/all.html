@@ -50,7 +50,7 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a th:if="${team.members.size()} < ${team.size}" th:href="@{/team/register(id=${team.id})}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-eye-open"></i> Register to the team</a>
+                        <a th:if="${team.members.size()} < ${team.size}" th:href="@{/team/register(id=${team.id})}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Register to the team</a>
                         <!--<a th:href="@{/team/details(id=${team.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>-->
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
