@@ -32,6 +32,8 @@ public class Team {
 
     private String name;
     private Integer size;
+    private Integer mailsLeft;
+    private Integer timeLeft;
 
     @OneToOne
     private Subject subject;
@@ -60,4 +62,3 @@ public class Team {
     }
 
 }
-

@@ -33,7 +33,7 @@ public class SubjectController {
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
-    private ModelAndView create(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("functionality[]") String[] functionalities) {
+    private ModelAndView create(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("functionality") String[] functionalities) {
         Subject subject = new Subject();
         subject.setName(name);
         subject.setDescription(description);

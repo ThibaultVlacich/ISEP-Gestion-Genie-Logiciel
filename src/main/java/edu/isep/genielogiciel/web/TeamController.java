@@ -38,6 +38,9 @@ public class TeamController {
         team.setName(name);
         team.setSize(size);
 
+				team.setMailsLeft(5);
+				team.setTimeLeft(120);
+
         teamRepository.save(team);
 
         return new ModelAndView("redirect:/team?created");
@@ -62,6 +65,18 @@ public class TeamController {
 
         return new ModelAndView("team/register", "team", team);
     }
+
+		@RequestMapping(value = {"/detail", "/detail/"}, method = RequestMethod.GET)
+		private ModelAndView detail(@RequestParam("id") Integer id) {
+				Team team = teamRepository.findById(id);
+
+				if (team == null) {
+						return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+				}
+
+				return new ModelAndView("team/detail", "team", team);
+
+		}
 
     @RequestMapping({"/delete", "/delete/"})
     private ModelAndView delete(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {

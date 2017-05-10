@@ -8,7 +8,7 @@ layout:decorate="~{layout/layout}">
 <body>
   <div layout:fragment="content">
     <div class="app-user">
-      <h1 class="text-center">Team Sloth <i class="glyphicon glyphicon-edit"></i></h1>
+      <h1 class="text-center" th:text="${team.name}"></h1><i class="glyphicon glyphicon-edit"></i>
       <div>
         <h3>Membres</h3>
         <table class="table table-striped">
@@ -21,41 +21,11 @@ layout:decorate="~{layout/layout}">
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Viresolvy</td>
-              <td>Boris</td>
-              <td>9521</td>
-              <td>boris.viresolvy@isep.fr</td>
-            </tr>
-            <tr>
-              <td>Viresolvy</td>
-              <td>Boris</td>
-              <td>9521</td>
-              <td>boris.viresolvy@isep.fr</td>
-            </tr>
-            <tr>
-              <td>Viresolvy</td>
-              <td>Boris</td>
-              <td>9521</td>
-              <td>boris.viresolvy@isep.fr</td>
-            </tr>
-            <tr>
-              <td>Viresolvy</td>
-              <td>Boris</td>
-              <td>9521</td>
-              <td>boris.viresolvy@isep.fr</td>
-            </tr>
-            <tr>
-              <td>Viresolvy</td>
-              <td>Boris</td>
-              <td>9521</td>
-              <td>boris.viresolvy@isep.fr</td>
-            </tr>
-            <tr>
-              <td>Viresolvy</td>
-              <td>Boris</td>
-              <td>9521</td>
-              <td>boris.viresolvy@isep.fr</td>
+            <tr th:each="member : ${team.members}">
+                <td><span th:text="${member.lastName}"></span></td>
+                <td><span th:text="${member.firstName}"></span></td>
+                <td><span th:text="${member.number}"></span></td>
+                <td><span th:text="${member.mail}"></span></td>
             </tr>
           </tbody>
         </table>
@@ -64,14 +34,14 @@ layout:decorate="~{layout/layout}">
         <h3>Informations sur le sujet</h3>
         <table class="table table-striped">
           <tr>
-            <td>Sujet : Projet GL</td>
+            <td>Sujet : <span th:text="${team.subject}"></span></td>
             <td>Client :</td>
             <td>test@isep.fr</td>
           </tr>
           <tr>
             <td></td>
-            <td>Temps restant : 1h40</td>
-            <td>Mails restants : 2</td>
+            <td>Temps restant : <span th:text="${team.timeLeft}"></span></td>
+            <td>Mails restants : <span th:text="${team.mailsLeft}"></span></td>
           </tr>
         </table>
       </div>
