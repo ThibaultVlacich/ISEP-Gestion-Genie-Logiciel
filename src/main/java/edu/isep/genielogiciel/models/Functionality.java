@@ -12,4 +12,8 @@ public class Functionality {
     @Id
     private Integer id;
     private String name;
+
+    public Functionality(String name) {
+        this.name = name;
+    }
 }
