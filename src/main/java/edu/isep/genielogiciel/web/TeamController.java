@@ -66,6 +66,26 @@ public class TeamController {
         return new ModelAndView("team/register", "team", team);
     }
 
+		@RequestMapping({"/leave", "/leave/"})
+		private ModelAndView leave(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
+				Team team = teamRepository.findById(id);
+
+				if (team == null) {
+						return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+				}
+
+				if (confirm != null && confirm) {
+						User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+						team.removeMember(currentUser);
+						teamRepository.save(team);
+
+						return new ModelAndView("redirect:/team?leaved&team_id="+id);
+				}
+
+				return new ModelAndView("team/leave", "team", team);
+		}
+
 		@RequestMapping(value = {"/detail", "/detail/"}, method = RequestMethod.GET)
 		private ModelAndView detail(@RequestParam("id") Integer id) {
 				Team team = teamRepository.findById(id);

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<body>
+<div layout:fragment="content">
+    <div class="app-team app-team-delete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Leave the team</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to leave the team <strong th:text="${team.name}"></strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <a th:href="@{/team}" class="btn btn-danger">Cancel</a>
+                    <a th:href="@{/team/leave(id=${team.id}, confirm=true)}" class="btn btn-success">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
