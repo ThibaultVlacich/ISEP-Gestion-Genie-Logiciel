@@ -51,7 +51,7 @@
             <div class="userbox">
                 <div sec:authorize="isAuthenticated()" class="btn-group">
                     <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <span th:text="#{i18n.miscs.welcome}">Welcome</span> <span sec:authentication="principal">User name</span> <span class="caret"></span>
+                        <span sec:authentication="principal">User name</span> <span class="caret"></span>
                     </button>
 
                     <ul class="dropdown-menu pull-right" role="menu">
