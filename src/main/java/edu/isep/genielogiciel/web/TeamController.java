@@ -3,6 +3,7 @@ package edu.isep.genielogiciel.web;
 import edu.isep.genielogiciel.models.Team;
 import edu.isep.genielogiciel.models.User;
 import edu.isep.genielogiciel.repositories.TeamRepository;
+import edu.isep.genielogiciel.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/team")
 public class TeamController {
 
-	private final Logger logger = LoggerFactory.getLogger(TeamController.class);
     @Autowired
     private TeamRepository teamRepository;
 
-	@RequestMapping("**")
+    @Autowired
+    private UserRepository userRepository;
+
+    @RequestMapping("**")
     private ModelAndView all() {
-	    return new ModelAndView("team/all", "teams", teamRepository.findAll());
+        return new ModelAndView("team/all", "teams", teamRepository.findAll());
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.GET)
@@ -38,8 +41,8 @@ public class TeamController {
         team.setName(name);
         team.setSize(size);
 
-				team.setMailsLeft(5);
-				team.setTimeLeft(120);
+        team.setMailsLeft(5);
+        team.setTimeLeft(120);
 
         teamRepository.save(team);
 
@@ -57,8 +60,8 @@ public class TeamController {
         if (confirm != null && confirm) {
             User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-            team.addMember(currentUser);
-            teamRepository.save(team);
+            currentUser.setTeam(team);
+            userRepository.save(currentUser);
 
             return new ModelAndView("redirect:/team?registered&team_id="+id);
         }
@@ -66,37 +69,36 @@ public class TeamController {
         return new ModelAndView("team/register", "team", team);
     }
 
-		@RequestMapping({"/leave", "/leave/"})
-		private ModelAndView leave(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
-				Team team = teamRepository.findById(id);
+    @RequestMapping({"/leave", "/leave/"})
+    private ModelAndView leave(@RequestParam(value = "confirm", required = false) Boolean confirm) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Team team = currentUser.getTeam();
 
-				if (team == null) {
-						return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
-				}
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
 
-				if (confirm != null && confirm) {
-						User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (confirm != null && confirm) {
+            currentUser.setTeam(null);
+            userRepository.save(currentUser);
 
-						team.removeMember(currentUser);
-						teamRepository.save(team);
+            return new ModelAndView("redirect:/team?leaved&team_id="+team.getId());
+        }
 
-						return new ModelAndView("redirect:/team?leaved&team_id="+id);
-				}
+        return new ModelAndView("team/leave", "team", team);
+    }
 
-				return new ModelAndView("team/leave", "team", team);
-		}
+    @RequestMapping(value = {"/detail", "/detail/"}, method = RequestMethod.GET)
+    private ModelAndView detail(@RequestParam("id") Integer id) {
+        Team team = teamRepository.findById(id);
 
-		@RequestMapping(value = {"/detail", "/detail/"}, method = RequestMethod.GET)
-		private ModelAndView detail(@RequestParam("id") Integer id) {
-				Team team = teamRepository.findById(id);
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
 
-				if (team == null) {
-						return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
-				}
+        return new ModelAndView("team/detail", "team", team);
 
-				return new ModelAndView("team/detail", "team", team);
-
-		}
+    }
 
     @RequestMapping({"/delete", "/delete/"})
     private ModelAndView delete(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {

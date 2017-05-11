@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /*
@@ -38,8 +39,8 @@ public class Team {
     @OneToOne
     private Subject subject;
 
-    @OneToMany
-    private Set<User> members = new HashSet<>();
+    @OneToMany(mappedBy = "team")
+    private List<User> members;
 
     public void addMember(User user) throws TeamFull {
         if (this.members.size() < this.size) {
