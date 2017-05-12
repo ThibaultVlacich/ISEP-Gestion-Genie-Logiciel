@@ -27,6 +27,10 @@ public class User implements Serializable {
     @ManyToOne
     private Team team;
 
+    public Boolean hasTeam() {
+        return (this.team != null);
+    }
+
     @Override
     public String toString() {
         return login + " (" + number + ")";

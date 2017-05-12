@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/user")
-public class UserController {
+public class UserController extends GLController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String index(Map<String, Object> model) {

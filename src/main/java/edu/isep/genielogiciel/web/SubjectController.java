@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/subject")
-public class SubjectController {
+public class SubjectController extends GLController {
 
     @Autowired
     private SubjectRepository subjectRepository;

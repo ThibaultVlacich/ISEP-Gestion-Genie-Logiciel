@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/team")
-public class TeamController {
+public class TeamController extends GLController {
 
     @Autowired
     private TeamRepository teamRepository;
@@ -56,7 +57,7 @@ public class TeamController {
         }
 
         if (confirm != null && confirm) {
-            User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User currentUser = getCurrentUser();
 
             currentUser.setTeam(team);
             userRepository.save(currentUser);
@@ -69,7 +70,8 @@ public class TeamController {
 
     @RequestMapping({"/leave", "/leave/"})
     private ModelAndView leave(@RequestParam(value = "confirm", required = false) Boolean confirm) {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = getCurrentUser();
+
         Team team = currentUser.getTeam();
 
         if (team == null) {
