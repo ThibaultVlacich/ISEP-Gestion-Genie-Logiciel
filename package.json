@@ -2,6 +2,7 @@
   "private": true,
   "devDependencies": {
     "concurrently": "^3.4.0",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-livereload": "^3.8.1",
     "laravel-elixir": "^6.0.0-15",
@@ -10,6 +11,7 @@
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
+    "ckeditor": "^4.6.2",
     "jquery": "^3.2.1"
   },
   "scripts": {

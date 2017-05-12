@@ -1,5 +1,6 @@
 const elixir     = require('laravel-elixir'),
-      livereload = require('gulp-livereload');
+      livereload = require('gulp-livereload'),
+      del        = require('del');
 
 require('laravel-elixir-imagemin');
 
@@ -7,7 +8,8 @@ const paths = {
     'SOURCE': 'src/main/webapp/resources',
     'DESTINATION': 'src/main/webapp/public',
     'VIEWS': 'src/main/WEB-INF',
-    'BOOTSTRAP': 'node_modules/bootstrap-sass'
+    'BOOTSTRAP': 'node_modules/bootstrap-sass',
+    'CKEDITOR': 'node_modules/ckeditor'
 };
 
 // Config Elixir
@@ -26,8 +28,8 @@ elixir(mix => {
         .imagemin(paths.SOURCE+'/images', paths.DESTINATION+'/images')
         // Copy Bootstrap fonts to the public dir
         .copy(paths.BOOTSTRAP+'/assets/fonts', paths.DESTINATION+'/fonts')
-        // Copy vendored frameworks
-        .copy(paths.SOURCE+'/vendor', paths.DESTINATION+'/vendor')
+        // Copy CKEDITOR framework
+        .copy(paths.CKEDITOR, paths.DESTINATION+'/vendor/ckeditor')
 });
 
 /**
@@ -48,4 +50,11 @@ gulp.on('task_stop', e => {
         // notify a JS change, so that livereload can refresh the page
         livereload.changed('app.js')
     }
+});
+
+/**
+ * Clean task
+ */
+gulp.task('clean', () => {
+    del([paths.DESTINATION]);
 });
