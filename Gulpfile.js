@@ -9,7 +9,8 @@ const paths = {
     'DESTINATION': 'src/main/webapp/public',
     'VIEWS': 'src/main/WEB-INF',
     'BOOTSTRAP': 'node_modules/bootstrap-sass',
-    'CKEDITOR': 'node_modules/ckeditor'
+    'CKEDITOR': 'node_modules/ckeditor',
+    'FONTAWESOME': 'node_modules/font-awesome'
 };
 
 // Config Elixir
@@ -28,8 +29,10 @@ elixir(mix => {
         .imagemin(paths.SOURCE+'/images', paths.DESTINATION+'/images')
         // Copy Bootstrap fonts to the public dir
         .copy(paths.BOOTSTRAP+'/assets/fonts', paths.DESTINATION+'/fonts')
-        // Copy CKEDITOR framework
+        // Copy CKEDITOR framework to the public dir
         .copy(paths.CKEDITOR, paths.DESTINATION+'/vendor/ckeditor')
+        // Copy Font-Awesome fonts to the public dir
+        .copy(paths.FONTAWESOME+'/fonts', paths.DESTINATION+'/fonts/font-awesome')
 });
 
 /**

@@ -1,10 +1,11 @@
-@charset 'utf-8';
+@charset "utf-8";
 
 // Import variables
 @import 'variables';
 
-// Import Bootstrap
+// Import libs
 @import 'bootstrap-custom';
+@import 'font-awesome-custom';
 
 // Import misc CSS
 @import 'fonts';
