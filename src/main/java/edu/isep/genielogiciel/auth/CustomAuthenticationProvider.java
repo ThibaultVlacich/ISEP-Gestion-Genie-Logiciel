@@ -41,17 +41,17 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             if (object != null) {
                 // User matching those credentials has been found on the server
                 // Check if it exists on out local database
-                User user = userRepository.findByNumber(Integer.valueOf(object.getNumber()));
+                User user = userRepository.findByLogin(object.getLogin());
 
                 if (user == null) {
                     // User doesn't already exist
                     // Create new user and assign it basic access (GUEST)
                     user = new User();
                     user.setRole("GUEST");
+                    user.setLogin(object.getLogin());
                 }
 
                 // Update information on user from the ones returned by the LDAP server
-                user.setLogin(object.getLogin());
                 user.setNumber(Integer.valueOf(object.getNumber()));
                 user.setMail(object.getMail());
                 user.setFirstName(object.getPrenom());
@@ -62,7 +62,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
                 // Authenticate user
                 List<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority(user.getRole()));
+                authorities.add(new SimpleGrantedAuthority("ROLE_"+user.getRole()));
 
                 Authentication auth = new UsernamePasswordAuthenticationToken(user, password, authorities);
 

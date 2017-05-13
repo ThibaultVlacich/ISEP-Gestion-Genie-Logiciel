@@ -6,9 +6,8 @@ import edu.isep.genielogiciel.repositories.TeamRepository;
 import edu.isep.genielogiciel.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/team")
+@PreAuthorize("hasAnyRole('ROLE_STUDENT', 'ROLE_CLIENT', 'ROLE_TEACHER')") // Guests can't access
 public class TeamController extends GLController {
 
     @Autowired
@@ -25,17 +25,19 @@ public class TeamController extends GLController {
     private UserRepository userRepository;
 
     @RequestMapping("**")
-    private ModelAndView all() {
+    public ModelAndView all() {
         return new ModelAndView("team/all", "teams", teamRepository.findAll());
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.GET)
-    private String create() {
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public String create() {
         return "team/create";
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
-    private ModelAndView create(@RequestParam("name") String name, @RequestParam("size") Integer size) {
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ModelAndView create(@RequestParam("name") String name, @RequestParam("size") Integer size) {
         Team team = new Team();
         team.setName(name);
         team.setSize(size);
@@ -49,7 +51,8 @@ public class TeamController extends GLController {
     }
 
     @RequestMapping({"/register", "/register/"})
-    private ModelAndView register(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
+    @PreAuthorize("hasRole('ROLE_STUDENT')")
+    public ModelAndView register(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
         Team team = teamRepository.findById(id);
 
         if (team == null) {
@@ -69,7 +72,8 @@ public class TeamController extends GLController {
     }
 
     @RequestMapping({"/leave", "/leave/"})
-    private ModelAndView leave(@RequestParam(value = "confirm", required = false) Boolean confirm) {
+    @PreAuthorize("hasRole('ROLE_STUDENT')")
+    public ModelAndView leave(@RequestParam(value = "confirm", required = false) Boolean confirm) {
         User currentUser = getCurrentUser();
 
         Team team = currentUser.getTeam();
@@ -89,7 +93,7 @@ public class TeamController extends GLController {
     }
 
     @RequestMapping(value = {"/detail", "/detail/"}, method = RequestMethod.GET)
-    private ModelAndView detail(@RequestParam("id") Integer id) {
+    public ModelAndView detail(@RequestParam("id") Integer id) {
         Team team = teamRepository.findById(id);
 
         if (team == null) {
@@ -101,7 +105,8 @@ public class TeamController extends GLController {
     }
 
     @RequestMapping({"/delete", "/delete/"})
-    private ModelAndView delete(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ModelAndView delete(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
         Team team = teamRepository.findById(id);
 
         if (team == null) {
