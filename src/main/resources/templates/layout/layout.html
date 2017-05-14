@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>ISEP - Gestion de projet GL</title>
+    <title th:text="#{i18n.title}">ISEP - Software Engineering</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex,nofollow" />
@@ -44,7 +44,7 @@
         <div class="toolbar-box">
             <button id="menu-toggle" title="Menu" class="btn btn-default hidden-lg hidden-md"><i class="glyphicon glyphicon-menu-hamburger"></i></button>
 
-            <div layout:fragment="action-buttons"></div>
+            <div layout:fragment="action-buttons" th:remove="tag"></div>
         </div>
 
         <div class="pull-right">
@@ -55,9 +55,12 @@
                     </button>
 
                     <ul class="dropdown-menu pull-right" role="menu">
+                        <li sec:authorize="hasRole('ROLE_TEACHER')">
+                            <a th:href="@{/admin}" class="btn btn-link"><i class="glyphicon glyphicon-cog"></i> <span th:text="#{i18n.apps.admin}" th:remove="tag">Administration</span></a>
+                        </li>
                         <li>
                             <form method="post" th:action="@{/user/logout}">
-                                <button type="submit" class="btn btn-link navbar-link"><i class="glyphicon glyphicon-log-in"></i> Logout</button>
+                                <button type="submit" class="btn btn-link"><i class="glyphicon glyphicon-log-out"></i> <span th:text="#{i18n.miscs.logout}" th:remove="tag">Administration</span></button>
                             </form>
                         </li>
                     </ul>

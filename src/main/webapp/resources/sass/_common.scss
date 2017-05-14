@@ -20,6 +20,16 @@ a {
   }
 }
 
+.table {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.required {
+  color: red;
+  font-weight: bold;
+}
+
 /*!
  * Menu column
 **/
@@ -158,7 +168,7 @@ a {
         padding: 10px 20px;
       }
 
-      .dropdown-menu > li button {
+      .dropdown-menu > li a, .dropdown-menu > li button {
         display: block;
         padding: 3px 20px;
         clear: both;
@@ -182,6 +192,22 @@ a {
   }
 
   .content {
-    padding: 75px 15px 15px;
+    padding: 70px 15px 15px;
+
+    .app-head {
+      .app-breadcrumb {
+        color: $primary-color;
+        font-size: 1.2em;
+        margin-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      h1.app-title {
+        color: $primary-color;
+        font-size: 2em;
+        margin: 0 10px 20px 0;
+      }
+    }
   }
 }

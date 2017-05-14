@@ -3,16 +3,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <head>
-    <title>Error 404</title>
+    <title th:text="|#{i18n.title} #{i18n.errors.404}|">404 Not Found</title>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="alert alert-warning" role="alert">
-        <h4>404 Not found</h4>
+        <h4 th:text="#{i18n.errors.404}">404 Not found</h4>
+        <hr>
         <p>
-            Sorry, but the page you're looking for doesn't exist.
+            <span th:text="#{i18n.errors.404.sorry}" th:remove="tag">Sorry, but the page you're looking for doesn't exist.</span>
             <br><br>
-            <a th:href="@{/}">Go back to the home page</a>
+            <a th:href="@{/}" th:text="#{i18n.miscs.back}">Go back to the home page</a>
         </p>
     </div>
 </div>
