@@ -8,6 +8,11 @@
 </head>
 <body>
 <div layout:fragment="action-buttons">
+    <a th:href="@{/subject}" class="btn btn-default">
+        <i class="glyphicon glyphicon-remove"></i>
+        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+    </a>
+
     <a class="btn btn-default" data-submit="create-subject-form">
         <i class="glyphicon glyphicon-floppy-disk"></i>
         <span th:text="#{i18n.miscs.save}">Save</span>
@@ -15,8 +20,16 @@
 </div>
 <div layout:fragment="content">
     <div class="app-subject app-subject-create">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/subject}" th:text="#{i18n.apps.subjects}">Subjects</a></li>
+                <li class="active" th:text="#{i18n.subjects.create}">Create a subject</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.subjects.create}">Create a subject</h1>
+        </div>
+
         <form id="create-subject-form" th:action="@{/subject/create}" method="post" class="form form-horizontal">
-            <h1 class="app-title">Create a subject</h1>
             <div class="panel panel-default">
                 <div class="panel-body">
                     <fieldset>

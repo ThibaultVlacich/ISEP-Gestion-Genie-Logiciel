@@ -33,20 +33,22 @@ public class SubjectController extends GLController {
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
-    private ModelAndView create(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("functionality") String[] functionalities) {
+    private ModelAndView create(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam(value = "functionality[]", required = false) String[] functionalities) {
         Subject subject = new Subject();
         subject.setName(name);
         subject.setDescription(description);
 
-        for (String functionalityName: functionalities) {
-            Functionality functionality = new Functionality(functionalityName);
-
-            functionalityRepository.save(functionality);
-
-            subject.addFunctionality(functionality);
-        }
-
         subjectRepository.save(subject);
+
+        if (functionalities != null) {
+            for (String functionalityName : functionalities) {
+                Functionality functionality = new Functionality();
+                functionality.setName(functionalityName);
+                functionality.setSubject(subject);
+
+                functionalityRepository.save(functionality);
+            }
+        }
 
         return new ModelAndView("redirect:/subject?created");
     }

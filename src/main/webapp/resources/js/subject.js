@@ -22,7 +22,6 @@ class Subject extends Common {
 
     initFunctionalities() {
         this.$functionalityContainer = $('div[data-functionalities]');
-        this.functionalityCount = this.$functionalityContainer.find('.form-group').length;
 
         let that = this;
 
@@ -34,8 +33,6 @@ class Subject extends Common {
     }
     
     newFunctionality() {
-        this.functionalityCount += 1;
-
         let $functionality    = $('<div class="form-group">'),
             $functionalityCol = $('<div class="col-sm-12">');
 
@@ -43,7 +40,7 @@ class Subject extends Common {
 
         let $input = $('<input type="text">');
         $input.addClass('form-control');
-        $input.attr('name', 'functionality['+this.functionalityCount+']');
+        $input.attr('name', 'functionality[]');
         $input.attr('placeholder', 'Name of the functionality');
 
         $functionalityCol.append($input);

@@ -34,7 +34,7 @@ public class Team {
     private Integer mailsLeft;
     private Integer timeLeft;
 
-    @OneToOne
+    @ManyToOne
     private Subject subject;
 
     @OneToMany(mappedBy = "team")

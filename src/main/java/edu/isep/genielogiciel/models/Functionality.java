@@ -2,18 +2,17 @@ package edu.isep.genielogiciel.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
 public class Functionality {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
 
-    public Functionality(String name) {
-        this.name = name;
-    }
+    @ManyToOne
+    private Subject subject;
 }

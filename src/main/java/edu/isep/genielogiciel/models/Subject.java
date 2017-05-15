@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /*
@@ -13,37 +14,21 @@ import java.util.Set;
 @Entity
 @Data
 public class Subject {
-
-    public static class FunctionalityNotInSubject extends RuntimeException {
-        public FunctionalityNotInSubject() {
-            super("Functionality not in subject");
-        }
-    }
-
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+
     private String name;
+
     private String description;
 
     @OneToOne
     private User client;
 
-    @OneToMany
-    private Set<Functionality> functionalities = new HashSet<>();
+    @OneToMany(mappedBy = "subject")
+    private List<Team> teams;
 
-    public void addFunctionality(Functionality functionality) {
-        this.functionalities.add(functionality);
-    }
-
-    public void removeFunctionality(Functionality functionality) throws FunctionalityNotInSubject {
-        if (this.functionalities.contains(functionality)) {
-            this.functionalities.remove(functionality);
-
-            return;
-        }
-
-        throw new FunctionalityNotInSubject();
-    }
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
+    private List<Functionality> functionalities;
 }
 
