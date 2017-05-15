@@ -3,9 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}"
       th:with="currentApp='subject'">
-<head>
-    <title>Subjects</title>
-</head>
 <body>
 <div layout:fragment="action-buttons">
     <a th:href="@{/subject/create}" class="btn btn-default">
@@ -48,9 +45,12 @@
                 <td class="text-center" th:text="${subject.id}"></td>
                 <td th:text="${subject.name}"></td>
                 <td>
-                    <ul>
+                    <ul th:unless="${#lists.isEmpty(subject.teams)}">
                         <li th:each="team : ${subject.teams}"><span th:text="${team.name}" th:remove="tag"></span></li>
                     </ul>
+                    <span th:if="${#lists.isEmpty(subject.teams)}" th:remove="tag">
+                        N/A
+                    </span>
                 </td>
                 <td>
                     <div class="btn-group">
