@@ -29,19 +29,19 @@ public class AdminController extends GLController {
         return new ModelAndView("admin/users", "users", userRepository.findAll());
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ModelAndView user(@RequestParam("id") Integer id) {
+    @RequestMapping(value = "/users/edit", method = RequestMethod.GET)
+    public ModelAndView users_edit(@RequestParam("id") Integer id) {
         User user = userRepository.findById(id);
 
         if (user == null) {
             return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
         }
 
-        return new ModelAndView("admin/user", "user", user);
+        return new ModelAndView("admin/users_edit", "user", user);
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public ModelAndView user(@RequestParam("id") Integer id, @RequestParam("role") String role) {
+    @RequestMapping(value = "/users/edit", method = RequestMethod.POST)
+    public ModelAndView users_edit(@RequestParam("id") Integer id, @RequestParam("role") String role) {
         User user = userRepository.findById(id);
 
         if (user == null) {

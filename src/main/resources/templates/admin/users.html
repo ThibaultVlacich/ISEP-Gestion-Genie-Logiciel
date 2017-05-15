@@ -39,7 +39,7 @@
                 <td th:text="|${user.firstName} ${user.lastName}|"></td>
                 <td th:text="${user.role}"></td>
                 <td>
-                    <a th:href="@{/admin/user(id=${user.id})}" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> <span th:text="#{i18n.miscs.edit}" th:remove="tag">Edit</span></a>
+                    <a th:href="@{/admin/users/edit(id=${user.id})}" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> <span th:text="#{i18n.miscs.edit}" th:remove="tag">Edit</span></a>
                 </td>
             </tr>
             </tbody>

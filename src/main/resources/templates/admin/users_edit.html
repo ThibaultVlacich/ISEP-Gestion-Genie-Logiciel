@@ -27,7 +27,7 @@
             <h1 class="app-title" th:text="#{i18n.admin.users.edit}">Edit user</h1>
         </div>
 
-        <form id="edit-user-form" th:action="@{/admin/user(id=${user.id})}" method="post" class="form form-horizontal">
+        <form id="edit-user-form" th:action="@{/admin/users/edit(id=${user.id})}" method="post" class="form form-horizontal">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <fieldset>
