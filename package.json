@@ -16,7 +16,8 @@
     "jquery": "^3.2.1"
   },
   "scripts": {
-    "clean": "rm -rf node_modules bin build",
+    "clean": "rm -rf node_modules bin build target",
+    "package": "gulp && ./mvnw clean package",
     "start": "npm install && concurrently \"./mvnw spring-boot:run\" \"gulp watch\"",
     "start-windows": "npm install && concurrently \".\\mvnw spring-boot:run\" \"gulp watch\""
   }

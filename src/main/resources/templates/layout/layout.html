@@ -63,6 +63,13 @@
                                 <button type="submit" class="btn btn-link"><i class="glyphicon glyphicon-log-out"></i> <span th:text="#{i18n.miscs.logout}" th:remove="tag">Administration</span></button>
                             </form>
                         </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a th:href="@{/(lang=fr)}" class="btn btn-link"><img th:src="@{/public/images/flags/french.png}" height="14" alt="Français"> Français</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/(lang=en)}" class="btn btn-link"><img th:src="@{/public/images/flags/english.png}" height="14" alt="English"> English</a>
+                        </li>
                     </ul>
                 </div>
             </div>
