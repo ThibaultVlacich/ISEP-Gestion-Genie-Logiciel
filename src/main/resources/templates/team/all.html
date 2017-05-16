@@ -24,22 +24,22 @@
 
         <div th:if="${param.deleted}" class="alert alert-info" role="alert">
             <h4 th:text="#{i18n.teams.deleted}">Team deleted</h4>
-            <p th:text="#{i18n.teams.deleted.message}">The team has been deleted with success.</p>
+            <p th:text="#{i18n.teams.deleted.text}">The team has been deleted with success.</p>
         </div>
 
         <div th:if="${param.created}" class="alert alert-success" role="alert">
             <h4 th:text="#{i18n.teams.created}">Team created</h4>
-            <p th:text="#{i18n.teams.created.message}">The team has been created with success.</p>
+            <p th:text="#{i18n.teams.created.text}">The team has been created with success.</p>
         </div>
 
         <div th:if="${param.registered}" class="alert alert-success" role="alert">
             <h4 th:text="#{i18n.teams.registered}">Registered to the team</h4>
-            <p th:text="#{i18n.teams.registered.message}">You've been registered to the team with success.</p>
+            <p th:text="#{i18n.teams.registered.text}">You've been registered to the team with success.</p>
         </div>
 
         <div th:if="${param.leaved}" class="alert alert-success" role="alert">
             <h4 th:text="#{i18n.teams.leaved}">Leaved the team</h4>
-            <p th:text="#{i18n.teams.leaved.message}">You've leaved the team with success.</p>
+            <p th:text="#{i18n.teams.leaved.text}">You've leaved the team with success.</p>
         </div>
 
         <table class="table table-striped table-hover table-responsive">
