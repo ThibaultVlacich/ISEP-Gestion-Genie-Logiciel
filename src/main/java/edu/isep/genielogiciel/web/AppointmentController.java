@@ -27,7 +27,7 @@ public class AppointmentController extends GLController {
         return new ModelAndView("appointment/all", "appointments", appointmentRepository.findAll());
     }
 
-    @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.GET)    
+    @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.GET)
     public String create() {
         return "appointment/create";
     }
@@ -60,6 +60,23 @@ public class AppointmentController extends GLController {
         }
 
         return new ModelAndView("appointment/refuse", "appointment", appointment);
+    }
+    @RequestMapping({"/valid", "/valid/"})
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ModelAndView valid(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
+        Appointment appointment = appointmentRepository.findById(id);
+
+        if (appointment == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        if (confirm != null && confirm) {
+            appointment.setValid(true);
+
+            return new ModelAndView("redirect:/appointment?validated");
+        }
+
+        return new ModelAndView("appointment/valid", "appointment", appointment);
     }
 
 }

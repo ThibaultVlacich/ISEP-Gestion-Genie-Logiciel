@@ -21,6 +21,8 @@ public class Appointment {
     @ManyToOne
     private Team team;
 
+    private Boolean valid = false;
+
     private String object;
     private String date;
     private String hours;
