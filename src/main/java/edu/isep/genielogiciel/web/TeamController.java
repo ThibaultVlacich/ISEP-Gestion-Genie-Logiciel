@@ -1,7 +1,9 @@
 package edu.isep.genielogiciel.web;
 
+import edu.isep.genielogiciel.models.Subject;
 import edu.isep.genielogiciel.models.Team;
 import edu.isep.genielogiciel.models.User;
+import edu.isep.genielogiciel.repositories.SubjectRepository;
 import edu.isep.genielogiciel.repositories.TeamRepository;
 import edu.isep.genielogiciel.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/team")
@@ -24,6 +29,9 @@ public class TeamController extends GLController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SubjectRepository subjectRepository;
+
     @RequestMapping("**")
     public ModelAndView all() {
         return new ModelAndView("team/all", "teams", teamRepository.findAll());
@@ -31,16 +39,20 @@ public class TeamController extends GLController {
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    public String create() {
-        return "team/create";
+    public ModelAndView create() {
+        return new ModelAndView("team/create", "subjects", subjectRepository.findAll());
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    public ModelAndView create(@RequestParam("name") String name, @RequestParam("size") Integer size) {
+    public ModelAndView create(@RequestParam("name") String name, @RequestParam("size") Integer size,@RequestParam(value = "id_subject", required = false) Integer id_subject) {
         Team team = new Team();
         team.setName(name);
         team.setSize(size);
+
+        if(id_subject != null){
+            team.setSubject(subjectRepository.findById(id_subject));
+        }
 
         team.setMailsLeft(5);
         team.setTimeLeft(120);
@@ -102,6 +114,36 @@ public class TeamController extends GLController {
 
         return new ModelAndView("team/detail", "team", team);
 
+    }
+
+    @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.GET)
+    public ModelAndView edit(@RequestParam("id") Integer id) {
+
+        Team team = teamRepository.findById(id);
+
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("team", team);
+        model.put("subjects", subjectRepository.findAll());
+
+        return new ModelAndView("team/edit", model);
+    }
+
+    @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.POST)
+    public ModelAndView edit(@RequestParam("id") Integer id, @RequestParam("name") String name, @RequestParam(value = "id_subject", required = false) Integer id_subject) {
+        Team team = teamRepository.findById(id);
+        team.setName(name);
+
+        if(id_subject != null){
+            team.setSubject(subjectRepository.findById(id_subject));
+        }
+
+        teamRepository.save(team);
+
+        return new ModelAndView("redirect:/team/detail?edited&id="+id);
     }
 
     @RequestMapping({"/delete", "/delete/"})

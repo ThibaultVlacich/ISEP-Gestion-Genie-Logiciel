@@ -2,13 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layout/layout}">
-<head>
-  <title>Team Sloth</title>
-</head>
 <body>
+<div layout:fragment="action-buttons">
+  <a th:href="@{/team/edit(id=${team.id})}" class="btn btn-default">
+    <i class="glyphicon glyphicon-edit"></i>
+    Edit team
+  </a>
+</div>
   <div layout:fragment="content">
     <div class="app-user">
-      <h1 class="text-center" th:text="${team.name}"></h1><i class="glyphicon glyphicon-edit"></i>
+      <div th:if="${param.edited}" class="alert alert-info" role="alert">
+        <h4 th:text="#{i18n.teams.edited}">Team edited</h4>
+        <p th:text="#{i18n.teams.edited.text}">The team has been edited with success.</p>
+      </div>
+      <h1 class="text-center" th:text="${team.name}"></h1>
       <div>
         <h3>Membres</h3>
         <table class="table table-striped">
@@ -30,11 +37,11 @@ layout:decorate="~{layout/layout}">
           </tbody>
         </table>
       </div>
-      <div>
+      <div th:unless="${team.subject} == null">
         <h3>Informations sur le sujet</h3>
         <table class="table table-striped">
           <tr>
-            <td>Sujet : <span th:text="${team.subject}"></span></td>
+            <td>Sujet : <span th:text="${team.subject.name}"></span></td>
             <td>Client :</td>
             <td>test@isep.fr</td>
           </tr>

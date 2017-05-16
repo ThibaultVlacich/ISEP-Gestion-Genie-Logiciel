@@ -13,17 +13,6 @@ import java.util.List;
 @Data
 public class Team {
 
-    public static class UserNotInTeam extends RuntimeException {
-        public UserNotInTeam() {
-            super("User not in team");
-        }
-    }
-
-    public static class TeamFull extends RuntimeException {
-        public TeamFull() {
-            super("Team is full");
-        }
-    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -40,24 +29,6 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<User> members;
 
-    public void addMember(User user) throws TeamFull {
-        if (this.members.size() < this.size) {
-            this.members.add(user);
 
-            return;
-        }
-
-        throw new TeamFull();
-    }
-
-    public void removeMember(User user) throws UserNotInTeam {
-        if (this.members.contains(user)) {
-            this.members.remove(user);
-
-            return;
-        }
-
-        throw new UserNotInTeam();
-    }
 
 }

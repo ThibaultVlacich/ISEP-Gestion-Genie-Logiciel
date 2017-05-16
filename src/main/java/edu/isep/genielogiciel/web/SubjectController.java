@@ -2,10 +2,13 @@ package edu.isep.genielogiciel.web;
 
 import edu.isep.genielogiciel.models.Functionality;
 import edu.isep.genielogiciel.models.Subject;
+import edu.isep.genielogiciel.models.Team;
+import edu.isep.genielogiciel.models.User;
 import edu.isep.genielogiciel.repositories.FunctionalityRepository;
 import edu.isep.genielogiciel.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,6 +55,7 @@ public class SubjectController extends GLController {
 
         return new ModelAndView("redirect:/subject?created");
     }
+
 
     @RequestMapping({"/delete", "/delete/"})
     private ModelAndView delete(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
