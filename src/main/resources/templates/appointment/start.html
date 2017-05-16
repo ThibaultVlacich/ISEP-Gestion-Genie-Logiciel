@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='appointment'">
+<body>
+<div layout:fragment="content">
+    <form id="create-appointment-form" th:action="@{/appointment/start}" method="post" class="form form-horizontal">
+        <fieldset>
+            <legend>Membres</legend>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member : ${team.members}">
+                    <td><span th:text="${member.lastName}"></span></td>
+                    <td><span th:text="${member.firstName}"></span></td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a th:href="@{/appointment/here}"><i class="glyphicon glyphicon-ok"></i> Présent</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/appointment/nothere}"><i class="glyphicon glyphicon-remove"></i> Non Présent</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend>Fonctionnalités</legend>
+            <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Fonctionnalités</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="subject : ${subjects}">
+                <td><span th:text="${subjects.functionality}"></span></td>
+            </tr>
+            </tbody>
+            </table>
+        </fieldset>
+</div>
+</body>
+</html>

@@ -44,6 +44,11 @@
                     Subjects
                 </a>
             </li>
+            <li th:classappend="${currentApp == 'appointment'} ? 'active'">
+                <a th:href="@{/appointment}" class="app-link" th:text="#{i18n.apps.appointment}">
+                    Mes rendez-vous
+                </a>
+            </li>
         </ul>
     </div>
 </div>

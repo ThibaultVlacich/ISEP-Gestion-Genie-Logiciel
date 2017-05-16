@@ -31,6 +31,12 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<User> members;
 
+    @OneToMany(mappedBy = "team")
+    private List<Appointment> appointments;
+
+    public void addMember(User user) throws TeamFull {
+        if (this.members.size() < this.size) {
+            this.members.add(user);
 
 
 }

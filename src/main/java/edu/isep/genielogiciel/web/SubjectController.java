@@ -127,4 +127,15 @@ public class SubjectController extends GLController {
 
         return new ModelAndView("subject/delete", "subject", subject);
     }
+    @RequestMapping(value = {"/detail", "/detail/"}, method = RequestMethod.GET)
+    public ModelAndView detail(@RequestParam("id") Integer id) {
+        Subject subject = subjectRepository.findById(id);
+
+        if (subject == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        return new ModelAndView("subject/detail", "subject", subject);
+
+    }
 }
