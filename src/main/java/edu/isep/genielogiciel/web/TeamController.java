@@ -71,6 +71,10 @@ public class TeamController extends GLController {
             return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
         }
 
+        if (team.getValid()) {
+            return new ModelAndView("error/403", HttpStatus.FORBIDDEN);
+        }
+
         if (confirm != null && confirm) {
             User currentUser = getCurrentUser();
 
@@ -92,6 +96,10 @@ public class TeamController extends GLController {
 
         if (team == null) {
             return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        if (team.getValid()) {
+            return new ModelAndView("error/403", HttpStatus.FORBIDDEN);
         }
 
         if (confirm != null && confirm) {
@@ -144,6 +152,24 @@ public class TeamController extends GLController {
         teamRepository.save(team);
 
         return new ModelAndView("redirect:/team/detail?edited&id="+id);
+    }
+
+    @RequestMapping({"/valid", "/valid/"})
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ModelAndView valid(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
+        Team team = teamRepository.findById(id);
+
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        if (confirm != null && confirm) {
+            team.setValid(true);
+
+            return new ModelAndView("redirect:/team?validated");
+        }
+
+        return new ModelAndView("team/valid", "team", team);
     }
 
     @RequestMapping({"/delete", "/delete/"})

@@ -23,6 +23,8 @@ public class Team {
     private Integer mailsLeft;
     private Integer timeLeft;
 
+    private Boolean valid = false;
+
     @ManyToOne
     private Subject subject;
 

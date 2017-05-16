@@ -37,9 +37,9 @@
             <p th:text="#{i18n.teams.registered.text}">You've been registered to the team with success.</p>
         </div>
 
-        <div th:if="${param.assigned}" class="alert alert-success" role="alert">
-            <h4 th:text="#{i18n.teams.assigned}">Assigned a subject to the team</h4>
-            <p th:text="#{i18n.teams.assigned.text}">You've assigned a subject to the team with success.</p>
+        <div th:if="${param.validated}" class="alert alert-success" role="alert">
+            <h4 th:text="#{i18n.teams.validated}">Team validated</h4>
+            <p th:text="#{i18n.teams.validated.text}">The team has been created with success.</p>
         </div>
 
         <div th:if="${param.leaved}" class="alert alert-success" role="alert">
@@ -67,15 +67,17 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a th:if="${team.members.size() lt team.size and not currentUser.hasTeam()}" th:href="@{/team/register(id=${team.id})}" sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> <span th:text="#{i18n.teams.register}" th:remove="tag">Register to the team</span></a>
-                        <a th:if="${currentUser.hasTeam() and currentUser.team.id eq team.id}" th:href="@{/team/leave(id=${team.id})}" sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-minus"></i> <span th:text="#{i18n.teams.leave}" th:remove="tag">Leave the team</span></a>
+                        <div th:unless="${team.valid}" th:remove="tag">
+                            <a th:if="${team.members.size() lt team.size and not currentUser.hasTeam()}" th:href="@{/team/register(id=${team.id})}" sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> <span th:text="#{i18n.teams.register}" th:remove="tag">Register to the team</span></a>
+                            <a th:if="${currentUser.hasTeam() and currentUser.team.id eq team.id}" th:href="@{/team/leave(id=${team.id})}" sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-minus"></i> <span th:text="#{i18n.teams.leave}" th:remove="tag">Leave the team</span></a>
+                        </div>
                         <a th:href="@{/team/detail(id=${team.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" sec:authorize="hasRole('ROLE_TEACHER')">
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu" sec:authorize="hasRole('ROLE_TEACHER')">
-                            <li>
-                                <a th:href="@{/team/assign(id_team=${team.id})}"><i class="glyphicon glyphicon-file"></i> <span>Assign</span></a>
+                            <li th:unless="${team.valid}">
+                                <a th:href="@{/team/valid(id=${team.id})}"><i class="glyphicon glyphicon-ok"></i> <span>Validate</span></a>
                             </li>
                             <li>
                                 <a th:href="@{/team/delete(id=${team.id})}"><i class="glyphicon glyphicon-trash"></i> <span th:text="#{i18n.miscs.delete}">Delete</span></a>
