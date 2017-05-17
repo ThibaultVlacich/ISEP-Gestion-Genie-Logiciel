@@ -11,10 +11,17 @@ layout:decorate="~{layout/layout}">
 </div>
   <div layout:fragment="content">
     <div class="app-user">
+
       <div th:if="${param.edited}" class="alert alert-info" role="alert">
         <h4 th:text="#{i18n.teams.edited}">Team edited</h4>
         <p th:text="#{i18n.teams.edited.text}">The team has been edited with success.</p>
       </div>
+
+      <div th:if="${param.deleted}" class="alert alert-info" role="alert">
+        <h4 th:text="#{i18n.teams.removed}">User removed</h4>
+        <p th:text="#{i18n.teams.removed.text}">The user has been removed with success.</p>
+      </div>
+
       <h1 class="text-center" th:text="${team.name}"></h1>
       <div>
         <h3>Membres</h3>
@@ -33,6 +40,9 @@ layout:decorate="~{layout/layout}">
                 <td><span th:text="${member.firstName}"></span></td>
                 <td><span th:text="${member.number}"></span></td>
                 <td><span th:text="${member.mail}"></span></td>
+                <td>
+                  <a th:href="@{/team/remove(id=${member.id})}"><i class="glyphicon glyphicon-remove-sign"></i> <span th:text="#{i18n.miscs.remove}">Remove</span></a>
+                </td>
             </tr>
           </tbody>
         </table>

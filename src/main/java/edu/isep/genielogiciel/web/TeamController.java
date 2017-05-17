@@ -172,6 +172,31 @@ public class TeamController extends GLController {
         return new ModelAndView("team/valid", "team", team);
     }
 
+    @RequestMapping({"/remove", "/remove/"})
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ModelAndView remove(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
+        User user = userRepository.findById(id);
+        Team team = user.getTeam();
+
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+
+        if (confirm != null && confirm) {
+            user.setTeam(null);
+            userRepository.save(user);
+
+            return new ModelAndView("redirect:/team?removed");
+        }
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("team", team);
+        model.put("user", user);
+
+        return new ModelAndView("team/remove", model);
+    }
+
     @RequestMapping({"/delete", "/delete/"})
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     public ModelAndView delete(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
