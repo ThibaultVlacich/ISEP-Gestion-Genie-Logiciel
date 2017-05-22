@@ -187,7 +187,7 @@ public class TeamController extends GLController {
             user.setTeam(null);
             userRepository.save(user);
 
-            return new ModelAndView("redirect:/team?removed");
+            return new ModelAndView("redirect:/team/detail?id="+team.getId()+"&removed");
         }
 
         Map<String, Object> model = new HashMap<>();

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layout/layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='team'">
 <body>
 <div layout:fragment="action-buttons">
   <a th:href="@{/team/edit(id=${team.id})}" class="btn btn-default">
@@ -17,7 +19,7 @@ layout:decorate="~{layout/layout}">
         <p th:text="#{i18n.teams.edited.text}">The team has been edited with success.</p>
       </div>
 
-      <div th:if="${param.deleted}" class="alert alert-info" role="alert">
+      <div th:if="${param.removed}" class="alert alert-info" role="alert">
         <h4 th:text="#{i18n.teams.removed}">User removed</h4>
         <p th:text="#{i18n.teams.removed.text}">The user has been removed with success.</p>
       </div>
@@ -32,17 +34,21 @@ layout:decorate="~{layout/layout}">
               <th>Prénom</th>
               <th>Code Elèves</th>
               <th>Mails</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr th:each="member : ${team.members}">
-                <td><span th:text="${member.lastName}"></span></td>
-                <td><span th:text="${member.firstName}"></span></td>
-                <td><span th:text="${member.number}"></span></td>
-                <td><span th:text="${member.mail}"></span></td>
+                <td th:text="${member.lastName}"></td>
+                <td th:text="${member.firstName}"></td>
+                <td th:text="${member.number}"></td>
+                <td th:text="${member.mail}"></td>
                 <td>
-                  <a th:href="@{/team/remove(id=${member.id})}"><i class="glyphicon glyphicon-remove-sign"></i> <span th:text="#{i18n.miscs.remove}">Remove</span></a>
+                  <a sec:authorize="hasRole('ROLE_TEACHER')" th:href="@{/team/remove(id=${member.id})}" class="btn btn-danger"><i class="glyphicon glyphicon-remove-sign"></i> <span th:text="#{i18n.teams.remove}">Remove</span></a>
                 </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(team.members)}">
+              <td colspan="5" class="text-center">No member in this team.</td>
             </tr>
           </tbody>
         </table>
@@ -65,17 +71,17 @@ layout:decorate="~{layout/layout}">
       <div class="row">
         <div class="col-xs-6">
           <h4>Livrables déposés</h4>
-          <input type="button" value="Déposer un livrable"/>
+          <input type="button" value="Déposer un livrable" class="btn btn-default" />
         </div>
         <div class="col-xs-6">
           <h4>Compte-rendu déposés</h4>
-          <input type="button" value="Déposer un compte-rendu"/>
+          <input type="button" value="Déposer un compte-rendu" class="btn btn-default" />
         </div>
       </div>
       <div class="row">
         <div class=col-xs-12>
           <h4>Réunions</h4>
-          <input type="button" value="Proposer une réunion"/>
+          <input type="button" value="Proposer une réunion" class="btn btn-default" />
         </div>
       </div>
     </div>
