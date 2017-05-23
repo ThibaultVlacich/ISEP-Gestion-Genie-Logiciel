@@ -15,17 +15,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  */
 public abstract class GLController {
 
-    private static User currentUser = null;
-
     @ModelAttribute("currentUser")
-    public static User getCurrentUser() {
+    public User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (currentUser == null && principal instanceof User) {
-            currentUser = (User) principal;
+        if (principal != null && principal instanceof User) {
+            return (User) principal;
         }
 
-        return currentUser;
+        return null;
     }
 
 }
