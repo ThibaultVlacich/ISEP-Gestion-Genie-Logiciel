@@ -15,7 +15,7 @@ public class Team {
 
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String name;
@@ -33,10 +33,5 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private List<Appointment> appointments;
-
-    public void addMember(User user) throws TeamFull {
-        if (this.members.size() < this.size) {
-            this.members.add(user);
-
-
+    
 }
