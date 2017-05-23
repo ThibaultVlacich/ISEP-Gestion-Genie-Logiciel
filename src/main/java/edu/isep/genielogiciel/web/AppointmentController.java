@@ -72,7 +72,7 @@ public class AppointmentController extends GLController {
 
         if (confirm != null && confirm) {
             appointment.setValid(true);
-
+            appointmentRepository.save(appointment);
             return new ModelAndView("redirect:/appointment?validated");
         }
 
