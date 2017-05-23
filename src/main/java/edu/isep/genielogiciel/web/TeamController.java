@@ -49,7 +49,7 @@ public class TeamController extends GLController {
 
         Map<String, Object> model = new HashMap<>();
         model.put("team", team);
-        model.put("students", userRepository.findAll());
+        model.put("students", userRepository.findByRole("STUDENT"));
 
         return new ModelAndView("team/add", model);
     }
