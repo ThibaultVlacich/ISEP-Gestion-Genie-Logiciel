@@ -3,9 +3,7 @@ package edu.isep.genielogiciel.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /*
  * Created by HM on 02/05/17.

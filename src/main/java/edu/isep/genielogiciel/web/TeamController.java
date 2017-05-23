@@ -1,6 +1,5 @@
 package edu.isep.genielogiciel.web;
 
-import edu.isep.genielogiciel.models.Subject;
 import edu.isep.genielogiciel.models.Team;
 import edu.isep.genielogiciel.models.User;
 import edu.isep.genielogiciel.repositories.SubjectRepository;
