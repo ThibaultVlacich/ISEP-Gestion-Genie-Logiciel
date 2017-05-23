@@ -35,7 +35,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="appointment : ${appointments}">
+        <tr th:each="appointment : ${appointments}" th:unless="${appointment.state eq 'Refused'}">
             <td th:text="${appointment.object}"></td>
             <td th:text="${appointment.date}"></td>
             <td th:text="${appointment.time}"></td>
