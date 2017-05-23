@@ -3,20 +3,38 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/subject/edit(id=${subject.id})}" class="btn btn-default">
+        <i class="glyphicon glyphicon-edit"></i>
+        Edit Subject
+    </a>
+</div>
 <div layout:fragment="content">
     <div class="app-user">
+
+        <div th:if="${param.edited}" class="alert alert-info" role="alert">
+            <h4 th:text="#{i18n.subject.edited}">Subject edited</h4>
+            <p th:text="#{i18n.subject.edited.text}">The subject has been edited with success.</p>
+        </div>
+
+        <div th:if="${param.removed}" class="alert alert-info" role="alert">
+            <h4 th:text="#{i18n.subject.removed}">Subject removed</h4>
+            <p th:text="#{i18n.subject.removed.text}">The subject has been removed with success.</p>
+        </div>
         <div>
             <h3>Sujets</h3>
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Nom</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="subject : ${subjects}">
-                    <td th:text="$(subject.name)"></td>
+                    <td class="text-center" th:text="${subject.id}"></td>
+                    <td th:text="${subject.name}"></td>
                     <td></td>
                 </tr>
                 </tbody>
