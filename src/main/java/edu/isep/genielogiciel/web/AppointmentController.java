@@ -46,7 +46,8 @@ public class AppointmentController extends GLController {
         return new ModelAndView("redirect:/appointment/all");
     }
     @RequestMapping({"/refuse", "/refuse/"})
-    private ModelAndView refuse(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ModelAndView refuse(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
         Appointment appointment = appointmentRepository.findById(id);
 
         if (appointment == null) {
@@ -54,9 +55,9 @@ public class AppointmentController extends GLController {
         }
 
         if (confirm != null && confirm) {
-            appointmentRepository.delete(appointment);
-
-            return new ModelAndView("redirect:/appointment?deleted");
+            appointment.setState("Refused");
+            appointmentRepository.save(appointment);
+            return new ModelAndView("redirect:/appointment?refused");
         }
 
         return new ModelAndView("appointment/refuse", "appointment", appointment);
@@ -71,7 +72,7 @@ public class AppointmentController extends GLController {
         }
 
         if (confirm != null && confirm) {
-            appointment.setValid(true);
+            appointment.setState("Validated");
             appointmentRepository.save(appointment);
             return new ModelAndView("redirect:/appointment?validated");
         }
