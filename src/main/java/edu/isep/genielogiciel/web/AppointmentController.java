@@ -43,7 +43,7 @@ public class AppointmentController extends GLController {
 
         appointmentRepository.save(appointment);
 
-        return new ModelAndView("redirect:/team/details");
+        return new ModelAndView("redirect:/appointment/all");
     }
     @RequestMapping({"/refuse", "/refuse/"})
     private ModelAndView refuse(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
