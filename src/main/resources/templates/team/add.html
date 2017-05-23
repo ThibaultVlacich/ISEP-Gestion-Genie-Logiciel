@@ -31,15 +31,11 @@
                 <div class="panel-body">
                         <fieldset sec:authorize="hasRole('ROLE_TEACHER')">
                             <legend>Select a Student</legend>
-
-                            <div class="form-group">
                                 <select class="form-control" id="id_student" name="id_student">
-                                    <option th:each="student : ${students}" th:id="|student{student.id}|" th:value="${student.id}" th:if="${not student.hasTeam()}">
-                                        <span th:remove="tag" th:text="${student.lastName}"></span>
+                                    <option th:each="student : ${students}" th:id="|student{student.id}|" th:value="${student.id}" th:if="${not student.hasTeam() and student.role eq 'STUDENT'}">
+                                        <span th:remove="tag" th:text="|${student.firstName} ${student.lastName}|"></span>
                                     </option>
                                 </select>
-                            </div>
-
                         </fieldset>
                     </div>
                 </div>
