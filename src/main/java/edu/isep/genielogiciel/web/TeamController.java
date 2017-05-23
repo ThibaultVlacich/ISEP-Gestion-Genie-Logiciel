@@ -36,6 +36,49 @@ public class TeamController extends GLController {
         return new ModelAndView("team/all", "teams", teamRepository.findAll());
     }
 
+    
+    @RequestMapping(value = {"/add", "/add/"}, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ModelAndView add(@RequestParam("id") Integer id) {
+
+        Team team = teamRepository.findById(id);
+
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("team", team);
+        model.put("students", userRepository.findAll());
+
+        return new ModelAndView("team/add", model);
+    }
+
+    @RequestMapping(value = {"/add", "/add/"}, method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ModelAndView add(@RequestParam("id") Integer id, @RequestParam("id_student") Integer id_student) {
+        User user = userRepository.findById(id_student);
+        Team team = teamRepository.findById(id);
+
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        if (user == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        if (team.getValid()) {
+            return new ModelAndView("error/403", HttpStatus.FORBIDDEN);
+        }
+
+        user.setTeam(team);
+        userRepository.save(user);
+
+        return new ModelAndView("redirect:/team/detail?added&id="+id);
+    }
+
+
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     public ModelAndView create() {
@@ -164,6 +207,8 @@ public class TeamController extends GLController {
 
         if (confirm != null && confirm) {
             team.setValid(true);
+
+            teamRepository.save(team);
 
             return new ModelAndView("redirect:/team?validated");
         }
