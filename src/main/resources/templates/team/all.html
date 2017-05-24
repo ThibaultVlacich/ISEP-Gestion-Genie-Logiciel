@@ -51,9 +51,9 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Name of the team</th>
+                <th th:text="#{i18n.teams.name}">Name of the team</th>
                 <th th:text="#{i18n.teams.subject}">Subject of the team</th>
-                <th>Members</th>
+                <th th:text="#{i18n.teams.members}">Members</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -82,7 +82,7 @@
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu" sec:authorize="hasRole('ROLE_TEACHER')">
                             <li th:unless="${team.valid}">
-                                <a th:href="@{/team/valid(id=${team.id})}"><i class="glyphicon glyphicon-ok"></i> <span>Validate</span></a>
+                                <a th:href="@{/team/valid(id=${team.id})}"><i class="glyphicon glyphicon-ok"></i> <span th:text="#{i18n.miscs.validate}">Validate</span></a>
                             </li>
                             <li>
                                 <a th:href="@{/team/delete(id=${team.id})}"><i class="glyphicon glyphicon-trash"></i> <span th:text="#{i18n.miscs.delete}">Delete</span></a>

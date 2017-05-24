@@ -31,15 +31,15 @@
 
       <h1 class="text-center" th:text="${team.name}"></h1>
       <div>
-        <h3>Membres</h3>
+        <h3 th:text="#{i18n.teams.members}">Membres</h3>
         <a sec:authorize="hasRole('ROLE_TEACHER')" th:href="@{/team/add(id=${team.id})}" class="btn btn-success"><i class="glyphicon glyphicon-plus-sign"></i> <span th:text="#{i18n.teams.add}">Add</span></a>
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Nom</th>
-              <th>Prénom</th>
-              <th>Code Elèves</th>
-              <th>Mails</th>
+              <th th:text="#{i18n.users.lastName}">Lastname</th>
+              <th th:text="#{i18n.users.firstName}">Firstname</th>
+              <th th:text="#{i18n.users.number}">Number</th>
+              <th th:text="#{i18n.users.mail}">Mail</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -60,7 +60,7 @@
         </table>
       </div>
       <div th:unless="${team.subject} == null">
-        <h3>Informations sur le sujet</h3>
+        <h3 th:text="#{i18n.teams.informations}">Informations on the team</h3>
         <table class="table table-striped">
           <tr>
             <td>Sujet : <span th:text="${team.subject.name}"></span></td>
@@ -69,8 +69,8 @@
           </tr>
           <tr>
             <td></td>
-            <td>Temps restant : <span th:text="${team.timeLeft}"></span></td>
-            <td>Mails restants : <span th:text="${team.mailsLeft}"></span></td>
+            <td th:text="#{i18n.teams.timeLeft}">Time left : <span th:text="${team.timeLeft}"></span></td>
+            <td th:text="#{i18n.teams.mailsLeft}">Mails left : <span th:text="${team.mailsLeft}"></span></td>
           </tr>
         </table>
       </div>

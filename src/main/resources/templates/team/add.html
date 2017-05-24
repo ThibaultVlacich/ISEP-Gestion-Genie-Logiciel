@@ -30,7 +30,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                         <fieldset sec:authorize="hasRole('ROLE_TEACHER')">
-                            <legend>Select a Student</legend>
+                            <legend th:text="#{i18n.users.assign}">Select a Student</legend>
                                 <select class="form-control" id="id_student" name="id_student">
                                     <option th:each="student : ${students}" th:id="|student{student.id}|" th:value="${student.id}" th:if="${not student.hasTeam()}">
                                         <span th:remove="tag" th:text="|${student.firstName} ${student.lastName}|"></span>
