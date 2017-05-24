@@ -32,7 +32,7 @@
       <h1 class="text-center" th:text="${team.name}"></h1>
       <div>
         <h3>Membres</h3>
-        <a th:if="${team.members.size() lt team.size}" sec:authorize="hasRole('ROLE_TEACHER')" th:href="@{/team/add(id=${team.id})}" class="btn btn-success"><i class="glyphicon glyphicon-plus-sign"></i> <span th:text="#{i18n.teams.add}">Add</span></a>
+        <a sec:authorize="hasRole('ROLE_TEACHER')" th:href="@{/team/add(id=${team.id})}" class="btn btn-success"><i class="glyphicon glyphicon-plus-sign"></i> <span th:text="#{i18n.teams.add}">Add</span></a>
         <table class="table table-striped">
           <thead>
             <tr>

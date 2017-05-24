@@ -68,10 +68,6 @@ public class TeamController extends GLController {
             return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
         }
 
-        if (team.getValid()) {
-            return new ModelAndView("error/403", HttpStatus.FORBIDDEN);
-        }
-
         user.setTeam(team);
         userRepository.save(user);
 
