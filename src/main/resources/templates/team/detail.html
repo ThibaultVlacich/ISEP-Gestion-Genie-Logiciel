@@ -59,18 +59,18 @@
           </tbody>
         </table>
       </div>
-      <div th:unless="${team.subject} == null">
+      <div>
         <h3 th:text="#{i18n.teams.informations}">Informations on the team</h3>
         <table class="table table-striped">
-          <tr>
+          <tr th:unless="${team.subject} == null">
             <td>Sujet : <a th:href="@{/subject/detail(id=${team.subject.id})}" th:text="${team.subject.name}"></a></td>
             <td th:unless="${team.subject.client} == null">Client : <span th:text="|${team.subject.client.lastName} ${team.subject.client.firstName}"|></span></td>
             <td th:unless="${team.subject.client} == null">Mail : <span th:text="${team.subject.client.mail}"></span></td>
           </tr>
           <tr>
             <td></td>
-            <td th:text="#{i18n.teams.timeLeft}">Time left : <span th:text="${team.timeLeft}"></span></td>
-            <td th:text="#{i18n.teams.mailsLeft}">Mails left : <span th:text="${team.mailsLeft}"></span></td>
+            <td th:text="|#{i18n.teams.timeLeft} : ${team.timeLeft}|">Meeting time left</td>
+            <td th:text="|#{i18n.teams.mailsLeft} : ${team.mailsLeft}|">Mails left</td>
           </tr>
         </table>
       </div>

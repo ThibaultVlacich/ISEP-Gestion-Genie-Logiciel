@@ -83,7 +83,7 @@ public class TeamController extends GLController {
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    public ModelAndView create(@RequestParam("name") String name, @RequestParam("size") Integer size,@RequestParam(value = "id_subject", required = false) Integer id_subject) {
+    public ModelAndView create(@RequestParam("name") String name, @RequestParam("size") Integer size, @RequestParam("numberMails") Integer numberMails, @RequestParam("meetingTime") Integer meetingTime, @RequestParam(value = "id_subject", required = false) Integer id_subject) {
         Team team = new Team();
         team.setName(name);
         team.setSize(size);
@@ -92,8 +92,8 @@ public class TeamController extends GLController {
             team.setSubject(subjectRepository.findById(id_subject));
         }
 
-        team.setMailsLeft(5);
-        team.setTimeLeft(120);
+        team.setMailsLeft(numberMails);
+        team.setTimeLeft(meetingTime);
 
         teamRepository.save(team);
 
@@ -179,9 +179,12 @@ public class TeamController extends GLController {
     }
 
     @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.POST)
-    public ModelAndView edit(@RequestParam("id") Integer id, @RequestParam("name") String name, @RequestParam(value = "id_subject", required = false) Integer id_subject) {
+    public ModelAndView edit(@RequestParam("id") Integer id, @RequestParam("name") String name, @RequestParam("numberMails") Integer numberMails, @RequestParam("meetingTime") Integer meetingTime, @RequestParam(value = "id_subject", required = false) Integer id_subject) {
         Team team = teamRepository.findById(id);
+
         team.setName(name);
+        team.setMailsLeft(numberMails);
+        team.setTimeLeft(meetingTime);
 
         if(id_subject != null){
             team.setSubject(subjectRepository.findById(id_subject));
