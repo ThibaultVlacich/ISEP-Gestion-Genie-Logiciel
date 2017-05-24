@@ -1,7 +1,6 @@
 package edu.isep.genielogiciel.web;
 
 import edu.isep.genielogiciel.models.Appointment;
-import edu.isep.genielogiciel.models.Subject;
 import edu.isep.genielogiciel.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

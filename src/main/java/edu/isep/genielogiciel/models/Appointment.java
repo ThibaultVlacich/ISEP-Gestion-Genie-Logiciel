@@ -3,9 +3,6 @@ package edu.isep.genielogiciel.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
-import java.util.Timer;
 
 /**
  * Created by Boris on 16/05/2017.
