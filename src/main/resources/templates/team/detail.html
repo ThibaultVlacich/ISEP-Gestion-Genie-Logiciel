@@ -63,7 +63,7 @@
         <h3 th:text="#{i18n.teams.informations}">Informations on the team</h3>
         <table class="table table-striped">
           <tr>
-            <td>Sujet : <span th:text="${team.subject.name}"></span></td>
+            <td>Sujet : <a th:href="@{/subject/detail(id=${team.subject.id})}" th:text="${team.subject.name}"></a></td>
             <td th:unless="${team.subject.client} == null">Client : <span th:text="|${team.subject.client.lastName} ${team.subject.client.firstName}"|></span></td>
             <td th:unless="${team.subject.client} == null">Mail : <span th:text="${team.subject.client.mail}"></span></td>
           </tr>

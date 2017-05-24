@@ -60,9 +60,9 @@
             <tbody>
             <tr th:each="team : ${teams}">
                 <td class="text-center" th:text="${team.id}"></td>
-                <td th:text="${team.name}"></td>
+                <td><a th:text="${team.name}" th:href="@{/team/detail(id=${team.id})}"></a></td>
                <td th:unless="${team.subject} == null">
-                   <span th:text="${team.subject.name}" th:remove="tag"></span>
+                   <a th:text="${team.subject.name}" th:href="@{/subject/detail(id=${team.subject.id})}"></a>
                 </td>
                 <td th:if="${team.subject} == null">N/A</td>
                 <td>

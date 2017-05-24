@@ -35,7 +35,7 @@
                 <div class="col-sm-12">
                     <span th:text="|Teams using this subject : |" th:remove="tag"></span>
                     <ul th:unless="${#lists.isEmpty(subject.teams)}">
-                        <li th:each="team : ${subject.teams}"><span th:text="${team.name}" th:remove="tag"></span></li>
+                        <li th:each="team : ${subject.teams}"><a th:text="${team.name}" th:href="@{/team/detail(id=${team.id})}"></a></li>
                     </ul>
                     <span th:if="${#lists.isEmpty(subject.teams)}" th:remove="tag">
                             N/A
