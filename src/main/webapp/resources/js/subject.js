@@ -52,8 +52,8 @@ class Subject extends Common {
 
         let $input = $('<input type="text">');
         $input.addClass('form-control');
-        $input.attr('name', 'functionality['+(this.functionalityCounter-1)+'].name');
-        $input.attr('placeholder', 'Name of the functionality');
+        $input.attr('name', 'functionalities['+(this.functionalityCounter-1)+'].name');
+        $input.attr('placeholder', this.settings.i18n.name);
 
         $functionalityCol.append($input);
 
@@ -64,4 +64,4 @@ class Subject extends Common {
 
 }
 
-let app = new Subject();
+let app = new Subject(typeof settings !== 'undefined' ? settings : {});

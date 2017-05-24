@@ -44,7 +44,8 @@
             </div>
         <div>
             <h3>Description</h3>
-            <p th:text="${subject.description}" th:remove="tag"></p>
+
+            <p th:utext="${subject.description}" th:remove="tag"></p>
         </div>
         <div>
             <h3 th:text="#{i18n.subjects.fonctionalities}">Fonctionalities of the subject</h3>
