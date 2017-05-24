@@ -64,8 +64,8 @@
         <table class="table table-striped">
           <tr>
             <td>Sujet : <span th:text="${team.subject.name}"></span></td>
-            <td>Client :</td>
-            <td>test@isep.fr</td>
+            <td th:unless="${team.subject.client} == null">Client : <span th:text="|${team.subject.client.lastName} ${team.subject.client.firstName}"|></span></td>
+            <td th:unless="${team.subject.client} == null">Mail : <span th:text="${team.subject.client.mail}"></span></td>
           </tr>
           <tr>
             <td></td>

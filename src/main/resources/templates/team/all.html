@@ -52,6 +52,7 @@
             <tr>
                 <th>ID</th>
                 <th>Name of the team</th>
+                <th th:text="#{i18n.teams.subject}">Subject of the team</th>
                 <th>Members</th>
                 <th>Actions</th>
             </tr>
@@ -60,6 +61,10 @@
             <tr th:each="team : ${teams}">
                 <td class="text-center" th:text="${team.id}"></td>
                 <td th:text="${team.name}"></td>
+               <td th:unless="${team.subject} == null">
+                   <span th:text="${team.subject.name}" th:remove="tag"></span>
+                </td>
+                <td th:if="${team.subject} == null">N/A</td>
                 <td>
                     <ul>
                         <li th:each="member : ${team.members}"><span th:text="|${member.firstName} ${member.lastName}|"></span></li>
