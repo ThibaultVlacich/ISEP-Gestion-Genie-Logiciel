@@ -36,6 +36,7 @@
             <tr>
                 <th class="text-center">ID</th>
                 <th th:text="#{i18n.subjects.name}">Name of the subject</th>
+                <th th:text="#{i18n.subjects.client}">Client of the subject</th>
                 <th th:text="#{i18n.subjects.teams}">Teams using this subject</th>
                 <th>Actions</th>
             </tr>
@@ -44,6 +45,8 @@
             <tr th:each="subject : ${subjects}">
                 <td class="text-center" th:text="${subject.id}"></td>
                 <td th:text="${subject.name}"></td>
+                <td th:unless="${subject.client} == null"><span th:text="|${subject.client.lastName} ${subject.client.firstName}|" th:remove="tag"></span></td>
+                <td th:if="${subject.client} == null">N/A</td>
                 <td>
                     <ul th:unless="${#lists.isEmpty(subject.teams)}">
                         <li th:each="team : ${subject.teams}"><span th:text="${team.name}" th:remove="tag"></span></li>
