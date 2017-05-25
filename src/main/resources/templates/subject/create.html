@@ -60,7 +60,16 @@
                     <fieldset>
                         <legend>Functionalities</legend>
 
-                        <div data-functionalities></div>
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th style="width:5%;" th:text="#{i18n.subjects.functionality.priority}">Priority</th>
+                                <th style="width:75%;" th:text="#{i18n.subjects.functionality.name}">Name of the functionality</th>
+                                <th style="width:20%;"></th>
+                            </tr>
+                            </thead>
+                            <tbody data-functionalities></tbody>
+                        </table>
 
                         <a class="btn btn-primary" data-add-functionality>Add a functionality</a>
                     </fieldset>
@@ -69,16 +78,17 @@
         </form>
     </div>
 </div>
-<div layout:fragment="scripts">
+<scripts layout:fragment="scripts">
     <script th:src="@{/public/vendor/ckeditor/ckeditor.js}"></script>
     <script th:inline="javascript">
         var settings = {
             i18n: {
+                name: /*[[#{i18n.subjects.functionality.priority}]]*/,
                 name: /*[[#{i18n.subjects.functionality.name}]]*/
             }
         };
     </script>
     <script th:src="@{/public/js/subject.js}"></script>
-</div>
+</scripts>
 </body>
 </html>

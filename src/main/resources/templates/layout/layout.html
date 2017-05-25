@@ -104,9 +104,9 @@
 </div>
 
 <!-- Load scripts -->
-<div layout:fragment="scripts">
+<scripts layout:fragment="scripts" th:remove="tag">
     <!-- Here it's possible to replace the loaded script -->
     <script th:src="@{/public/js/app.js}"></script>
-</div>
+</scripts>
 </body>
 </html>

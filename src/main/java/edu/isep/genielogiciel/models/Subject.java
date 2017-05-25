@@ -27,6 +27,7 @@ public class Subject {
     private List<Team> teams;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
+    @OrderBy("priority ASC")
     private List<Functionality> functionalities;
 
 }
