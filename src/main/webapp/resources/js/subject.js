@@ -65,9 +65,26 @@ class Subject extends Common {
         });
 
         $('[data-functionalities]').on('click', '[data-functionality-remove]', function (e) {
-            $(e.target).closest('[data-functionality]').remove();
+            let $functionality  = $(e.target).closest('[data-functionality]'),
+                functionalityID = $functionality.find('input[name$="id"]').val();
+
+            if (parseInt(functionalityID) > 0) {
+                let ids         = that.$functionalityContainer.find('input[name="functionalities_to_delete"]').val().split(","),
+                    filteredIds = ids.filter(function (id) {
+                        return isNaN(parseInt(id));
+                    });
+
+                filteredIds.push(functionalityID);
+
+                console.log(filteredIds);
+
+                that.$functionalityContainer.find('input[name="functionalities_to_delete"]').val(filteredIds.join(","));
+            }
+
+            $functionality.remove();
 
             that.reIndexFunctionalities();
+            that.reOrderFunctionalities();
 
             e.preventDefault();
         });
@@ -87,8 +104,10 @@ class Subject extends Common {
         $('[data-functionality]').each(function() {
             let $functionality = $(this);
 
+            $functionality.attr('data-functionality-priority', that.functionalityCounter);
+
             $functionality.find('input[name$="id"]').attr('name', 'functionalities['+(that.functionalityCounter - 1)+'].id');
-            $functionality.find('input[name$="priority"]').attr('name', 'functionalities['+(that.functionalityCounter - 1)+'].priority');
+            $functionality.find('input[name$="priority"]').attr('name', 'functionalities['+(that.functionalityCounter - 1)+'].priority').val(that.functionalityCounter);
             $functionality.find('input[name$="name"]').attr('name', 'functionalities['+(that.functionalityCounter - 1)+'].name');
 
             that.functionalityCounter += 1;
@@ -124,6 +143,8 @@ class Subject extends Common {
 
             $functionality.find('input[name$="priority"]').val($functionality.attr('data-functionality-priority'));
         });
+
+        this.reIndexFunctionalities();
     }
     
     newFunctionality() {

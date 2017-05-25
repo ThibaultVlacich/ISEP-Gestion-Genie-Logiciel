@@ -55,11 +55,16 @@ public class SubjectController extends GLController {
         subjectRepository.save(subject);
 
         if (subjectForm.getFunctionalities() != null) {
+            Integer currentPriority = 1;
+
             for (Functionality functionality : subjectForm.getFunctionalities()) {
                 functionality.setId(null);
+                functionality.setPriority(currentPriority);
                 functionality.setSubject(subject);
 
                 functionalityRepository.save(functionality);
+
+                currentPriority++;
             }
         }
 
@@ -83,7 +88,7 @@ public class SubjectController extends GLController {
     }
 
     @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.POST)
-    private ModelAndView edit(@RequestParam("id") Integer id, @ModelAttribute("subjectForm") SubjectForm subjectForm) {
+    private ModelAndView edit(@RequestParam("id") Integer id, @RequestParam(value = "functionalities_to_delete", required = false) String functionalities_to_delete, @ModelAttribute("subjectForm") SubjectForm subjectForm) {
         Subject subject = subjectRepository.findById(id);
 
         if (subject == null) {
@@ -96,15 +101,35 @@ public class SubjectController extends GLController {
 
         subjectRepository.save(subject);
 
+        if (functionalities_to_delete != null) {
+            String[] funcIds = functionalities_to_delete.split(",");
+
+            for (String funcId : funcIds) {
+                if (funcId.isEmpty())
+                    continue;
+
+                Functionality functionality = functionalityRepository.findById(Integer.parseInt(funcId));
+
+                if (functionality != null)
+                    functionalityRepository.delete(functionality);
+            }
+        }
+
         if (subjectForm.getFunctionalities() != null) {
+            Integer currentPriority = 1;
+
             for (Functionality functionality : subjectForm.getFunctionalities()) {
                 if (functionality.getId() == 0) {
+                    // New functionality
                     functionality.setId(null);
                 }
 
+                functionality.setPriority(currentPriority);
                 functionality.setSubject(subject);
 
                 functionalityRepository.save(functionality);
+
+                currentPriority++;
             }
         }
 
