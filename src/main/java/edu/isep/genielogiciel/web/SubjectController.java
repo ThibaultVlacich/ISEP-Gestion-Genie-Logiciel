@@ -103,7 +103,7 @@ public class SubjectController extends GLController {
                 }
 
                 functionality.setSubject(subject);
-                
+
                 functionalityRepository.save(functionality);
             }
         }
