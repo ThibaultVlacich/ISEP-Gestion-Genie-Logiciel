@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
-    "ckeditor": "^4.6.2",
+    "ckeditor": "^4.7.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1"
   },
