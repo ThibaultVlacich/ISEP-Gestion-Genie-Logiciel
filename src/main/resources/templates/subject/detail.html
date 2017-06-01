@@ -8,7 +8,7 @@
 <div layout:fragment="action-buttons">
     <a th:href="@{/subject/edit(id=${subject.id})}" class="btn btn-default">
         <i class="glyphicon glyphicon-edit"></i>
-        Edit subject
+        <span th:text="#{i18n.subjects.edit}" th:remove="tag">Edit a subject</span>
     </a>
 </div>
 <div layout:fragment="content">

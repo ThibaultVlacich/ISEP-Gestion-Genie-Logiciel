@@ -32,6 +32,7 @@ public class AppointmentController extends GLController {
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_STUDENT')")
     public ModelAndView create(@RequestParam("object") String object, @RequestParam("date") String date, @RequestParam("hours") String hours,@RequestParam("time") String time) {
         Appointment appointment = new Appointment();
         appointment.setObject(object);

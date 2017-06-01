@@ -8,7 +8,7 @@
 <div layout:fragment="action-buttons">
     <a th:href="@{/team/create}" sec:authorize="hasRole('ROLE_TEACHER')" class="btn btn-default">
         <i class="glyphicon glyphicon-plus"></i>
-        Create a team
+        <span th:text="#{i18n.teams.create}" th:remove="tag">Create a team</span>
     </a>
 </div>
 <div layout:fragment="content">
