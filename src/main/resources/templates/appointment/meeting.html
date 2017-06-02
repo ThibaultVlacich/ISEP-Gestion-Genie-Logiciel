@@ -12,7 +12,7 @@
     </a>
     <a class="btn btn-default" data-submit="meeting-appointment-form">
         <i class="glyphicon glyphicon-floppy-disk"></i>
-        <span th:text="#{i18n.miscs.save}">Save</span>
+        <span th:text="#{i18n.miscs.end}">End</span>
     </a>
 </div>
 <div layout:fragment="content">
@@ -29,7 +29,7 @@
         <form id="meeting-appointment-form" th:action="@{/appointment/meeting(id=${appointment.id})}" method="post" class="form form-horizontal">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <input type="hidden" id="timer">
+                    <input type="hidden" name="timer" id="timer">
                     <p id="pTimer"></p>
                     <fieldset>
                         <legend>Details</legend>
@@ -42,7 +42,9 @@
     </div>
 </div>
 <scripts layout:fragment="scripts">
-    <script th:src="@{/public/js/appointement.js}"></script>
+    <script th:src="@{/public/vendor/ckeditor/ckeditor.js}"></script>
+    <script th:src="@{/public/js/appointment.js}"></script>
+    <script th:src="@{/public/js/app.js}"></script>
 </scripts>
 </body>
 </html>

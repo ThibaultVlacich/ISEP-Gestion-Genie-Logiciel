@@ -87,7 +87,7 @@ public class AppointmentController extends GLController {
 
         appointmentRepository.save(appointment);
 
-        return new ModelAndView("team/all");
+        return new ModelAndView("team/detail", "team", team);
     }
 
     @RequestMapping({"/refuse", "/refuse/"})

@@ -6,6 +6,10 @@
 <body>
 
 <div layout:fragment="action-buttons">
+    <a th:href="@{/appointment/all}" class="btn btn-default">
+        <i class="glyphicon glyphicon-remove"></i>
+        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+    </a>
     <a class="btn btn-default" data-submit="create-appointment-form">
         <i class="glyphicon glyphicon-floppy-disk"></i>
         <span th:text="#{i18n.miscs.save}">Save</span>
