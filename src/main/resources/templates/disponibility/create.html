@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='appointment'">
+<body>
+
+<div layout:fragment="action-buttons">
+    <a class="btn btn-default" data-submit="available-appointment-form">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span th:text="#{i18n.miscs.save}">Save</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-appointment app-appointment-available">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/appointment}" th:text="#{i18n.apps.appointment}">appointment</a></li>
+                <li class="active" th:text="#{i18n.appointment.available}">Give your available time</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.appointment.available}">Give your available time</h1>
+        </div>
+
+        <form id="create-appointment-form" th:action="@{/appointment/available}" method="post" class="form form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend>Details</legend>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Lundi</th>
+                                <th>Mardi</th>
+                                <th>Mercredi</th>
+                                <th>Jeudi</th>
+                                <th>Vendredi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <td>
+                                        <label for="Lundi" class="col-sm-2 control-label"><span class="required">*</span> Give your available time for Monday</label>
+                                        <input id="Lundi" name="Lundi" type="text" class="form-control" placeholder="Lundi" value="">
+                                </td>
+                                <td>
+                                        <label for="Mardi" class="col-sm-2 control-label"><span class="required">*</span> Give your available time for Tuesday</label>
+                                        <input id="Mardi" name="Mardi" type="text" class="form-control" placeholder="Mardi" value="">
+                                </td>
+                                <td>
+                                        <label for="Mercredi" class="col-sm-2 control-label"><span class="required">*</span> Give your available time for Wenesday</label>
+                                        <input id="Mercredi" name="Mercredi" type="text" class="form-control" placeholder="Mercredi" value="">
+                                </td>
+                                <td>
+                                        <label for="Jeudi" class="col-sm-2 control-label"><span class="required">*</span> Give your available time for Thursday</label>
+                                        <input id="Jeudi" name="Jeudi" type="text" class="form-control" placeholder="Jeudi" value="">
+                                </td>
+                                <td>
+                                        <label for="Vendredi" class="col-sm-2 control-label"><span class="required">*</span> Give your available time for Friday</label>
+                                        <input id="Vendredi" name="Vendredi" type="text" class="form-control" placeholder="Vendredi" value="">
+                                </td>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
