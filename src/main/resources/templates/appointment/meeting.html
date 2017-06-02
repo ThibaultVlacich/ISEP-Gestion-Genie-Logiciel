@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='appointment'">
+<body>
+
+<div layout:fragment="action-buttons">
+    <a th:href="@{/team/detail(id=${appointment.team.id})}" class="btn btn-default">
+        <i class="glyphicon glyphicon-remove"></i>
+        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+    </a>
+    <a class="btn btn-default" data-submit="meeting-appointment-form">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span th:text="#{i18n.miscs.save}">Save</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-appointment app-appointment-create">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/appointment}" th:text="#{i18n.apps.appointment}">appointment</a></li>
+                <li class="active" th:text="#{i18n.appointment.meeting}">Meeting</li>
+            </ol>
+
+            <h1 class="app-title" th:text="${appointment.team.name}"></h1>
+        </div>
+
+        <form id="meeting-appointment-form" th:action="@{/appointment/meeting(id=${appointment.id})}" method="post" class="form form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <input type="hidden" id="timer">
+                    <p id="pTimer"></p>
+                    <fieldset>
+                        <legend>Details</legend>
+                        <div class="form-group">
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<scripts layout:fragment="scripts">
+    <script th:src="@{/public/js/appointement.js}"></script>
+</scripts>
+</body>
+</html>

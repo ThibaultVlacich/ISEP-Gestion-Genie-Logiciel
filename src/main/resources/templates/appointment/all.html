@@ -27,15 +27,19 @@
     <table class="table table-striped table-hover table-responsive">
         <thead>
         <tr>
-            <th th:text="#{i18n.appointment.object}">Object of the appointment</th>
-            <th th:text="#{i18n.appointment.date}">Date of the appointment</th>
-            <th th:text="#{i18n.appointment.time}">Duration of the appointment</th>
-            <th th:text="#{i18n.appointment.state}">State of the appointment</th>
+            <th th:text="#{i18n.teams}">Team</th>
+            <th th:text="#{i18n.subjects}">Subject</th>
+            <th th:text="#{i18n.appointment.object}">Object</th>
+            <th th:text="#{i18n.appointment.date}">Date</th>
+            <th th:text="#{i18n.appointment.time}">Duration</th>
+            <th th:text="#{i18n.appointment.state}">State</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="appointment : ${appointments}" th:unless="${appointment.state eq 'Refused'}">
+            <td th:text="${appointment.team.name}"></td>
+            <td th:text="${appointment.team.subject.name}"></td>
             <td th:text="${appointment.object}"></td>
             <td th:text="${appointment.date}"></td>
             <td th:text="${appointment.time}"></td>

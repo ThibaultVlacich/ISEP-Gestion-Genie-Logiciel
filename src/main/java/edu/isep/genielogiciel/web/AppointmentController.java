@@ -1,7 +1,9 @@
 package edu.isep.genielogiciel.web;
 
+import edu.isep.genielogiciel.models.Team;
 import edu.isep.genielogiciel.models.Appointment;
 import edu.isep.genielogiciel.repositories.AppointmentRepository;
+import edu.isep.genielogiciel.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,12 +13,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Boris on 16/05/2017.
  */
 @Controller
 @RequestMapping(value = "/appointment")
 public class AppointmentController extends GLController {
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -45,6 +53,43 @@ public class AppointmentController extends GLController {
 
         return new ModelAndView("redirect:/appointment/all");
     }
+
+    @RequestMapping(value = {"/meeting", "/meeting/"}, method = RequestMethod.GET)
+    public ModelAndView meeting(@RequestParam("id") Integer id) {
+
+        Appointment appointment = appointmentRepository.findById(id);
+
+        if (appointment == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("appointment", appointment);
+
+        return new ModelAndView("appointment/meeting", model);
+    }
+
+    @RequestMapping(value = {"/meeting", "/meeting/"}, method = RequestMethod.POST)
+    public ModelAndView meeting(@RequestParam("id") Integer id, @RequestParam("timer") Integer timer) {
+        Appointment appointment = appointmentRepository.findById(id);
+        Team team = appointment.getTeam();
+
+        if (appointment == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        if (team == null) {
+            return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
+        }
+
+        Integer meetingTime = team.getTimeLeft();
+        team.setTimeLeft(meetingTime-timer);
+
+        appointmentRepository.save(appointment);
+
+        return new ModelAndView("team/all");
+    }
+
     @RequestMapping({"/refuse", "/refuse/"})
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     public ModelAndView refuse(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
