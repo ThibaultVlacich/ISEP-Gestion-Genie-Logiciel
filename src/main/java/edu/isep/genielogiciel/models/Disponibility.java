@@ -18,6 +18,7 @@ public class Disponibility {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    private String week;
     private String lundi;
     private String mardi;
     private String mercredi;

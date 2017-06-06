@@ -19,6 +19,7 @@
             <table class="table table-striped table-hover table-responsive">
                 <thead>
                 <tr>
+                    <th th:text="#{i18n.disponibility.week}">Semaine</th>
                     <th th:text="#{i18n.disponibility.lundi}">Lundi</th>
                     <th th:text="#{i18n.disponibility.mardi}">Mardi</th>
                     <th th:text="#{i18n.disponibility.mercredi}">Mercredi</th>
@@ -29,11 +30,28 @@
                 </thead>
                 <tbody>
                     <tr th:each="disponibility : ${disponibilities}">
+                        <td th:text="${disponibility.week}"></td>
                         <td th:text="${disponibility.lundi}"></td>
                         <td th:text="${disponibility.mardi}"></td>
                         <td th:text="${disponibility.mercredi}"></td>
                         <td th:text="${disponibility.jeudi}"></td>
                         <td th:text="${disponibility.vendredi}"></td>
+                        <td>
+                            <div class="btn-group">
+                                <!--<a th:href="@{/subject/details(id=${subject.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>-->
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li>
+                                        <a th:href="@{/disponibility/edit(id=${disponibility.id})}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/disponibility/delete(id=${disponibility.id})}"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
                 </tbody>
             </table>
         </fieldset>
