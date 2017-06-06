@@ -35,6 +35,7 @@ public class AppointmentController extends GLController {
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_STUDENT')")
     public String create() {
         return "appointment/create";
     }
@@ -54,6 +55,7 @@ public class AppointmentController extends GLController {
         return new ModelAndView("redirect:/appointment/all");
     }
 
+    @PreAuthorize("hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT")
     @RequestMapping(value = {"/meeting", "/meeting/"}, method = RequestMethod.GET)
     public ModelAndView meeting(@RequestParam("id") Integer id) {
 
@@ -69,6 +71,7 @@ public class AppointmentController extends GLController {
         return new ModelAndView("appointment/meeting", model);
     }
 
+    @PreAuthorize("hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT")
     @RequestMapping(value = {"/meeting", "/meeting/"}, method = RequestMethod.POST)
     public ModelAndView meeting(@RequestParam("id") Integer id, @RequestParam("timer") Integer timer) {
         Appointment appointment = appointmentRepository.findById(id);
@@ -85,7 +88,11 @@ public class AppointmentController extends GLController {
         Integer meetingTime = team.getTimeLeft();
         team.setTimeLeft(meetingTime-timer);
 
+        appointment.setState("Done");
         appointmentRepository.save(appointment);
+
+        teamRepository.save(team);
+
 
         return new ModelAndView("team/detail", "team", team);
     }
