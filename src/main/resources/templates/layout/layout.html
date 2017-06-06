@@ -49,6 +49,11 @@
                     Mes rendez-vous
                 </a>
             </li>
+            <li th:classappend="${currentApp == 'disponibility'} ? 'active'">
+                <a th:href="@{/disponibility}" class="app-link" th:text="#{i18n.apps.disponibility}">
+                    Mes disponibilités
+                </a>
+            </li>
         </ul>
     </div>
 </div>
