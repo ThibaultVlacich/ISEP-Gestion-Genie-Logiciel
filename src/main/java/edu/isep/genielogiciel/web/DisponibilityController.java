@@ -35,19 +35,19 @@ public class DisponibilityController extends GLController {
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
-    public ModelAndView create(@RequestParam("week") String week, @RequestParam("lundi") String lundi, @RequestParam("mardi") String mardi, @RequestParam("mercredi") String mercredi, @RequestParam("jeudi") String jeudi, @RequestParam("vendredi") String vendredi) {
+    public ModelAndView create(@RequestParam("week") String week, @RequestParam("monday") String monday, @RequestParam("tuesday") String tuesday, @RequestParam("wenesday") String wenesday, @RequestParam("thursday") String thursday, @RequestParam("friday") String friday) {
         Disponibility disponibility = new Disponibility();
 
         disponibility.setWeek(week);
-        disponibility.setLundi(lundi);
-        disponibility.setMardi(mardi);
-        disponibility.setMercredi(mercredi);
-        disponibility.setJeudi(jeudi);
-        disponibility.setVendredi(vendredi);
+        disponibility.setMonday(monday);
+        disponibility.setTuesday(tuesday);
+        disponibility.setWenesday(wenesday);
+        disponibility.setThursday(thursday);
+        disponibility.setFriday(friday);
 
         disponibilityRepository.save(disponibility);
 
-        return new ModelAndView("redirect:/disponibility/all");
+        return new ModelAndView("redirect:/disponibility/all?created");
     }
 
     @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.GET)
@@ -66,19 +66,19 @@ public class DisponibilityController extends GLController {
     }
 
     @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.POST)
-    public ModelAndView edit(@RequestParam("id") Integer id, @RequestParam("week") String week, @RequestParam("lundi") String lundi, @RequestParam("mardi") String mardi, @RequestParam("mercredi") String mercredi, @RequestParam("jeudi") String jeudi, @RequestParam("vendredi") String vendredi) {
+    public ModelAndView edit(@RequestParam("id") Integer id, @RequestParam("week") String week, @RequestParam("monday") String monday, @RequestParam("tuesday") String tuesday, @RequestParam("wenesday") String wenesday, @RequestParam("thursday") String thursday, @RequestParam("friday") String friday) {
         Disponibility disponibility = disponibilityRepository.findById(id);
 
         disponibility.setWeek(week);
-        disponibility.setLundi(lundi);
-        disponibility.setMardi(mardi);
-        disponibility.setMercredi(mercredi);
-        disponibility.setJeudi(jeudi);
-        disponibility.setVendredi(vendredi);
+        disponibility.setMonday(monday);
+        disponibility.setTuesday(tuesday);
+        disponibility.setWenesday(wenesday);
+        disponibility.setThursday(thursday);
+        disponibility.setFriday(friday);
 
         disponibilityRepository.save(disponibility);
 
-        return new ModelAndView("redirect:/disponibility/all");
+        return new ModelAndView("redirect:/disponibility/all?edited");
     }
 
     @RequestMapping({"/delete", "/delete/"})

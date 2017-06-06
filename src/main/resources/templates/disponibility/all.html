@@ -13,6 +13,19 @@
 </div>
 <div layout:fragment="content">
 
+    <div th:if="${param.created}" class="alert alert-success" role="alert">
+        <h4 th:text="#{i18n.disponibility.created}">Disponibility created</h4>
+        <p th:text="#{i18n.disponibility.created.text}">Your disponibility has been created with success.</p>
+    </div>
+    <div th:if="${param.deleted}" class="alert alert-info" role="alert">
+        <h4 th:text="#{i18n.disponibility.deleted}">Disponibility deleted</h4>
+        <p th:text="#{i18n.disponibility.deleted.text}">Your disponibility has been deleted with success.</p>
+    </div>
+    <div th:if="${param.edited}" class="alert alert-info" role="alert">
+        <h4 th:text="#{i18n.disponibility.edited}">Disponibility edited</h4>
+        <p th:text="#{i18n.disponibility.edited.text}">Your disponibility has been edited with success.</p>
+    </div>
+
     <div class="app-head">
         <fieldset>
             <legend> Vos Disponibilités</legend>
@@ -20,22 +33,22 @@
                 <thead>
                 <tr>
                     <th th:text="#{i18n.disponibility.week}">Semaine</th>
-                    <th th:text="#{i18n.disponibility.lundi}">Lundi</th>
-                    <th th:text="#{i18n.disponibility.mardi}">Mardi</th>
-                    <th th:text="#{i18n.disponibility.mercredi}">Mercredi</th>
-                    <th th:text="#{i18n.disponibility.jeudi}">Jeudi</th>
-                    <th th:text="#{i18n.disponibility.vendredi}">Vendredi</th>
+                    <th th:text="#{i18n.disponibility.monday}">Lundi</th>
+                    <th th:text="#{i18n.disponibility.tuesday}">Mardi</th>
+                    <th th:text="#{i18n.disponibility.wenesday}">Mercredi</th>
+                    <th th:text="#{i18n.disponibility.thursday}">Jeudi</th>
+                    <th th:text="#{i18n.disponibility.friday}">Vendredi</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr th:each="disponibility : ${disponibilities}">
                         <td th:text="${disponibility.week}"></td>
-                        <td th:text="${disponibility.lundi}"></td>
-                        <td th:text="${disponibility.mardi}"></td>
-                        <td th:text="${disponibility.mercredi}"></td>
-                        <td th:text="${disponibility.jeudi}"></td>
-                        <td th:text="${disponibility.vendredi}"></td>
+                        <td th:text="${disponibility.monday}"></td>
+                        <td th:text="${disponibility.tuesday}"></td>
+                        <td th:text="${disponibility.wenesday}"></td>
+                        <td th:text="${disponibility.thursday}"></td>
+                        <td th:text="${disponibility.friday}"></td>
                         <td>
                             <div class="btn-group">
                                 <!--<a th:href="@{/subject/details(id=${subject.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>-->

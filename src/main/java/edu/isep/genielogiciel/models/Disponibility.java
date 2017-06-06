@@ -19,9 +19,9 @@ public class Disponibility {
     private Integer id;
 
     private String week;
-    private String lundi;
-    private String mardi;
-    private String mercredi;
-    private String jeudi;
-    private String vendredi;
+    private String monday;
+    private String tuesday;
+    private String wenesday;
+    private String thursday;
+    private String friday;
 }
