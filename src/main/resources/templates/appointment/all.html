@@ -6,7 +6,7 @@
       th:with="currentApp='appointment'">
 <body>
 <div layout:fragment="action-buttons">
-    <a th:href="@{/appointment/create}" class="btn btn-default">
+    <a sec:authorize="hasRole('ROLE_STUDENT')" th:href="@{/appointment/create}" class="btn btn-default">
         <i class="glyphicon glyphicon-plus"></i>
         <span th:text="#{i18n.appointment.create}" th:remove="tag">Create an appointment</span>
     </a>
@@ -38,8 +38,8 @@
         </thead>
         <tbody>
         <tr th:each="appointment : ${appointments}" th:unless="${appointment.state eq 'Refused'}">
-            <td th:text="${appointment.team.name}"></td>
-            <td th:text="${appointment.team.subject.name}"></td>
+            <td><a th:text="${appointment.team.name}" th:href="@{/team/detail(id=${appointment.team.id})}"></a></td>
+            <td><a th:text="${appointment.team.subject.name}" th:href="@{/subject/detail(id=${appointment.team.subject.id})}"></a></td>
             <td th:text="${appointment.object}"></td>
             <td th:text="${appointment.date}"></td>
             <td th:text="${appointment.time}"></td>
@@ -51,10 +51,13 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu pull-right" role="menu">
-                    <li th:unless="${appointment.state eq 'Validated'}">
+                    <li th:unless="${appointment.state eq 'Validated'}" sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
                         <a th:href="@{/appointment/valid(id=${appointment.id})}"><i class="glyphicon glyphicon-ok-sign"></i> Validate</a>
                     </li>
-                    <li th:unless="${appointment.state eq 'Refused'}">
+                    <li th:if="${appointment.state eq 'Validated'}" sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
+                        <a th:href="@{/appointment/meeting(id=${appointment.id})}"><i class="glyphicon glyphicon-play-circle"></i> Start</a>
+                    </li>
+                    <li th:unless="${appointment.state eq 'Refused'}" sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
                         <a th:href="@{/appointment/refuse(id=${appointment.id})}"><i class="glyphicon glyphicon-remove-sign"></i> Remove</a>
                     </li>
                 </ul>
