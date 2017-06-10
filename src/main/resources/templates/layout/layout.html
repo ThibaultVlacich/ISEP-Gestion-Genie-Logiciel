@@ -54,6 +54,11 @@
                     Mes disponibilités
                 </a>
             </li>
+            <li th:classappend="${currentApp == 'deposit'} ? 'active'">
+                <a th:href="@{/deposit}" class="app-link" th:text="#{i18n.apps.deposit}">
+                    Boîte de dépôt
+                </a>
+            </li>
         </ul>
     </div>
 </div>

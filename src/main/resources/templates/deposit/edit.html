@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='deposit'">
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/deposit}" class="btn btn-default">
+        <i class="glyphicon glyphicon-remove"></i>
+        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+    </a>
+
+    <a class="btn btn-default" data-submit="edit-deposit-form">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span th:text="#{i18n.miscs.save}">Save</span>
+    </a>
+</div>
+<div layout:fragment="content">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/deposit}" th:text="#{i18n.apps.deposit}">Deposit</a></li>
+                <li class="active" th:text="#{i18n.deposit.create}">Deposit</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.deposit.create}">Deposit</h1>
+        </div>
+
+        <form id="edit-deposit-form" th:action="@{/deposit/edit(id=${deposit.id})}"  method="post" class="form form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend>Details</legend>
+
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label"><span class="required">*</span> Nom </label>
+                            <div class="col-sm-10">
+                                <input id="name" name="name" type="text" class="form-control" th:value="${deposit.name}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="enddate" class="col-sm-2 control-label"><span class="required">*</span> Date de fin : </label>
+                            <div class="col-sm-10">
+                                <input id="enddate" name="enddate" type="text" class="form-control" th:value="${deposit.enddate}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="objet" class="col-sm-2 control-label"><span class="required">*</span> Objet : </label>
+                            <div class="col-sm-10">
+                                <input id="objet" name="objet" type="text" class="form-control" th:value="${deposit.objet}">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </div>
+            </div>
+        </form>
+</div>
+</body>
+</html>

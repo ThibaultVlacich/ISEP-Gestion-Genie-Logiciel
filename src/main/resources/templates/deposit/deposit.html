@@ -1,0 +1,19 @@
+!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='deposit'">
+<body>
+<div layout:fragment="content">
+    <div class="app-deposit app-deposit-delete">
+
+        <h1 class="text-center">Déposer un document</h1>
+        <div>
+            <object data="data/test.pdf" type="application/pdf" width="300" height="200">
+                alt : <a href="data/test.pdf">test.pdf</a>
+            </object>
+        </div>
+    </div>
+</div>
+</body>
+</html>
