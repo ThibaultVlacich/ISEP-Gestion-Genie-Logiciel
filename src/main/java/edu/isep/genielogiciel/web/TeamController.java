@@ -179,12 +179,18 @@ public class TeamController extends GLController {
     }
 
     @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.POST)
-    public ModelAndView edit(@RequestParam("id") Integer id, @RequestParam("name") String name, @RequestParam("numberMails") Integer numberMails, @RequestParam("meetingTime") Integer meetingTime, @RequestParam(value = "id_subject", required = false) Integer id_subject) {
+    public ModelAndView edit(@RequestParam("id") Integer id, @RequestParam("name") String name, @RequestParam(value = "numberMails", required = false) Integer numberMails, @RequestParam(value = "meetingTime", required = false) Integer meetingTime, @RequestParam(value = "id_subject", required = false) Integer id_subject) {
         Team team = teamRepository.findById(id);
 
         team.setName(name);
-        team.setMailsLeft(numberMails);
-        team.setTimeLeft(meetingTime);
+
+        if(numberMails != null){
+            team.setMailsLeft(numberMails);
+        }
+
+        if(meetingTime != null){
+            team.setTimeLeft(meetingTime);
+        }
 
         if(id_subject != null){
             team.setSubject(subjectRepository.findById(id_subject));
