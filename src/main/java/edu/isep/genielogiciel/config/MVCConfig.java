@@ -1,7 +1,9 @@
 package edu.isep.genielogiciel.config;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @EnableJpaRepositories("edu.isep.genielogiciel.*")
 @ComponentScan(basePackages = { "edu.isep.genielogiciel.*" })
 @EntityScan("edu.isep.genielogiciel.*")
+@EnableConfigurationProperties(StorageProperties.class)
 public class MVCConfig implements WebMvcConfigurer {
 
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
@@ -46,7 +49,13 @@ public class MVCConfig implements WebMvcConfigurer {
 
         return lci;
     }
-
+    @Bean
+	CommandLineRunner init(StorageService storageService) {
+		return (args) -> {
+            storageService.deleteAll();
+            storageService.init();
+		};
+	}
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());

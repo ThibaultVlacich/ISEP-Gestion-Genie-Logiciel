@@ -9,3 +9,6 @@ spring.session.store-type=jdbc
 
 logging.level.org.springframework.web=ERROR
 logging.level.org.hibernate=ERROR
+
+spring.http.multipart.max-file-size=128KB
+spring.http.multipart.max-request-size=128KB
