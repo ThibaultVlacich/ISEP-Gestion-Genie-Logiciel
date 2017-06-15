@@ -23,6 +23,7 @@ elixir(mix => {
     mix.sass('app.scss')
         // Compile main JS file
         .browserify('app.js')
+        .browserify('appointment.js')
         .browserify('user.js')
         .browserify('subject.js')
         // Optimize then copy image files to the public dir

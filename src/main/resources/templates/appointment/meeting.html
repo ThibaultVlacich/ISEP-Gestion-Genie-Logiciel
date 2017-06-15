@@ -7,12 +7,12 @@
 
 <div layout:fragment="action-buttons">
     <a th:href="@{/team/detail(id=${appointment.team.id})}" class="btn btn-default">
-        <i class="glyphicon glyphicon-remove"></i>
-        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+        <i class="glyphicon glyphicon-arrow-left"></i>
+        <span th:text="#{i18n.miscs.back}">Back</span>
     </a>
     <a class="btn btn-default" data-submit="meeting-appointment-form">
         <i class="glyphicon glyphicon-floppy-disk"></i>
-        <span th:text="#{i18n.miscs.end}">End</span>
+        <span th:text="#{i18n.miscs.save}">Save</span>
     </a>
 </div>
 <div layout:fragment="content">
@@ -26,15 +26,43 @@
             <h1 class="app-title" th:text="${appointment.team.name}"></h1>
         </div>
 
-        <form id="meeting-appointment-form" th:action="@{/appointment/meeting(id=${appointment.id})}" method="post" class="form form-horizontal">
+        <form id="meeting-appointment-form" th:action="@{/appointment/meeting(id=${appointment.id})}" method="post" class="form">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <input type="hidden" name="timer" id="timer">
-                    <p id="pTimer"></p>
                     <fieldset>
-                        <legend>Details</legend>
-                        <div class="form-group">
+                        <legend th:text="#{i18n.appointment.management}">Management of the appointment</legend>
+
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label>Appointment duration:</label>
+                                <input type="text" class="form-control" style="width: 100px;" disabled data-timer-text>
+                                <input type="hidden" name="timer" data-timer>
+                            </div>
+                            <button class="btn btn-success" data-start-timer><i class="glyphicon glyphicon-play"></i> Start timer</button>
+                            <button class="btn btn-danger" disabled data-stop-timer><i class="glyphicon glyphicon-stop"></i> Stop timer</button>
                         </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend th:text="#{i18n.teams.members}">Team Members</legend>
+
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th th:text="#{i18n.appointment.present}" class="text-center" style="width: 10%;">Present?</th>
+                                <th th:text="#{i18n.admin.users.fullName}" style="width: 90%;"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="member : ${appointment.team.members}">
+                                <td class="text-center"><input type="checkbox" th:name="|member[${member.id}].present|"></td>
+                                <td th:text="|${member.firstName} ${member.lastName}|"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </fieldset>
                 </div>
             </div>
@@ -44,7 +72,6 @@
 <scripts layout:fragment="scripts">
     <script th:src="@{/public/vendor/ckeditor/ckeditor.js}"></script>
     <script th:src="@{/public/js/appointment.js}"></script>
-    <script th:src="@{/public/js/app.js}"></script>
 </scripts>
 </body>
 </html>
