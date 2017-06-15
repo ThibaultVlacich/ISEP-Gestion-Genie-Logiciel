@@ -17,6 +17,10 @@
         <h4 th:text="#{i18n.deposit.created}">Deposit box created</h4>
         <p th:text="#{i18n.deposit.created.text}">Deposit box has been created with success.</p>
     </div>
+    <div th:if="${param.validated}" class="alert alert-success" role="alert">
+        <h4 th:text="#{i18n.deposit.closed}">Box of deposit closed</h4>
+        <p th:text="#{i18n.deposit.closed.text}">The box of deposit has been closed with success.</p>
+    </div>
 
     <div class="app-head">
         <fieldset>
@@ -28,6 +32,7 @@
                     <th>Objet</th>
                     <th>Auteur</th>
                     <th>Date</th>
+                    <th>Etat</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -37,6 +42,7 @@
                     <td th:text="${deposit.objet}"></td>
                     <td></td>
                     <td th:text="${deposit.enddate}"></td>
+                    <td th:text="${deposit.state}"></td>
                     <td>
                         <div class="btn-group">
                             <a th:href="@{/deposit/detail(id=${deposit.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>
@@ -47,8 +53,11 @@
                                 <li>
                                     <a th:href="@{/deposit/deposit(id=${deposit.id})}"><i class="glyphicon glyphicon-file"></i> Déposer un document</a>
                                 </li>
-                                <li>
-                                    <a th:href="@{/deposit/edit(id=${deposit.id})}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                                <li sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
+                                    <a th:href="@{/deposit/edit(id=${deposit.id})}"><i class="glyphicon glyphicon-edit" ></i> Edit</a>
+                                </li>
+                                <li sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
+                                    <a th:href="@{/deposit/close(id=${deposit.id})}"><i class="glyphicon glyphicon-folder-close"></i> Fermer la boîte de dépôt</a>
                                 </li>
                             </ul>
                         </div>
@@ -80,7 +89,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">
-                                <li>
+                                <li sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
                                     <a th:href="@{/deposit/delete(id=${deposit.id})}"><i class="glyphicon glyphicon-trash"></i> Supprimer</a>
                                 </li>
                             </ul>
