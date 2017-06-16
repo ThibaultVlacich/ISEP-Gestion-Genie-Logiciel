@@ -18,9 +18,10 @@
                 <th>Comment</th>
                 <th>Date</th>
                 <th>Added by</th>
-              
+                            <th>Post</th>
 
-            </tr>
+
+                        </tr>
              </thead>
             <tbody>
             <tr th:each="comment : ${comments}">
@@ -28,8 +29,9 @@
                 <td th:text="${comment.commentText}"> Content </td>
                 <td th:text="${comment.dateTime}">Date</td>
                 <td th:text="${comment.user.login}">Added by</td>
-                
-        		<td>
+                <td th:text="${comment.post.titre}">Post</td>
+
+                <td>
                 <a th:href="@{/comment/delete(id=${comment.id})}"><i class="glyphicon glyphicon-trash"></i> Delete</a>
                 </td>
           

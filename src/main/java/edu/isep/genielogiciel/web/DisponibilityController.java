@@ -4,6 +4,7 @@ import edu.isep.genielogiciel.models.Disponibility;
 import edu.isep.genielogiciel.repositories.DisponibilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,11 +29,13 @@ public class DisponibilityController extends GLController {
         return new ModelAndView("disponibility/all", "disponibilities", disponibilityRepository.findAll());
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_CLIENT')")
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.GET)
     public String create() {
         return "disponibility/create";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_CLIENT')")
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
     public ModelAndView create(@RequestParam("week") String week, @RequestParam("monday") String monday, @RequestParam("tuesday") String tuesday, @RequestParam("wednesday") String wednesday, @RequestParam("thursday") String thursday, @RequestParam("friday") String friday) {
         Disponibility disponibility = new Disponibility();
@@ -49,6 +52,7 @@ public class DisponibilityController extends GLController {
         return new ModelAndView("redirect:/disponibility/all?created");
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_CLIENT')")
     @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam("id") Integer id) {
 
@@ -64,6 +68,7 @@ public class DisponibilityController extends GLController {
         return new ModelAndView("disponibility/edit", model);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_CLIENT')")
     @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.POST)
     public ModelAndView edit(@RequestParam("id") Integer id, @RequestParam("week") String week, @RequestParam("monday") String monday, @RequestParam("tuesday") String tuesday, @RequestParam("wenesday") String wenesday, @RequestParam("thursday") String thursday, @RequestParam("friday") String friday) {
         Disponibility disponibility = disponibilityRepository.findById(id);
@@ -80,6 +85,7 @@ public class DisponibilityController extends GLController {
         return new ModelAndView("redirect:/disponibility/all?edited");
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_CLIENT')")
     @RequestMapping({"/delete", "/delete/"})
     private ModelAndView delete(@RequestParam("id") Integer id, @RequestParam(value = "confirm", required = false) Boolean confirm) {
         Disponibility disponibility = disponibilityRepository.findById(id);

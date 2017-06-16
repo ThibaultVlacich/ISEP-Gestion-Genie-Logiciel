@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:with="currentApp='disponibility'">
 <body>
 <div layout:fragment="action-buttons">
-    <a th:href="@{/disponibility/create}" class="btn btn-default">
+    <a th:href="@{/disponibility/create}" class="btn btn-default" sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
         <i class="glyphicon glyphicon-plus"></i>
         <span th:text="#{i18n.disponibility.create}" th:remove="tag">Give your available time</span>
     </a>
@@ -27,7 +28,7 @@
 
     <div class="app-head">
         <fieldset>
-            <legend> Vos Disponibilités</legend>
+            <legend> Vos Disponibilités possibles</legend>
             <table class="table table-striped table-hover table-responsive">
                 <thead>
                 <tr>
