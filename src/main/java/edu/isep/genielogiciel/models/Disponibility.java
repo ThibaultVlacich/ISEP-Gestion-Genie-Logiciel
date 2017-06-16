@@ -21,7 +21,7 @@ public class Disponibility {
     private String week;
     private String monday;
     private String tuesday;
-    private String wenesday;
+    private String wednesday;
     private String thursday;
     private String friday;
 }

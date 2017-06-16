@@ -7,7 +7,17 @@ class Appointment extends Common {
     constructor(options) {
         super(options);
 
+        this.initCKEDITOR();
         this.initTimer();
+    }
+
+    initCKEDITOR() {
+        if (typeof CKEDITOR === "undefined") {
+            // CKEDITOR has not been loaded
+            return;
+        }
+
+        CKEDITOR.replace('comment');
     }
 
     initTimer() {

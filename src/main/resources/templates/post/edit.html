@@ -10,10 +10,10 @@
         <div class="app-head">
             <ol class="app-breadcrumb breadcrumb">
                 <li><a th:href="@{/post}" th:text="#{i18n.apps.posts}">Posts</a></li>
-                <li class="active" >Edit a post</li>
+                <li class="active" th:text="#{i18n.posts.edit}">Edit a post</li>
             </ol>
 
-            <h1 class="app-title">Edit a post</h1>
+            <h1 class="app-title" th:text="#{i18n.posts.edit}">Edit a post</h1>
         </div>
 
         <form id="create-post-form" th:action="@{/post/edit(id=${post.id})}" method="post" class="form form-horizontal">

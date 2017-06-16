@@ -34,13 +34,13 @@ public class DisponibilityController extends GLController {
     }
 
     @RequestMapping(value = {"/create", "/create/"}, method = RequestMethod.POST)
-    public ModelAndView create(@RequestParam("week") String week, @RequestParam("monday") String monday, @RequestParam("tuesday") String tuesday, @RequestParam("wenesday") String wenesday, @RequestParam("thursday") String thursday, @RequestParam("friday") String friday) {
+    public ModelAndView create(@RequestParam("week") String week, @RequestParam("monday") String monday, @RequestParam("tuesday") String tuesday, @RequestParam("wednesday") String wednesday, @RequestParam("thursday") String thursday, @RequestParam("friday") String friday) {
         Disponibility disponibility = new Disponibility();
 
         disponibility.setWeek(week);
         disponibility.setMonday(monday);
         disponibility.setTuesday(tuesday);
-        disponibility.setWenesday(wenesday);
+        disponibility.setWednesday(wednesday);
         disponibility.setThursday(thursday);
         disponibility.setFriday(friday);
 
@@ -71,7 +71,7 @@ public class DisponibilityController extends GLController {
         disponibility.setWeek(week);
         disponibility.setMonday(monday);
         disponibility.setTuesday(tuesday);
-        disponibility.setWenesday(wenesday);
+        disponibility.setWednesday(wenesday);
         disponibility.setThursday(thursday);
         disponibility.setFriday(friday);
 

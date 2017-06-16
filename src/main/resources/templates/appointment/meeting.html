@@ -91,11 +91,26 @@
                     </fieldset>
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend th:text="#{i18n.appointment.meeting.comment}">Comment</legend>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea id="comment" name="comment" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+
+
         </form>
     </div>
 </div>
 <scripts layout:fragment="scripts">
-    <script th:src="@{/public/js/subject.js}"></script>
     <script th:src="@{/public/vendor/ckeditor/ckeditor.js}"></script>
     <script th:src="@{/public/js/appointment.js}"></script>
 </scripts>

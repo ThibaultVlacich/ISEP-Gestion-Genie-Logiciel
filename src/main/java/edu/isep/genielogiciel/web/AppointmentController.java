@@ -73,7 +73,7 @@ public class AppointmentController extends GLController {
 
     @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_CLIENT')")
     @RequestMapping(value = {"/meeting", "/meeting/"}, method = RequestMethod.POST)
-    public ModelAndView meeting(@RequestParam("id") Integer id, @RequestParam("timer") Integer timer) {
+    public ModelAndView meeting(@RequestParam("id") Integer id, @RequestParam("timer") Integer timer, @RequestParam("comment") String comment) {
         Appointment appointment = appointmentRepository.findById(id);
         Team team = appointment.getTeam();
 
@@ -84,6 +84,8 @@ public class AppointmentController extends GLController {
         if (team == null) {
             return new ModelAndView("error/404", HttpStatus.NOT_FOUND);
         }
+
+        appointment.setComment(comment);
 
         Integer meetingTime = team.getTimeLeft();
         team.setTimeLeft(meetingTime-timer);

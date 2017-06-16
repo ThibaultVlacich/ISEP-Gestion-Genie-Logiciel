@@ -24,5 +24,7 @@ public class Appointment {
     private String hours;
     private String time;
     private String state="Waiting";
+    private String comment;
+
 
 }

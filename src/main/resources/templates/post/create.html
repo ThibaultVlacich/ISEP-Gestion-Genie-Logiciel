@@ -4,13 +4,13 @@
       layout:decorate="~{layout/layout}"
       th:with="currentApp='post'">
 <head>
-    <title>Post form</title>
+    <title th:text="#{i18n.posts.form}">Post form</title>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="app-post app-post-create">
         <form id="create-post-form" th:action="@{/post/create}" method="post" class="form form-horizontal">
-            <h1 class="app-title">Create a post</h1>
+            <h1 class="app-title" th:text="#{i18n.posts.create}">Create a post</h1>
             <div class="panel panel-default">
                 <div class="panel-body">
                     <fieldset>
