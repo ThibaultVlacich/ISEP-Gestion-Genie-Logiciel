@@ -66,10 +66,36 @@
                     </fieldset>
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend th:text="#{i18n.subjects.fonctionalities}">Subject Functionalities</legend>
+
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th th:text="#{i18n.subjects.functionality.found}" class="text-center" style="width: 10%;">Functionalities</th>
+                                <th th:text="#{i18n.subjects.functionality.name}" style="width: 60%;"></th>
+                                <th th:text="#{i18n.subjects.functionality.priority}" style="width: 30%;"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="functionality : ${appointment.team.subject.functionalities}">
+                                <td class="text-center"><input type="checkbox" th:name="|functionality[${functionality.id}]|"></td>
+                                <td th:text="${functionality.name}"></td>
+                                <td th:text="${functionality.priority}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
         </form>
     </div>
 </div>
 <scripts layout:fragment="scripts">
+    <script th:src="@{/public/js/subject.js}"></script>
     <script th:src="@{/public/vendor/ckeditor/ckeditor.js}"></script>
     <script th:src="@{/public/js/appointment.js}"></script>
 </scripts>
