@@ -59,6 +59,11 @@
                     Boîte de dépôt
                 </a>
             </li>
+            <li th:classappend="${currentApp == 'post'} ? 'active'">
+                <a th:href="@{/post}" class="app-link" th:text="#{i18n.apps.posts}">
+                    Posts
+                </a>
+            </li>
         </ul>
     </div>
 </div>

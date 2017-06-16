@@ -1,6 +1,7 @@
 package edu.isep.genielogiciel.web;
 
-import edu.isep.genielogiciel.models.*;
+import edu.isep.genielogiciel.models.Deposit;
+import edu.isep.genielogiciel.models.User;
 import edu.isep.genielogiciel.repositories.DepositRepository;
 import edu.isep.genielogiciel.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

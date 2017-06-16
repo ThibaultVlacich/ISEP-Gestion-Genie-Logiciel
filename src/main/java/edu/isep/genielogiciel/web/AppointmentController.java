@@ -1,7 +1,7 @@
 package edu.isep.genielogiciel.web;
 
-import edu.isep.genielogiciel.models.Team;
 import edu.isep.genielogiciel.models.Appointment;
+import edu.isep.genielogiciel.models.Team;
 import edu.isep.genielogiciel.repositories.AppointmentRepository;
 import edu.isep.genielogiciel.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
 package edu.isep.genielogiciel.web;
 
 import edu.isep.genielogiciel.models.Disponibility;
-import edu.isep.genielogiciel.models.Team;
 import edu.isep.genielogiciel.repositories.DisponibilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
