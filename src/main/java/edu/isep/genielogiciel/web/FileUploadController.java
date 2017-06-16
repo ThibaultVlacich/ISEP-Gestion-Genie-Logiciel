@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * Created by Apeksha on 14/06/2017.
  */
 @Controller
+@RequestMapping("/files")
 public class FileUploadController {
 
     private final StorageService storageService;
@@ -28,7 +29,7 @@ public class FileUploadController {
         this.storageService = storageService;
     }
 
-    @GetMapping("/")
+    @RequestMapping("/")
     public String listUploadedFiles(Model model) throws IOException {
 
         model.addAttribute("files", storageService
@@ -42,7 +43,7 @@ public class FileUploadController {
         return "uploadForm";
     }
 
-    @GetMapping("/files/{filename:.+}")
+    @RequestMapping("/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
@@ -53,7 +54,7 @@ public class FileUploadController {
                 .body(file);
     }
 
-    @PostMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
