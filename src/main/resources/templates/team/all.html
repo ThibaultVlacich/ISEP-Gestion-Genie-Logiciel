@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='team'">
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/team/create}" sec:authorize="hasRole('ROLE_TEACHER')" class="btn btn-default">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span th:text="#{i18n.teams.create}" th:remove="tag">Create a team</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-team app-team-index">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/team}" th:text="#{i18n.apps.teams}">Teams</a></li>
+                <li class="active" th:text="#{i18n.teams.list}">Teams list</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.teams.list}">Teams list</h1>
+        </div>
+
+        <div th:if="${param.deleted}" class="alert alert-info" role="alert">
+            <h4 th:text="#{i18n.teams.deleted}">Team deleted</h4>
+            <p th:text="#{i18n.teams.deleted.text}">The team has been deleted with success.</p>
+        </div>
+
+        <div th:if="${param.created}" class="alert alert-success" role="alert">
+            <h4 th:text="#{i18n.teams.created}">Team created</h4>
+            <p th:text="#{i18n.teams.created.text}">The team has been created with success.</p>
+        </div>
+
+        <div th:if="${param.registered}" class="alert alert-success" role="alert">
+            <h4 th:text="#{i18n.teams.registered}">Registered to the team</h4>
+            <p th:text="#{i18n.teams.registered.text}">You've been registered to the team with success.</p>
+        </div>
+
+        <div th:if="${param.validated}" class="alert alert-success" role="alert">
+            <h4 th:text="#{i18n.teams.validated}">Team validated</h4>
+            <p th:text="#{i18n.teams.validated.text}">The team has been created with success.</p>
+        </div>
+
+        <div th:if="${param.leaved}" class="alert alert-success" role="alert">
+            <h4 th:text="#{i18n.teams.leaved}">Leaved the team</h4>
+            <p th:text="#{i18n.teams.leaved.text}">You've leaved the team with success.</p>
+        </div>
+
+        <table class="table table-striped table-hover table-responsive">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th th:text="#{i18n.teams.name}">Name of the team</th>
+                <th th:text="#{i18n.teams.subject}">Subject of the team</th>
+                <th th:text="#{i18n.teams.members}">Members</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="team : ${teams}">
+                <td class="text-center" th:text="${team.id}"></td>
+                <td><a th:text="${team.name}" th:href="@{/team/detail(id=${team.id})}"></a></td>
+               <td th:unless="${team.subject} == null">
+                   <a th:text="${team.subject.name}" th:href="@{/subject/detail(id=${team.subject.id})}"></a>
+                </td>
+                <td th:if="${team.subject} == null">N/A</td>
+                <td>
+                    <ul>
+                        <li th:each="member : ${team.members}"><span th:text="|${member.firstName} ${member.lastName}|"></span></li>
+                    </ul>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <div th:unless="${team.valid}" th:remove="tag">
+                            <a th:if="${team.members.size() lt team.size and not currentUser.hasTeam()}" th:href="@{/team/register(id=${team.id})}" sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> <span th:text="#{i18n.teams.register}" th:remove="tag">Register to the team</span></a>
+                            <a th:if="${currentUser.hasTeam() and currentUser.team.id eq team.id}" th:href="@{/team/leave(id=${team.id})}" sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-minus"></i> <span th:text="#{i18n.teams.leave}" th:remove="tag">Leave the team</span></a>
+                        </div>
+                        <a th:href="@{/team/detail(id=${team.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" sec:authorize="hasRole('ROLE_TEACHER')">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu" sec:authorize="hasRole('ROLE_TEACHER')">
+                            <li th:unless="${team.valid}">
+                                <a th:href="@{/team/valid(id=${team.id})}"><i class="glyphicon glyphicon-ok"></i> <span th:text="#{i18n.miscs.validate}">Validate</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/team/delete(id=${team.id})}"><i class="glyphicon glyphicon-trash"></i> <span th:text="#{i18n.miscs.delete}">Delete</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

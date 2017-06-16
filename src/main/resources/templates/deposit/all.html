@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='deposit'">
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/deposit/create}" class="btn btn-default">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span th:text="#{i18n.deposit.create}" th:remove="tag">Create a deposit box</span>
+    </a>
+</div>
+<div layout:fragment="content">
+
+    <div th:if="${param.created}" class="alert alert-success" role="alert">
+        <h4 th:text="#{i18n.deposit.created}">Deposit box created</h4>
+        <p th:text="#{i18n.deposit.created.text}">Deposit box has been created with success.</p>
+    </div>
+    <div th:if="${param.validated}" class="alert alert-success" role="alert">
+        <h4 th:text="#{i18n.deposit.closed}">Box of deposit closed</h4>
+        <p th:text="#{i18n.deposit.closed.text}">The box of deposit has been closed with success.</p>
+    </div>
+
+    <div class="app-head">
+        <fieldset>
+            <legend> Boîtes de dépôt ouvertes</legend>
+            <table class="table table-striped table-hover table-responsive">
+                <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Objet</th>
+                    <th>Auteur</th>
+                    <th>Date</th>
+                    <th>Etat</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="deposit : ${deposits}">
+                    <td th:text="${deposit.id}"></td>
+                    <td th:text="${deposit.objet}"></td>
+                    <td></td>
+                    <td th:text="${deposit.enddate}"></td>
+                    <td th:text="${deposit.state}"></td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/deposit/detail(id=${deposit.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a th:href="@{/deposit/deposit(id=${deposit.id})}"><i class="glyphicon glyphicon-file"></i> Déposer un document</a>
+                                </li>
+                                <li sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
+                                    <a th:href="@{/deposit/edit(id=${deposit.id})}"><i class="glyphicon glyphicon-edit" ></i> Edit</a>
+                                </li>
+                                <li sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
+                                    <a th:href="@{/deposit/close(id=${deposit.id})}"><i class="glyphicon glyphicon-folder-close"></i> Fermer la boîte de dépôt</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend> Boîtes de dépôt fermées</legend>
+            <table class="table table-striped table-hover table-responsive">
+                <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Objet</th>
+                    <th>Auteur</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="deposit : ${deposits}">
+                    <td th:text="${deposit.id}"></td>
+                    <td th:text="${deposit.objet}"></td>
+                    <td></td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/deposit/detail(id=${deposit.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
+                                    <a th:href="@{/deposit/delete(id=${deposit.id})}"><i class="glyphicon glyphicon-trash"></i> Supprimer</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>
+</body>
+</html>

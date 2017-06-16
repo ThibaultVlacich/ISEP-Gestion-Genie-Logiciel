@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='post'">
+<body>
+
+<div layout:fragment="content">
+    <div class="app-post app-post-create">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/post}" th:text="#{i18n.apps.posts}">Posts</a></li>
+                <li class="active" th:text="#{i18n.posts.edit}">Edit a post</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.posts.edit}">Edit a post</h1>
+        </div>
+
+        <form id="create-post-form" th:action="@{/post/edit(id=${post.id})}" method="post" class="form form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend>Description</legend>
+
+                        <div class="form-group">
+                            <label for="titre" class="col-sm-2 control-label"><span class="required">*</span> Title of the post</label>
+                            <div class="col-sm-10 col-lg-5">
+                                <input id="titre" name="titre" type="text" class="form-control" th:value="${post.titre}">
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label"><span class="required">*</span> Description</label>
+                            <div class="col-sm-10">
+                                <textarea id="description" name="description" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="topic" class="col-sm-2 control-label"><span class="required">*</span> Topic</label>
+                            <div class="col-sm-10">
+                                <input id="topic" name="topic" type="text" class="form-control"  th:value="${post.topic}">
+                            </div>
+                        </div>
+
+                   </fieldset>
+                </div>
+            </div>
+            
+            <a th:href="@{/post}" class="btn btn-default">
+        <i class="glyphicon glyphicon-remove"></i>
+        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+    </a>
+    
+                    <button type="submit" class="btn btn-success" data-submit="create-post-form">Save</button>
+
+    
+        </form>
+    </div>
+</div>
+</body>
+</html>

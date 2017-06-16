@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title th:text="#{i18n.title}">ISEP - Software Engineering</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" th:href="@{/public/images/icons/apple-touch-icon-57x57.png}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" th:href="@{/public/images/icons/apple-touch-icon-114x114.png}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/public/images/icons/apple-touch-icon-72x72.png}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" th:href="@{/public/images/icons/apple-touch-icon-144x144.png}" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" th:href="@{/public/images/icons/apple-touch-icon-120x120.png}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" th:href="@{/public/images/icons/apple-touch-icon-152x152.png}" />
+    <link rel="icon" type="image/png" th:href="@{/public/images/icons/favicon-32x32.png}" sizes="32x32" />
+    <link rel="icon" type="image/png" th:href="@{/public/images/icons/favicon-16x16.png}" sizes="16x16" />
+
+    <link th:href="@{/public/css/app.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="col-menu">
+    <div class="col-menu-inner">
+        <div class="top-logo">
+            <a th:href="@{/}">
+                <img th:src="@{/public/images/logo-isep.png}" srcset="/public/images/logo-isep.png 1x, /public/images/logo-isep@2x.png 2x" alt="ISEP Logo">
+            </a>
+        </div>
+
+        <ul sec:authorize="isAuthenticated()" class="apps-menu">
+            <li th:classappend="${currentApp == 'board'} ? 'active'">
+                <a th:href="@{/}" class="app-link" th:text="#{i18n.apps.board}">
+                    Board
+                </a>
+            </li>
+            <li th:classappend="${currentApp == 'team'} ? 'active'">
+                <a th:href="@{/team}" class="app-link" th:text="#{i18n.apps.teams}">
+                    Teams
+                </a>
+            </li>
+            <li th:classappend="${currentApp == 'subject'} ? 'active'">
+                <a th:href="@{/subject}" class="app-link" th:text="#{i18n.apps.subjects}">
+                    Subjects
+                </a>
+            </li>
+            <li th:classappend="${currentApp == 'appointment'} ? 'active'">
+                <a th:href="@{/appointment}" class="app-link" th:text="#{i18n.apps.appointment}">
+                    Mes rendez-vous
+                </a>
+            </li>
+            <li th:classappend="${currentApp == 'disponibility'} ? 'active'">
+                <a th:href="@{/disponibility}" class="app-link" th:text="#{i18n.apps.disponibility}">
+                    Mes disponibilités
+                </a>
+            </li>
+            <li th:classappend="${currentApp == 'deposit'} ? 'active'">
+                <a th:href="@{/deposit}" class="app-link" th:text="#{i18n.apps.deposit}">
+                    Boîte de dépôt
+                </a>
+            </li>
+            <li th:classappend="${currentApp == 'post'} ? 'active'">
+                <a th:href="@{/post}" class="app-link" th:text="#{i18n.apps.posts}">
+                    Posts
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="col-content">
+    <header class="page-head">
+        <div class="toolbar-box">
+            <button id="menu-toggle" title="Menu" class="btn btn-default hidden-lg hidden-md"><i class="glyphicon glyphicon-menu-hamburger"></i></button>
+
+            <div layout:fragment="action-buttons" th:remove="tag"></div>
+        </div>
+
+        <div class="pull-right">
+            <div class="userbox">
+                <div sec:authorize="isAuthenticated()" class="btn-group">
+                    <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span sec:authentication="principal">User name</span> <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li sec:authorize="hasRole('ROLE_TEACHER')">
+                            <a th:href="@{/admin}" class="btn btn-link"><i class="glyphicon glyphicon-cog"></i> <span th:text="#{i18n.apps.admin}" th:remove="tag">Administration</span></a>
+                        </li>
+                        <li>
+                            <form method="post" th:action="@{/user/logout}">
+                                <button type="submit" class="btn btn-link"><i class="glyphicon glyphicon-log-out"></i> <span th:text="#{i18n.miscs.logout}" th:remove="tag">Administration</span></button>
+                            </form>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a th:href="@{/(lang=fr)}" class="btn btn-link"><img th:src="@{/public/images/flags/french.png}" height="14" alt="Français"> Français</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/(lang=en)}" class="btn btn-link"><img th:src="@{/public/images/flags/english.png}" height="14" alt="English"> English</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="app-content" layout:fragment="content">
+            <!-- This is a placeholder -->
+            <p>Page content goes here</p>
+        </div>
+
+        <footer class="app-footer">
+            <hr />
+            <p>&copy; ISEP 2017</p>
+        </footer>
+    </div>
+</div>
+
+<!-- Load scripts -->
+<scripts layout:fragment="scripts" th:remove="tag">
+    <!-- Here it's possible to replace the loaded script -->
+    <script th:src="@{/public/js/app.js}"></script>
+</scripts>
+</body>
+</html>

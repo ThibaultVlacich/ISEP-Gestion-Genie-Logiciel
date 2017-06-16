@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='appointment'">
+<body>
+
+<div layout:fragment="action-buttons">
+    <a th:href="@{/team/detail(id=${appointment.team.id})}" class="btn btn-default">
+        <i class="glyphicon glyphicon-arrow-left"></i>
+        <span th:text="#{i18n.miscs.back}">Back</span>
+    </a>
+    <a class="btn btn-default" data-submit="meeting-appointment-form">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span th:text="#{i18n.miscs.save}">Save</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-appointment app-appointment-create">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/appointment}" th:text="#{i18n.apps.appointment}">appointment</a></li>
+                <li class="active" th:text="#{i18n.appointment.meeting}">Meeting</li>
+            </ol>
+
+            <h1 class="app-title" th:text="${appointment.team.name}"></h1>
+        </div>
+
+        <form id="meeting-appointment-form" th:action="@{/appointment/meeting(id=${appointment.id})}" method="post" class="form">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend th:text="#{i18n.appointment.management}">Management of the appointment</legend>
+
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label>Appointment duration:</label>
+                                <input type="text" class="form-control" style="width: 100px;" disabled data-timer-text>
+                                <input type="hidden" name="timer" data-timer>
+                            </div>
+                            <button class="btn btn-success" data-start-timer><i class="glyphicon glyphicon-play"></i> Start timer</button>
+                            <button class="btn btn-danger" disabled data-stop-timer><i class="glyphicon glyphicon-stop"></i> Stop timer</button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend th:text="#{i18n.teams.members}">Team Members</legend>
+
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th th:text="#{i18n.appointment.present}" class="text-center" style="width: 10%;">Present?</th>
+                                <th th:text="#{i18n.admin.users.fullName}" style="width: 90%;"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="member : ${appointment.team.members}">
+                                <td class="text-center"><input type="checkbox" th:name="|member[${member.id}].present|"></td>
+                                <td th:text="|${member.firstName} ${member.lastName}|"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend th:text="#{i18n.subjects.fonctionalities}">Subject Functionalities</legend>
+
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th th:text="#{i18n.subjects.functionality.found}" class="text-center" style="width: 10%;">Functionalities</th>
+                                <th th:text="#{i18n.subjects.functionality.name}" style="width: 60%;"></th>
+                                <th th:text="#{i18n.subjects.functionality.priority}" style="width: 30%;"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="functionality : ${appointment.team.subject.functionalities}">
+                                <td class="text-center"><input type="checkbox" th:name="|functionality[${functionality.id}]|"></td>
+                                <td th:text="${functionality.name}"></td>
+                                <td th:text="${functionality.priority}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend th:text="#{i18n.appointment.meeting.comment}">Comment</legend>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea id="comment" name="comment" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+<scripts layout:fragment="scripts">
+    <script th:src="@{/public/vendor/ckeditor/ckeditor.js}"></script>
+    <script th:src="@{/public/js/appointment.js}"></script>
+</scripts>
+</body>
+</html>

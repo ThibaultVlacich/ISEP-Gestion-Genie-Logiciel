@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='post'">
+<head>
+    <title>All</title>
+</head>
+<body>
+<div layout:fragment="content">
+<div>
+
+</div>
+    <div class="app-post app-subject-index">
+        <h2>The post you are looking for </h2>
+<table class="table table-striped table-hover table-responsive">
+            <thead>
+                        <tr>
+                <th>Id</th>
+                <th>titre</th>
+                <th>Description</th>
+                <th>Topic</th>               
+                <th>Date</th>
+                
+
+            </tr>
+             </thead>
+            <tbody>
+            <tr th:each="post : ${posts}">
+                <td th:text="${post.id}"><a href="/post/${post.id}">Id</a></td>
+                <td th:text="${post.titre}"> Title </td>
+                <td th:text="${post.description}">description</td>
+                <td th:text="${post.topic}">Topic</td>
+                
+                <td th:text="${post.date}">date</td>
+        
+        		
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

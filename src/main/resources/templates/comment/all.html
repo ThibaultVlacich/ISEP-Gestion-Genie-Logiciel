@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='comment'">
+<head>
+    <title>All</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="app-subject app-subject-index">
+        <h2>Comments List</h2>
+<table class="table table-striped table-hover table-responsive">
+            <thead>
+                        <tr>
+                <th>Id</th>
+                <th>Comment</th>
+                <th>Date</th>
+                <th>Added by</th>
+              
+
+            </tr>
+             </thead>
+            <tbody>
+            <tr th:each="comment : ${comments}">
+                <td th:text="${comment.id}"><a href="/comment/${comment.id}">Id</a></td>
+                <td th:text="${comment.commentText}"> Content </td>
+                <td th:text="${comment.dateTime}">Date</td>
+                <td th:text="${comment.user.login}">Added by</td>
+                
+        		<td>
+                <a th:href="@{/comment/delete(id=${comment.id})}"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                </td>
+          
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

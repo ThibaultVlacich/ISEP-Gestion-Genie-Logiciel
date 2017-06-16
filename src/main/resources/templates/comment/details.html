@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='comment'">
+<body>
+<
+  <div layout:fragment="content">
+    <div class="app-user">
+
+        <div>      
+      </div>
+      <div>
+       Content : <h3 th:text="${comment.comment_text}"></h3>
+       Added on : <h3 th:text="${comment.date_time}"></h3>
+      </div>
+    
+     
+    </div>
+  </div>
+  </body>
+  </html>

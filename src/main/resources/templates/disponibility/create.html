@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='disponibility'">
+<body>
+
+<div layout:fragment="action-buttons">
+    <a class="btn btn-default" data-submit="create-disponibility-form">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span th:text="#{i18n.miscs.save}">Save</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-disponibility app-disponibility-create">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/disponibility}" th:text="#{i18n.apps.disponibility}">Disponibility</a></li>
+                <li class="active" th:text="#{i18n.disponibility.create}">Give your available time</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.disponibility.create}">Give your available time</h1>
+        </div>
+
+        <form id="create-disponibility-form" th:action="@{/disponibility/create}" method="post" class="form form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend>Details</legend>
+                        <table>
+                            <div class="form-group">
+                                <label for="week" class="col-sm-2 control-label"><span class="required">*</span> Semaine : </label>
+                                <div class="col-sm-10 col-lg-5">
+                                    <input id="week" name="week" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="monday" class="col-sm-2 control-label"><span class="required">*</span> Lundi : </label>
+                                <div class="col-sm-10 col-lg-5">
+                                    <input id="monday" name="monday" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tuesday" class="col-sm-2 control-label"><span class="required">*</span> Mardi : </label>
+                                <div class="col-sm-10">
+                                    <input id="tuesday" name="tuesday" class="form-control" type="text"></input>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="wednesday" class="col-sm-2 control-label"><span class="required">*</span> Mercredi : </label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="wednesday" name="wednesday" class="form-control"></input>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="thursday" class="col-sm-2 control-label"><span class="required">*</span> Jeudi : </label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="thursday" name="thursday" class="form-control"></input>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="friday" class="col-sm-2 control-label"><span class="required">*</span> Vendredi : </label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="friday" name="friday" class="form-control"></input>
+                                </div>
+                            </div>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='deposit'">
+<body>
+<div layout:fragment="content">
+    <div class="app-appointment app-deposit-close">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/deposit}" th:text="#{i18n.apps.deposit}">Deposit box</a></li>
+                <li class="active" th:text="#{i18n.deposit.closed}">Close a deposit box</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.deposit.closed}">Close a deposit box</h1>
+        </div>
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" th:text="#{i18n.deposit.closed}">Close a deposit box</h4>
+                </div>
+                <div class="modal-body">
+                    <p th:text="#{i18n.deposit.closed.confirm}">Are you sure you want to close this disposit box ?</p>
+                </div>
+                <div class="modal-footer">
+                    <a th:href="@{/deposit}" class="btn btn-default" th:text="#{i18n.miscs.cancel}">Cancel</a>
+                    <a th:href="@{/deposit/close(id=${deposit.id}, confirm=true)}" class="btn btn-success" th:text="#{i18n.miscs.confirm}">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

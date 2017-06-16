@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='disponibility'">
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/disponibility/create}" class="btn btn-default">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span th:text="#{i18n.disponibility.create}" th:remove="tag">Give your available time</span>
+    </a>
+</div>
+<div layout:fragment="content">
+
+    <div th:if="${param.created}" class="alert alert-success" role="alert">
+        <h4 th:text="#{i18n.disponibility.created}">Disponibility created</h4>
+        <p th:text="#{i18n.disponibility.created.text}">Your disponibility has been created with success.</p>
+    </div>
+    <div th:if="${param.deleted}" class="alert alert-info" role="alert">
+        <h4 th:text="#{i18n.disponibility.deleted}">Disponibility deleted</h4>
+        <p th:text="#{i18n.disponibility.deleted.text}">Your disponibility has been deleted with success.</p>
+    </div>
+    <div th:if="${param.edited}" class="alert alert-info" role="alert">
+        <h4 th:text="#{i18n.disponibility.edited}">Disponibility edited</h4>
+        <p th:text="#{i18n.disponibility.edited.text}">Your disponibility has been edited with success.</p>
+    </div>
+
+    <div class="app-head">
+        <fieldset>
+            <legend> Vos Disponibilités</legend>
+            <table class="table table-striped table-hover table-responsive">
+                <thead>
+                <tr>
+                    <th th:text="#{i18n.disponibility.week}">Semaine</th>
+                    <th th:text="#{i18n.disponibility.monday}">Lundi</th>
+                    <th th:text="#{i18n.disponibility.tuesday}">Mardi</th>
+                    <th th:text="#{i18n.disponibility.wednesday}">Mercredi</th>
+                    <th th:text="#{i18n.disponibility.thursday}">Jeudi</th>
+                    <th th:text="#{i18n.disponibility.friday}">Vendredi</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="disponibility : ${disponibilities}">
+                        <td th:text="${disponibility.week}"></td>
+                        <td th:text="${disponibility.monday}"></td>
+                        <td th:text="${disponibility.tuesday}"></td>
+                        <td th:text="${disponibility.wednesday}"></td>
+                        <td th:text="${disponibility.thursday}"></td>
+                        <td th:text="${disponibility.friday}"></td>
+                        <td>
+                            <div class="btn-group">
+                                <!--<a th:href="@{/subject/details(id=${subject.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>-->
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li>
+                                        <a th:href="@{/disponibility/edit(id=${disponibility.id})}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/disponibility/delete(id=${disponibility.id})}"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>
+</body>
+</html>

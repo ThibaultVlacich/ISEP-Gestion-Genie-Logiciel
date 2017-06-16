@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title th:text="|#{i18n.title} #{i18n.errors.403}|">403 Forbidden</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="alert alert-danger" role="alert">
+        <h4 th:text="#{i18n.errors.403}">403 Forbidden</h4>
+        <hr>
+        <p>
+            <span th:text="#{i18n.errors.403.sorry}" th:remove="tag">Sorry, but you don't have access to this page.</span>
+            <br><br>
+            <a th:href="@{/}" th:text="#{i18n.miscs.back_home}">Go back to the home page</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

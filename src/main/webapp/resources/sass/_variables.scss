@@ -1,0 +1,19 @@
+// Fonts
+$font-family: 'Lato', sans-serif;
+
+// Colors
+$white: #FFF;
+$black: #000;
+
+$background-color: rgb(245, 245, 245);
+$font-color: rgb(95, 107, 123);
+$col-background-color: rgb(42, 48, 60);
+$col-font-color: $background-color;
+
+$primary-color: rgb(0, 97, 161);
+$primary-color-light: lighten($primary-color, 15);
+$secondary-color: rgb(244, 161, 0);
+$secondary-color-light: lighten($secondary-color, 15);
+
+// Sizes
+$col-menu-width: 300px;

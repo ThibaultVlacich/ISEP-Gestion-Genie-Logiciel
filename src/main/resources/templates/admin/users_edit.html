@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='admin'">
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/admin/users}" class="btn btn-default">
+        <i class="glyphicon glyphicon-remove"></i>
+        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+    </a>
+
+    <a class="btn btn-default" data-submit="edit-user-form">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span th:text="#{i18n.miscs.save}">Save</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-subject app-subject-index">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/admin}" th:text="#{i18n.apps.admin}">Administration</a></li>
+                <li><a th:href="@{/admin/users}" th:text="#{i18n.admin.users}">Manage users</a></li>
+                <li class="active" th:text="#{i18n.admin.users.edit}">Edit user</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.admin.users.edit}">Edit user</h1>
+        </div>
+
+        <form id="edit-user-form" th:action="@{/admin/users/edit(id=${user.id})}" method="post" class="form form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="role" class="col-sm-2 control-label" th:text="#{i18n.admin.users.number}">Number</label>
+                            <div class="col-sm-10 form-control-static" th:text="${user.number}"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="role" class="col-sm-2 control-label" th:text="#{i18n.admin.users.login}">Login</label>
+                            <div class="col-sm-10 form-control-static" th:text="${user.login}"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="role" class="col-sm-2 control-label" th:text="#{i18n.admin.users.fullName}">Full Name</label>
+                            <div class="col-sm-10 form-control-static" th:text="|${user.firstName} ${user.lastName}|"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="role" class="col-sm-2 control-label"><span class="required">*</span> <span th:text="#{i18n.admin.users.group}" th:remove="tag">Group</span></label>
+                            <div class="col-sm-10 col-lg-2">
+                                <select id="role" name="role" class="form-control">
+                                    <option value="GUEST" th:selected="${user.role} == 'GUEST'" th:text="#{i18n.roles.guest}">Guest</option>
+                                    <option value="STUDENT" th:selected="${user.role} == 'STUDENT'" th:text="#{i18n.roles.student}">Student</option>
+                                    <option value="CLIENT" th:selected="${user.role} == 'CLIENT'" th:text="#{i18n.roles.client}">Client</option>
+                                    <option value="TEACHER" th:selected="${user.role} == 'TEACHER'" th:text="#{i18n.roles.teacher}">Teacher</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+// Prefixer
+@mixin prefix($property, $value, $prefixes: ()) {
+  @each $prefix in $prefixes {
+    #{'-' + $prefix + '-' + $property}: $value;
+  }
+
+  // Output standard non-prefixed declaration
+  #{$property}: $value;
+}
+
+// Transforms
+@mixin transform($transforms...) {
+  @include prefix(transform, $transforms, webkit moz ms o);
+}
+
+// Transitions
+@mixin transition($transitions...) {
+  @include prefix(transition, $transitions, webkit moz ms o);
+}
+
+// Box sizing
+@mixin box-sizing($boxmodel) {
+  @include prefix(box-sizing, $boxmodel, webkit moz);
+}

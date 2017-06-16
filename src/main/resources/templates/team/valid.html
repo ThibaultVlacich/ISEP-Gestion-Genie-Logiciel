@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='team'">
+<body>
+<div layout:fragment="content">
+    <div class="app-team app-team-valid">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/team}" th:text="#{i18n.apps.teams}">Teams</a></li>
+                <li class="active" th:text="#{i18n.teams.validate}">Delete a team</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.teams.validate}">Delete a team</h1>
+        </div>
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" th:text="#{i18n.teams.validate}">Delete a team</h4>
+                </div>
+                <div class="modal-body">
+                    <p th:text="#{i18n.teams.validate.confirm}">Are you sure you want to validate this team?</p>
+                </div>
+                <div class="modal-footer">
+                    <a th:href="@{/team}" class="btn btn-default" th:text="#{i18n.miscs.cancel}">Cancel</a>
+                    <a th:href="@{/team/valid(id=${team.id}, confirm=true)}" class="btn btn-success" th:text="#{i18n.miscs.confirm}">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

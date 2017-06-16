@@ -1,9 +1,10 @@
 package edu.isep.ldap;
 
+import javax.naming.Context;
+import javax.naming.NamingEnumeration;
+import javax.naming.directory.*;
 import java.io.Serializable;
 import java.util.Hashtable;
-import javax.naming.*;
-import javax.naming.directory.*;
 
 public class LDAPAccess implements Serializable {
 

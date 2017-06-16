@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='admin'">
+<body>
+<div layout:fragment="content">
+    <div class="app-subject app-subject-index">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/admin}" th:text="#{i18n.apps.admin}">Administration</a></li>
+                <li class="active" th:text="#{i18n.admin.users}">Manage users</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.admin.users}">Manage users</h1>
+        </div>
+
+        <div th:if="${param.updated}"  class="alert alert-success" role="alert">
+            <h4 th:text="#{i18n.admin.users.updated}">User updated</h4>
+            <p th:text="#{i18n.admin.users.updated.text}">The user has been updated with success.</p>
+        </div>
+
+        <table class="table table-striped table-hover table-responsive">
+            <thead>
+            <tr>
+                <th class="text-center" style="width: 10%;">ID</th>
+                <th class="text-center" style="width: 10%;" th:text="#{i18n.admin.users.number}">Number</th>
+                <th style="width: 20%;" th:text="#{i18n.admin.users.login}">Login</th>
+                <th style="width: 30%;" th:text="#{i18n.admin.users.fullName}">Full name</th>
+                <th style="width: 20%;" th:text="#{i18n.admin.users.group}">Group</th>
+                <th style="width: 10%;">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td class="text-center" th:text="${user.id}"></td>
+                <td class="text-center" th:text="${user.number}"></td>
+                <td th:text="${user.login}"></td>
+                <td th:text="|${user.firstName} ${user.lastName}|"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <a th:href="@{/admin/users/edit(id=${user.id})}" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> <span th:text="#{i18n.miscs.edit}" th:remove="tag">Edit</span></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

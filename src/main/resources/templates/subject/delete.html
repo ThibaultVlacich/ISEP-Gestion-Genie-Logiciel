@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='subject'">
+<body>
+<div layout:fragment="content">
+    <div class="app-subject app-subject-delete">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/admin}" th:text="#{i18n.apps.subjects}">Subjects</a></li>
+                <li class="active" th:text="#{i18n.subjects.delete}">Delete a subject</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.subjects.delete}">Delete a subject</h1>
+        </div>
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" th:text="#{i18n.subjects.delete}">Delete subject</h4>
+                </div>
+                <div class="modal-body">
+                    <p th:text="#{i18n.subjects.delete.confirm}">Are you sure you want to delete this subject?</p>
+                </div>
+                <div class="modal-footer">
+                    <a th:href="@{/subject}" class="btn btn-default" th:text="#{i18n.miscs.cancel}">Cancel</a>
+                    <a th:href="@{/subject/delete(id=${subject.id}, confirm=true)}" class="btn btn-success" th:text="#{i18n.miscs.confirm}">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

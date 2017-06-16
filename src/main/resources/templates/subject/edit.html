@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='subject'">
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/subject}" class="btn btn-default">
+        <i class="glyphicon glyphicon-remove"></i>
+        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+    </a>
+
+    <a class="btn btn-default" data-submit="create-subject-form">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span th:text="#{i18n.miscs.save}">Save</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-subject app-subject-create">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/subject}" th:text="#{i18n.apps.subjects}">Subjects</a></li>
+                <li class="active" th:text="#{i18n.subjects.create}">Create a subject</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.subjects.create}">Create a subject</h1>
+        </div>
+
+        <form id="create-subject-form" th:action="@{/subject/edit(id=${subject.id})}" th:object="${subjectForm}" method="post" class="form form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend>Details</legend>
+
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label"><span class="required">*</span> Name of the subject</label>
+                            <div class="col-sm-10">
+                                <input id="name" name="name" type="text" class="form-control" th:value="${subject.name}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="client" class="col-sm-2 control-label"><span class="required">*</span> Client</label>
+                            <div class="col-sm-10 col-lg-3">
+                                <select id="client" name="client" class="form-control">
+                                    <option value="0" th:selected="${subject.client eq null}">--</option>
+                                    <option th:each="client : ${clients}" th:value="${client.id}" th:text="|${client.firstName} ${client.lastName}|" th:selected="${subject.client?.id eq client.id}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label"><span class="required">*</span> Description</label>
+                            <div class="col-sm-10">
+                                <textarea id="description" name="description" class="form-control" th:text="${subject.description}"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Functionalities</legend>
+
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th style="width:5%;" th:text="#{i18n.subjects.functionality.priority}">Priority</th>
+                                <th style="width:75%;" th:text="#{i18n.subjects.functionality.name}">Name of the functionality</th>
+                                <th style="width:20%;"></th>
+                            </tr>
+                            </thead>
+                            <tbody data-functionalities>
+                            <input type="hidden" name="functionalities_to_delete" value="">
+                            <tr th:each="functionality, iter : ${subject.functionalities}" data-functionality th:data-functionality-priority="${functionality.priority}">
+                                <input type="hidden" th:name="${'functionalities['+iter.index+'].id'}" th:value="${functionality.id}">
+                                <td>
+                                    <input type="text" class="form-control" th:name="${'functionalities['+iter.index+'].priority'}" th:value="${functionality.priority}" disabled="disabled">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" th:name="${'functionalities['+iter.index+'].name'}" th:placeholder="#{i18n.subjects.functionality.name}" th:value="${functionality.name}">
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-primary" data-functionality-up th:disabled="${iter.first}"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                        <a class="btn btn-primary" data-functionality-down th:disabled="${iter.last}"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                        <a class="btn btn-danger" data-functionality-remove><i class="glyphicon glyphicon-remove"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <a class="btn btn-primary" data-add-functionality>Add a functionality</a>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<scripts layout:fragment="scripts">
+    <script th:src="@{/public/vendor/ckeditor/ckeditor.js}"></script>
+    <script th:inline="javascript">
+        var settings = {
+            i18n: {
+                name: /*[[#{i18n.subjects.functionality.priority}]]*/,
+                name: /*[[#{i18n.subjects.functionality.name}]]*/
+            }
+        };
+    </script>
+    <script th:src="@{/public/js/subject.js}"></script>
+</scripts>
+</body>
+</html>

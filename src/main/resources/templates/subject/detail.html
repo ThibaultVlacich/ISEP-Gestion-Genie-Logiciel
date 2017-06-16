@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='subject'">
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/subject/edit(id=${subject.id})}" class="btn btn-default">
+        <i class="glyphicon glyphicon-edit"></i>
+        <span th:text="#{i18n.subjects.edit}" th:remove="tag">Edit a subject</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-user">
+
+        <div th:if="${param.edited}" class="alert alert-info" role="alert">
+            <h4 th:text="#{i18n.subjects.edited}">Subject edited</h4>
+            <p th:text="#{i18n.subjects.edited.text}">The subject has been edited with success.</p>
+        </div>
+
+        <div th:if="${param.removed}" class="alert alert-info" role="alert">
+            <h4 th:text="#{i18n.subjects.deleted}">Subject deleted</h4>
+            <p th:text="#{i18n.subjects.deleted.text}">The subject has been deleted with success.</p>
+        </div>
+
+        <h1 class="text-center" th:text="${subject.name}"></h1>
+        <div>
+            <h3 th:text="#{i18n.subjects.informations}">Informations on the subject</h3>
+            <div th:unless="${subject.client} == null" class="row">
+                <div class="col-sm-6" th:text="|Client : ${subject.client.lastName} ${subject.client.firstName}| "></div>
+                <div class="col-sm-6" th:text="|Mail : ${subject.client.mail}|"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <span th:text="|Teams using this subject : |" th:remove="tag"></span>
+                    <ul th:unless="${#lists.isEmpty(subject.teams)}">
+                        <li th:each="team : ${subject.teams}"><a th:text="${team.name}" th:href="@{/team/detail(id=${team.id})}"></a></li>
+                    </ul>
+                    <span th:if="${#lists.isEmpty(subject.teams)}" th:remove="tag">
+                            N/A
+                    </span>
+                </div>
+            </div>
+        <div>
+            <h3>Description</h3>
+
+            <p th:utext="${subject.description}" th:remove="tag"></p>
+        </div>
+        <div>
+            <h3 th:text="#{i18n.subjects.fonctionalities}">Fonctionalities of the subject</h3>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:unless="${#lists.isEmpty(subject.functionalities)}" th:each="functionality : ${subject.functionalities}">
+                            <td th:text="${functionality.name}"></td>
+                            <td th:text="${functionality.priority}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

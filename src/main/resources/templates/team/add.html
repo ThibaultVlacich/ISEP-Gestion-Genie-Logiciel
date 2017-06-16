@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='team'">
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/team}" class="btn btn-default">
+        <i class="glyphicon glyphicon-remove"></i>
+        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+    </a>
+    <a class="btn btn-default" data-submit="create-team-form">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span th:text="#{i18n.miscs.add}">Add</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-team app-team-create">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/team}" th:text="#{i18n.apps.teams}">Teams</a></li>
+                <li class="active" th:text="#{i18n.teams.addMember}">Add a member</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.teams.addMember}">Add a member</h1>
+        </div>
+
+        <form id="create-team-form" th:action="@{/team/add(id=${team.id})}" method="post" class="form form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        <fieldset sec:authorize="hasRole('ROLE_TEACHER')">
+                            <legend th:text="#{i18n.users.assign}">Select a Student</legend>
+                                <select class="form-control" id="id_student" name="id_student">
+                                    <option th:each="student : ${students}" th:id="|student{student.id}|" th:value="${student.id}" th:if="${not student.hasTeam()}">
+                                        <span th:remove="tag" th:text="|${student.firstName} ${student.lastName}|"></span>
+                                    </option>
+                                </select>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

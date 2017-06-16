@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='appointment'">
+<body>
+<div layout:fragment="action-buttons">
+    <a sec:authorize="hasRole('ROLE_STUDENT')" th:href="@{/appointment/create}" class="btn btn-default">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span th:text="#{i18n.appointment.create}" th:remove="tag">Create an appointment</span>
+    </a>
+</div>
+<div layout:fragment="content">
+
+    <div th:if="${param.validated}" class="alert alert-success" role="alert">
+        <h4 th:text="#{i18n.appointment.validated}">Appointment validated</h4>
+        <p th:text="#{i18n.appointment.validated.text}">The appointment has been validated with success.</p>
+    </div>
+
+    <div th:if="${param.refused}" class="alert alert-success" role="alert">
+        <h4 th:text="#{i18n.appointment.refused}">Appointment refused</h4>
+        <p th:text="#{i18n.appointment.refused.text}">The appointment has been refused with success.</p>
+    </div>
+
+<div class="app-head">
+    <table class="table table-striped table-hover table-responsive">
+        <thead>
+        <tr>
+            <th th:text="#{i18n.teams}">Team</th>
+            <th th:text="#{i18n.subjects}">Subject</th>
+            <th th:text="#{i18n.appointment.object}">Object</th>
+            <th th:text="#{i18n.appointment.date}">Date</th>
+            <th th:text="#{i18n.appointment.time}">Duration</th>
+            <th th:text="#{i18n.appointment.state}">State</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appointment : ${appointments}" th:unless="${appointment.state eq 'Refused'}">
+            <td><a th:text="${appointment.team.name}" th:href="@{/team/detail(id=${appointment.team.id})}"></a></td>
+            <td><a th:text="${appointment.team.subject.name}" th:href="@{/subject/detail(id=${appointment.team.subject.id})}"></a></td>
+            <td th:text="${appointment.object}"></td>
+            <td th:text="${appointment.date}"></td>
+            <td th:text="${appointment.time}"></td>
+            <td th:text="${appointment.state}"></td>
+            <td>
+                <div class="btn-group">
+                <!--<a th:href="@{/subject/details(id=${subject.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>-->
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li th:unless="${appointment.state eq 'Validated'}" sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
+                        <a th:href="@{/appointment/valid(id=${appointment.id})}"><i class="glyphicon glyphicon-ok-sign"></i> Validate</a>
+                    </li>
+                    <li th:if="${appointment.state eq 'Validated'}" sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
+                        <a th:href="@{/appointment/meeting(id=${appointment.id})}"><i class="glyphicon glyphicon-play-circle"></i> Start</a>
+                    </li>
+                    <li th:unless="${appointment.state eq 'Refused'}" sec:authorize="hasRole('ROLE_TEACHER') || hasRole('ROLE_CLIENT')">
+                        <a th:href="@{/appointment/refuse(id=${appointment.id})}"><i class="glyphicon glyphicon-remove-sign"></i> Remove</a>
+                    </li>
+                </ul>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>

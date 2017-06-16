@@ -1,0 +1,39 @@
+.app-user {
+  .form-signin {
+    margin: 0 auto;
+    max-width: 330px;
+  }
+
+  .form-signin-heading,
+  .checkbox {
+    font-weight: normal;
+    margin-bottom: 10px;
+  }
+
+  .form-control {
+    @include relative;
+    @include box-sizing(border-box);
+
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+
+    &:focus {
+      z-index: 2;
+    }
+  }
+
+  input {
+    &[type='email'] {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      margin-bottom: -1px;
+    }
+
+    &[type='password'] {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      margin-bottom: 10px;
+    }
+  }
+}

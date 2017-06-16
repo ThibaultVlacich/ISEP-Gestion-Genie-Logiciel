@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='appointment'">
+<body>
+
+<div layout:fragment="action-buttons">
+    <a th:href="@{/appointment/all}" class="btn btn-default">
+        <i class="glyphicon glyphicon-remove"></i>
+        <span th:text="#{i18n.miscs.cancel}">Cancel</span>
+    </a>
+    <a class="btn btn-default" data-submit="create-appointment-form">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span th:text="#{i18n.miscs.save}">Save</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-appointment app-appointment-create">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/appointment}" th:text="#{i18n.apps.appointment}">appointment</a></li>
+                <li class="active" th:text="#{i18n.appointment.create}">Create an appointment</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.appointment.create}">Create an appointment</h1>
+        </div>
+
+        <form id="create-appointment-form" th:action="@{/appointment/create}" method="post" class="form form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <legend>Details</legend>
+                        <table>
+                        <div class="form-group">
+                            <label for="object" class="col-sm-2 control-label"><span class="required">*</span> Object of the appointment</label>
+                            <div class="col-sm-10 col-lg-5">
+                                <input id="object" name="object" type="text" class="form-control" placeholder="Object" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date" class="col-sm-2 control-label"><span class="required">*</span> Date</label>
+                            <div class="col-sm-10">
+                                <input id="date" name="date" class="form-control" type="text"></input>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hours" class="col-sm-2 control-label"><span class="required">*</span> Hours</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="hours" name="hours" class="form-control"></input>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="time" class="col-sm-2 control-label"><span class="required">*</span> Time</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="time" name="time" class="form-control"></input>
+                            </div>
+                        </div>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

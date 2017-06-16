@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      th:with="currentApp='subject'">
+<body>
+<div layout:fragment="action-buttons">
+    <a th:href="@{/subject/create}" class="btn btn-default">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span th:text="#{i18n.subjects.create}" th:remove="tag">Create a subject</span>
+    </a>
+</div>
+<div layout:fragment="content">
+    <div class="app-subject app-subject-index">
+        <div class="app-head">
+            <ol class="app-breadcrumb breadcrumb">
+                <li><a th:href="@{/subject}" th:text="#{i18n.apps.subjects}">Subjects</a></li>
+                <li class="active" th:text="#{i18n.subjects.list}">Subjects list</li>
+            </ol>
+
+            <h1 class="app-title" th:text="#{i18n.subjects.list}">Subjects list</h1>
+        </div>
+
+        <div th:if="${param.deleted}"  class="alert alert-info" role="alert">
+            <h4 th:text="#{i18n.subjects.deleted}">Subject deleted</h4>
+            <p th:text="#{i18n.subjects.deleted.text}">The subject has been deleted with success.</p>
+        </div>
+
+        <div th:if="${param.created}"  class="alert alert-success" role="alert">
+            <h4 th:text="#{i18n.subjects.created}">Subject created</h4>
+            <p th:text="#{i18n.subjects.created.text}">The subject has been created with success.</p>
+        </div>
+
+        <table class="table table-striped table-hover table-responsive">
+            <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th th:text="#{i18n.subjects.name}">Name of the subject</th>
+                <th th:text="#{i18n.subjects.client}">Client of the subject</th>
+                <th th:text="#{i18n.subjects.teams}">Teams using this subject</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="subject : ${subjects}">
+                <td class="text-center" th:text="${subject.id}"></td>
+                <td><a th:text="${subject.name}" th:href="@{/subject/detail(id=${subject.id})}"></a></td>
+                <td th:unless="${subject.client} == null"><span th:text="|${subject.client.lastName} ${subject.client.firstName}|" th:remove="tag"></span></td>
+                <td th:if="${subject.client} == null">N/A</td>
+                <td>
+                    <ul th:unless="${#lists.isEmpty(subject.teams)}">
+                        <li th:each="team : ${subject.teams}"><a th:text="${team.name}" th:href="@{/team/detail(id=${team.id})}"></a></li>
+                    </ul>
+                    <span th:if="${#lists.isEmpty(subject.teams)}" th:remove="tag">
+                        N/A
+                    </span>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a th:href="@{/subject/detail(id=${subject.id})}" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-eye-open"></i> Details</a>
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li>
+                                <a th:href="@{/subject/delete(id=${subject.id})}"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
